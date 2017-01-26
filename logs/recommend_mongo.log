@@ -1,0 +1,104 @@
+Movie Rating Snapshot
++-------+--------+------+
+|user_id|movie_id|rating|
++-------+--------+------+
+|1      |1193    |5.0   |
+|1      |661     |3.0   |
+|1      |914     |3.0   |
+|1      |3408    |4.0   |
+|1      |2355    |5.0   |
+|1      |1197    |3.0   |
+|1      |1287    |5.0   |
+|1      |2804    |5.0   |
+|1      |594     |4.0   |
+|1      |919     |4.0   |
++-------+--------+------+
+only showing top 10 rows
+
+Movies Snapshot
++---+----------------------------------+--------------------------------+
+|id |title                             |genres                          |
++---+----------------------------------+--------------------------------+
+|1  |Toy Story (1995)                  |[Animation, Children's, Comedy] |
+|2  |Jumanji (1995)                    |[Adventure, Children's, Fantasy]|
+|3  |Grumpier Old Men (1995)           |[Comedy, Romance]               |
+|4  |Waiting to Exhale (1995)          |[Comedy, Drama]                 |
+|5  |Father of the Bride Part II (1995)|[Comedy]                        |
+|6  |Heat (1995)                       |[Action, Crime, Thriller]       |
+|7  |Sabrina (1995)                    |[Comedy, Romance]               |
+|8  |Tom and Huck (1995)               |[Adventure, Children's]         |
+|9  |Sudden Death (1995)               |[Action]                        |
+|10 |GoldenEye (1995)                  |[Action, Adventure, Thriller]   |
++---+----------------------------------+--------------------------------+
+only showing top 10 rows
+
+traing count=799627
+validation count=100238
+test count=99858
+
+The baseline rmse= 1.12.
+
+The best model was trained with param = {
+	als_9dbdbd58e86e-maxIter: 20,
+	als_9dbdbd58e86e-rank: 12,
+	als_9dbdbd58e86e-regParam: 0.01
+}
+
+The RMSE of the bestModel on test set is 0.76, which is 31.58% over baseline.
++--------+----------------------------------------------------+---------------------------------+-------+----------+
+|movie_id|title                                               |genres                           |user_id|prediction|
++--------+----------------------------------------------------+---------------------------------+-------+----------+
+|2388    |Steam: The Turkish Bath (Hamam) (1997)              |[Drama, Romance]                 |0      |11.666055 |
+|2992    |Rawhead Rex (1986)                                  |[Horror, Thriller]               |0      |11.135518 |
+|2192    |See the Sea (Regarde la mer) (1997)                 |[Drama]                          |0      |10.138248 |
+|3523    |Taffin (1988)                                       |[Action, Thriller]               |0      |10.039927 |
+|136     |From the Journals of Jean Seberg (1995)             |[Documentary]                    |0      |9.951372  |
+|495     |In the Realm of the Senses (Ai no corrida) (1976)   |[Drama]                          |0      |9.924355  |
+|119     |Steal Big                                           |[Steal Little (1995)]            |0      |9.918614  |
+|2933    |Fire Within                                         |[The (Le Feu Follet) (1963)]     |0      |9.821757  |
+|3303    |Black Tar Heroin: The Dark End of the Street (1999) |[Documentary]                    |0      |9.718898  |
+|3490    |Horror Express (1972)                               |[Horror]                         |0      |9.450314  |
+|3003    |Train of Life (Train De Vie) (1998)                 |[Comedy, Drama]                  |0      |9.371997  |
+|2911    |Grandfather                                         |[The (El Abuelo) (1998)]         |0      |9.320415  |
+|2221    |Blackmail (1929)                                    |[Thriller]                       |0      |9.050894  |
+|970     |Beat the Devil (1954)                               |[Comedy, Drama]                  |0      |9.029396  |
+|2562    |Bandits (1997)                                      |[Drama]                          |0      |8.984612  |
+|1677    |Critical Care (1997)                                |[Comedy]                         |0      |8.972     |
+|1899    |Passion in the Desert (1998)                        |[Adventure, Drama]               |0      |8.942665  |
+|3319    |Judy Berlin (1999)                                  |[Drama]                          |0      |8.936688  |
+|3021    |Funhouse                                            |[The (1981)]                     |0      |8.934361  |
+|2853    |Communion (a.k.a. Alice                             |[Sweet Alice/Holy Terror) (1977)]|0      |8.926268  |
+|1312    |Female Perversions (1996)                           |[Drama]                          |0      |8.840023  |
+|960     |Angel on My Shoulder (1946)                         |[Crime, Drama]                   |0      |8.835207  |
+|2650    |Ghost of Frankenstein                               |[The (1942)]                     |0      |8.830214  |
+|488     |M. Butterfly (1993)                                 |[Drama]                          |0      |8.820787  |
+|197     |Stars Fell on Henrietta                             |[The (1995)]                     |0      |8.726538  |
+|2994    |City                                                |[The (1998)]                     |0      |8.645935  |
+|1596    |Career Girls (1997)                                 |[Drama]                          |0      |8.575604  |
+|1450    |Prisoner of the Mountains (Kavkazsky Plennik) (1996)|[War]                            |0      |8.539031  |
+|2332    |Belly (1998)                                        |[Crime, Drama]                   |0      |8.500965  |
+|1493    |Love and Other Catastrophes (1996)                  |[Romance]                        |0      |8.494122  |
+|116     |Anne Frank Remembered (1995)                        |[Documentary]                    |0      |8.43362   |
+|3110    |Country (1984)                                      |[Drama]                          |0      |8.418705  |
+|1880    |Lawn Dogs (1997)                                    |[Drama]                          |0      |8.407795  |
+|3531    |All the Vermeers in New York (1990)                 |[Comedy, Drama, Romance]         |0      |8.404084  |
+|3950    |Tigerland (2000)                                    |[Drama]                          |0      |8.400707  |
+|1846    |Nil By Mouth (1997)                                 |[Drama]                          |0      |8.343197  |
+|645     |Nelly & Monsieur Arnaud (1995)                      |[Drama]                          |0      |8.342745  |
+|1349    |Nosferatu a Venezia (1986)                          |[Horror]                         |0      |8.307137  |
+|56      |Kids of the Round Table (1995)                      |[Adventure, Children's, Fantasy] |0      |8.279532  |
+|2730    |Barry Lyndon (1975)                                 |[Drama]                          |0      |8.234623  |
+|2666    |It Conquered the World (1956)                       |[Sci-Fi]                         |0      |8.229481  |
+|2032    |Barefoot Executive                                  |[The (1971)]                     |0      |8.17568   |
+|3637    |Vagabond (Sans toit ni loi) (1985)                  |[Drama]                          |0      |8.153975  |
+|3351    |Two Thousand Maniacs! (1964)                        |[Horror]                         |0      |8.148835  |
+|1119    |Drunks (1997)                                       |[Drama]                          |0      |8.148763  |
+|2063    |Seventh Heaven (Le Septi�me ciel) (1997)            |[Drama, Romance]                 |0      |8.147123  |
+|854     |Ballad of Narayama                                  |[The (Narayama Bushiko) (1958)]  |0      |8.14231   |
+|1728    |Winter Guest                                        |[The (1997)]                     |0      |8.059773  |
+|3880    |Ballad of Ramblin' Jack                             |[The (2000)]                     |0      |8.042324  |
+|2981    |Brother                                             |[Can You Spare a Dime? (1975)]   |0      |8.038603  |
++--------+----------------------------------------------------+---------------------------------+-------+----------+
+only showing top 50 rows
+
+Execution time= 104.052 seconds

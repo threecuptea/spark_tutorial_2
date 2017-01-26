@@ -1,0 +1,87 @@
+Movie rating Snapshot
++------+-------+------+
+|userId|movieId|rating|
++------+-------+------+
+|1     |1193   |5.0   |
+|1     |661    |3.0   |
+|1     |914    |3.0   |
+|1     |3408   |4.0   |
+|1     |2355   |5.0   |
+|1     |1197   |3.0   |
+|1     |1287   |5.0   |
+|1     |2804   |5.0   |
+|1     |594    |4.0   |
+|1     |919    |4.0   |
++------+-------+------+
+only showing top 10 rows
+
+traing count=800141
+validation count=100201
+test count=99867
+
+The baseline rmse= 1.12.
+
+The best model was trained with param = {
+	als_20973f39a8b3-maxIter: 20,
+	als_20973f39a8b3-rank: 12,
+	als_20973f39a8b3-regParam: 0.1
+}
+
+The RMSE of the bestModel on test set is 0.86, which is 22.86% over baseline.
++-------+-------------------------------------------------------------------+---------------------------------------+------+----------+
+|movieId|title                                                              |genres                                 |userId|prediction|
++-------+-------------------------------------------------------------------+---------------------------------------+------+----------+
+|572    |Foreign Student (1994)                                             |[Drama]                                |0     |5.846446  |
+|3233   |Smashing Time (1967)                                               |[Comedy]                               |0     |5.329516  |
+|3245   |I Am Cuba (Soy Cuba/Ya Kuba) (1964)                                |[Drama]                                |0     |4.9890447 |
+|318    |Shawshank Redemption, The (1994)                                   |[Drama]                                |0     |4.974785  |
+|53     |Lamerica (1994)                                                    |[Drama]                                |0     |4.895218  |
+|1741   |Midaq Alley (Callej�n de los milagros, El) (1995)                  |[Drama]                                |0     |4.8848286 |
+|953    |It's a Wonderful Life (1946)                                       |[Drama]                                |0     |4.884011  |
+|3517   |Bells, The (1926)                                                  |[Crime, Drama]                         |0     |4.879026  |
+|2324   |Life Is Beautiful (La Vita � bella) (1997)                         |[Comedy, Drama]                        |0     |4.8732615 |
+|1949   |Man for All Seasons, A (1966)                                      |[Drama]                                |0     |4.8420196 |
+|1207   |To Kill a Mockingbird (1962)                                       |[Drama]                                |0     |4.83848   |
+|128    |Jupiter's Wife (1994)                                              |[Documentary]                          |0     |4.8182845 |
+|904    |Rear Window (1954)                                                 |[Mystery, Thriller]                    |0     |4.7963657 |
+|1851   |Leather Jacket Love Story (1997)                                   |[Drama, Romance]                       |0     |4.7897983 |
+|1250   |Bridge on the River Kwai, The (1957)                               |[Drama, War]                           |0     |4.7883086 |
+|1204   |Lawrence of Arabia (1962)                                          |[Adventure, War]                       |0     |4.779291  |
+|3350   |Raisin in the Sun, A (1961)                                        |[Drama]                                |0     |4.7716703 |
+|3469   |Inherit the Wind (1960)                                            |[Drama]                                |0     |4.762243  |
+|1193   |One Flew Over the Cuckoo's Nest (1975)                             |[Drama]                                |0     |4.761278  |
+|2762   |Sixth Sense, The (1999)                                            |[Thriller]                             |0     |4.7541265 |
+|678    |Some Folks Call It a Sling Blade (1993)                            |[Drama, Thriller]                      |0     |4.752659  |
+|2067   |Doctor Zhivago (1965)                                              |[Drama, Romance, War]                  |0     |4.75112   |
+|912    |Casablanca (1942)                                                  |[Drama, Romance, War]                  |0     |4.748723  |
+|858    |Godfather, The (1972)                                              |[Action, Crime, Drama]                 |0     |4.739728  |
+|2609   |King of Masks, The (Bian Lian) (1996)                              |[Drama]                                |0     |4.7348742 |
+|908    |North by Northwest (1959)                                          |[Drama, Thriller]                      |0     |4.7348323 |
+|905    |It Happened One Night (1934)                                       |[Comedy]                               |0     |4.7288404 |
+|954    |Mr. Smith Goes to Washington (1939)                                |[Drama]                                |0     |4.721521  |
+|2028   |Saving Private Ryan (1998)                                         |[Action, Drama, War]                   |0     |4.7205944 |
+|2905   |Sanjuro (1962)                                                     |[Action, Adventure]                    |0     |4.718898  |
+|116    |Anne Frank Remembered (1995)                                       |[Documentary]                          |0     |4.713696  |
+|3746   |Butterfly (La Lengua de las Mariposas) (2000)                      |[Drama, War]                           |0     |4.712022  |
+|1299   |Killing Fields, The (1984)                                         |[Drama, War]                           |0     |4.7109203 |
+|745    |Close Shave, A (1995)                                              |[Animation, Comedy, Thriller]          |0     |4.710138  |
+|1172   |Cinema Paradiso (1988)                                             |[Comedy, Drama, Romance]               |0     |4.7065406 |
+|919    |Wizard of Oz, The (1939)                                           |[Adventure, Children's, Drama, Musical]|0     |4.700039  |
+|2357   |Central Station (Central do Brasil) (1998)                         |[Drama]                                |0     |4.6959987 |
+|1293   |Gandhi (1982)                                                      |[Drama]                                |0     |4.694266  |
+|1545   |Ponette (1996)                                                     |[Drama]                                |0     |4.691904  |
+|2019   |Seven Samurai (The Magnificent Seven) (Shichinin no samurai) (1954)|[Action, Drama]                        |0     |4.6910796 |
+|1203   |12 Angry Men (1957)                                                |[Drama]                                |0     |4.689316  |
+|213    |Burnt By the Sun (Utomlyonnye solntsem) (1994)                     |[Drama]                                |0     |4.6891294 |
+|1262   |Great Escape, The (1963)                                           |[Adventure, War]                       |0     |4.687851  |
+|3801   |Anatomy of a Murder (1959)                                         |[Drama, Mystery]                       |0     |4.685667  |
+|50     |Usual Suspects, The (1995)                                         |[Crime, Thriller]                      |0     |4.684694  |
+|73     |Mis�rables, Les (1995)                                             |[Drama, Musical]                       |0     |4.678048  |
+|1132   |Manon of the Spring (Manon des sources) (1986)                     |[Drama]                                |0     |4.6680093 |
+|1225   |Amadeus (1984)                                                     |[Drama]                                |0     |4.6598287 |
+|3095   |Grapes of Wrath, The (1940)                                        |[Drama]                                |0     |4.6558743 |
+|2129   |Saltmen of Tibet, The (1997)                                       |[Documentary]                          |0     |4.652186  |
++-------+-------------------------------------------------------------------+---------------------------------------+------+----------+
+only showing top 50 rows
+
+Execution time= 120.586 seconds

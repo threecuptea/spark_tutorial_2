@@ -1,0 +1,108 @@
++--------+-------+
+|language|percent|
++--------+-------+
+|   Scala|     35|
+|  Python|     30|
+|    Java|     20|
+|       R|     15|
++--------+-------+
+
+root
+ |-- zip: string (nullable = true)
+ |-- city: string (nullable = true)
+ |-- loc: array (nullable = true)
+ |    |-- element: double (containsNull = true)
+ |-- pop: long (nullable = true)
+ |-- state: string (nullable = true)
+
+Population > 40000
++-----+------------+-----+------+
+|state|city        |zip  |pop   |
++-----+------------+-----+------+
+|IL   |CHICAGO     |60623|112047|
+|NY   |BROOKLYN    |11226|111396|
+|NY   |NEW YORK    |10021|106564|
+|NY   |NEW YORK    |10025|100027|
+|CA   |BELL GARDENS|90201|99568 |
+|IL   |CHICAGO     |60617|98612 |
+|CA   |LOS ANGELES |90011|96074 |
+|IL   |CHICAGO     |60647|95971 |
+|IL   |CHICAGO     |60628|94317 |
+|CA   |NORWALK     |90650|94188 |
++-----+------------+-----+------+
+only showing top 10 rows
+
+States in order of population
++-----+--------+
+|state|sum(pop)|
++-----+--------+
+|CA   |29754890|
+|NY   |17990402|
+|TX   |16984601|
+|FL   |12686644|
+|PA   |11881643|
+|IL   |11427576|
+|OH   |10846517|
+|MI   |9295297 |
+|NJ   |7730188 |
+|NC   |6628637 |
++-----+--------+
+only showing top 10 rows
+
+California cities in order of population, count zip and sum pop
++-------------+--------+----------+
+|city         |num_zips|population|
++-------------+--------+----------+
+|LOS ANGELES  |56      |2102295   |
+|SAN DIEGO    |34      |1049298   |
+|SAN JOSE     |29      |816653    |
+|SAN FRANCISCO|26      |723993    |
+|SACRAMENTO   |28      |628279    |
+|FRESNO       |12      |347905    |
+|OAKLAND      |12      |314487    |
+|LONG BEACH   |8       |299651    |
+|ANAHEIM      |7       |272327    |
+|BAKERSFIELD  |8       |271347    |
++-------------+--------+----------+
+only showing top 10 rows
+
++-------------+--------+----------+
+|city         |num_zips|population|
++-------------+--------+----------+
+|LOS ANGELES  |56      |2102295   |
+|SAN DIEGO    |34      |1049298   |
+|SAN JOSE     |29      |816653    |
+|SAN FRANCISCO|26      |723993    |
+|SACRAMENTO   |28      |628279    |
+|FRESNO       |12      |347905    |
+|OAKLAND      |12      |314487    |
+|LONG BEACH   |8       |299651    |
+|ANAHEIM      |7       |272327    |
+|BAKERSFIELD  |8       |271347    |
++-------------+--------+----------+
+only showing top 10 rows
+
+zipToInt UDF
++------------+------+
+|city        |zipInt|
++------------+------+
+|AGAWAM      |1001  |
+|CUSHMAN     |1002  |
+|BARRE       |1005  |
+|BELCHERTOWN |1007  |
+|BLANDFORD   |1008  |
+|BRIMFIELD   |1010  |
+|CHESTER     |1011  |
+|CHESTERFIELD|1012  |
+|CHICOPEE    |1013  |
+|CHICOPEE    |1020  |
++------------+------+
+only showing top 10 rows
+
++---------------+--------+-----------+---------+-----------+
+|           name|database|description|tableType|isTemporary|
++---------------+--------+-----------+---------+-----------+
+|hive_zips_table| default|       null|  MANAGED|      false|
+|     zips_table|    null|       null|TEMPORARY|       true|
++---------------+--------+-----------+---------+-----------+
+

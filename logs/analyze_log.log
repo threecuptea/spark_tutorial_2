@@ -1,0 +1,151 @@
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+|value                                                                                                                                                    |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+|64.242.88.10 - - [07/Mar/2004:16:05:49 -0800] "GET /twiki/bin/edit/Main/Double_bounce_sender?topicparent=Main.ConfigurationVariables HTTP/1.1" 401 12846 |
+|64.242.88.10 - - [07/Mar/2004:16:06:51 -0800] "GET /twiki/bin/rdiff/TWiki/NewUserTemplate?rev1=1.3&rev2=1.2 HTTP/1.1" 200 4523                           |
+|64.242.88.10 - - [07/Mar/2004:16:10:02 -0800] "GET /mailman/listinfo/hsdivision HTTP/1.1" 200 6291                                                       |
+|64.242.88.10 - - [07/Mar/2004:16:11:58 -0800] "GET /twiki/bin/view/TWiki/WikiSyntax HTTP/1.1" 200 7352                                                   |
+|64.242.88.10 - - [07/Mar/2004:16:20:55 -0800] "GET /twiki/bin/view/Main/DCCAndPostFix HTTP/1.1" 200 5253                                                 |
+|64.242.88.10 - - [07/Mar/2004:16:23:12 -0800] "GET /twiki/bin/oops/TWiki/AppendixFileSystem?template=oopsmore&param1=1.12&param2=1.12 HTTP/1.1" 200 11382|
+|64.242.88.10 - - [07/Mar/2004:16:24:16 -0800] "GET /twiki/bin/view/Main/PeterThoeny HTTP/1.1" 200 4924                                                   |
+|64.242.88.10 - - [07/Mar/2004:16:29:16 -0800] "GET /twiki/bin/edit/Main/Header_checks?topicparent=Main.ConfigurationVariables HTTP/1.1" 401 12851        |
+|64.242.88.10 - - [07/Mar/2004:16:30:29 -0800] "GET /twiki/bin/attach/Main/OfficeLocations HTTP/1.1" 401 12851                                            |
+|64.242.88.10 - - [07/Mar/2004:16:31:48 -0800] "GET /twiki/bin/view/TWiki/WebTopicEditTemplate HTTP/1.1" 200 3732                                         |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+only showing top 10 rows
+
+root
+ |-- ipAddress: string (nullable = true)
+ |-- clientIdentd: string (nullable = true)
+ |-- userId: string (nullable = true)
+ |-- dateTime: string (nullable = true)
+ |-- method: string (nullable = true)
+ |-- endPoint: string (nullable = true)
+ |-- protocol: string (nullable = true)
+ |-- responseCode: integer (nullable = true)
+ |-- contentSize: long (nullable = true)
+
++---------------------------------------------+
+|CAST(21/Jun/2014:10:00:00 -0700 AS TIMESTAMP)|
++---------------------------------------------+
+|                                         null|
++---------------------------------------------+
+
+== Physical Plan ==
+*Project [clientIdentd#23, contentSize#30L, cast(UDF(dateTime#25) as timestamp) AS dt#38, endPoint#27, ipAddress#22, responseCode#29]
++- *SerializeFromObject [staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).ipAddress, true) AS ipAddress#22, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).clientIdentd, true) AS clientIdentd#23, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).userId, true) AS userId#24, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).dateTime, true) AS dateTime#25, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).method, true) AS method#26, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).endPoint, true) AS endPoint#27, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).protocol, true) AS protocol#28, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).responseCode AS responseCode#29, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).contentSize AS contentSize#30L]
+   +- MapPartitions <function1>, obj#21: org.freemind.spark.sql.AccessLogRecord
+      +- DeserializeToObject value#0.toString, obj#20: java.lang.String
+         +- *FileScan text [value#0] Batched: false, Format: Text, Location: InMemoryFileIndex[file:/home/fandev/workspace/samples/spark_tutorial_2/data/access_log], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<value:string>
++------------+-----------+---------------------+----------------------------------------------------------------------------------+------------+------------+
+|clientIdentd|contentSize|dt                   |endPoint                                                                          |ipAddress   |responseCode|
++------------+-----------+---------------------+----------------------------------------------------------------------------------+------------+------------+
+|-           |12846      |2004-03-07 08:05:49.0|/twiki/bin/edit/Main/Double_bounce_sender?topicparent=Main.ConfigurationVariables |64.242.88.10|401         |
+|-           |4523       |2004-03-07 08:06:51.0|/twiki/bin/rdiff/TWiki/NewUserTemplate?rev1=1.3&rev2=1.2                          |64.242.88.10|200         |
+|-           |6291       |2004-03-07 08:10:02.0|/mailman/listinfo/hsdivision                                                      |64.242.88.10|200         |
+|-           |7352       |2004-03-07 08:11:58.0|/twiki/bin/view/TWiki/WikiSyntax                                                  |64.242.88.10|200         |
+|-           |5253       |2004-03-07 08:20:55.0|/twiki/bin/view/Main/DCCAndPostFix                                                |64.242.88.10|200         |
+|-           |11382      |2004-03-07 08:23:12.0|/twiki/bin/oops/TWiki/AppendixFileSystem?template=oopsmore&param1=1.12&param2=1.12|64.242.88.10|200         |
+|-           |4924       |2004-03-07 08:24:16.0|/twiki/bin/view/Main/PeterThoeny                                                  |64.242.88.10|200         |
+|-           |12851      |2004-03-07 08:29:16.0|/twiki/bin/edit/Main/Header_checks?topicparent=Main.ConfigurationVariables        |64.242.88.10|401         |
+|-           |12851      |2004-03-07 08:30:29.0|/twiki/bin/attach/Main/OfficeLocations                                            |64.242.88.10|401         |
+|-           |3732       |2004-03-07 08:31:48.0|/twiki/bin/view/TWiki/WebTopicEditTemplate                                        |64.242.88.10|200         |
++------------+-----------+---------------------+----------------------------------------------------------------------------------+------------+------------+
+only showing top 10 rows
+
+== Physical Plan ==
+*Project [clientIdentd#23, contentSize#30L, cast(UDF(dateTime#25) as timestamp) AS dt#57, endPoint#27, ipAddress#22, responseCode#29]
++- *SerializeFromObject [staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).ipAddress, true) AS ipAddress#22, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).clientIdentd, true) AS clientIdentd#23, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).userId, true) AS userId#24, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).dateTime, true) AS dateTime#25, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).method, true) AS method#26, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).endPoint, true) AS endPoint#27, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).protocol, true) AS protocol#28, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).responseCode AS responseCode#29, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).contentSize AS contentSize#30L]
+   +- MapPartitions <function1>, obj#21: org.freemind.spark.sql.AccessLogRecord
+      +- DeserializeToObject value#0.toString, obj#20: java.lang.String
+         +- *FileScan text [value#0] Batched: false, Format: Text, Location: InMemoryFileIndex[file:/home/fandev/workspace/samples/spark_tutorial_2/data/access_log], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<value:string>
++------------+-----------+---------------------+----------------------------------------------------------------------------------+------------+------------+
+|clientIdentd|contentSize|dt                   |endPoint                                                                          |ipAddress   |responseCode|
++------------+-----------+---------------------+----------------------------------------------------------------------------------+------------+------------+
+|-           |12846      |2004-03-07 08:05:49.0|/twiki/bin/edit/Main/Double_bounce_sender?topicparent=Main.ConfigurationVariables |64.242.88.10|401         |
+|-           |4523       |2004-03-07 08:06:51.0|/twiki/bin/rdiff/TWiki/NewUserTemplate?rev1=1.3&rev2=1.2                          |64.242.88.10|200         |
+|-           |6291       |2004-03-07 08:10:02.0|/mailman/listinfo/hsdivision                                                      |64.242.88.10|200         |
+|-           |7352       |2004-03-07 08:11:58.0|/twiki/bin/view/TWiki/WikiSyntax                                                  |64.242.88.10|200         |
+|-           |5253       |2004-03-07 08:20:55.0|/twiki/bin/view/Main/DCCAndPostFix                                                |64.242.88.10|200         |
+|-           |11382      |2004-03-07 08:23:12.0|/twiki/bin/oops/TWiki/AppendixFileSystem?template=oopsmore&param1=1.12&param2=1.12|64.242.88.10|200         |
+|-           |4924       |2004-03-07 08:24:16.0|/twiki/bin/view/Main/PeterThoeny                                                  |64.242.88.10|200         |
+|-           |12851      |2004-03-07 08:29:16.0|/twiki/bin/edit/Main/Header_checks?topicparent=Main.ConfigurationVariables        |64.242.88.10|401         |
+|-           |12851      |2004-03-07 08:30:29.0|/twiki/bin/attach/Main/OfficeLocations                                            |64.242.88.10|401         |
+|-           |3732       |2004-03-07 08:31:48.0|/twiki/bin/view/TWiki/WebTopicEditTemplate                                        |64.242.88.10|200         |
++------------+-----------+---------------------+----------------------------------------------------------------------------------+------------+------------+
+only showing top 10 rows
+
+root
+ |-- _c0: integer (nullable = true)
+ |-- carat: double (nullable = true)
+ |-- cut: string (nullable = true)
+ |-- color: string (nullable = true)
+ |-- clarity: string (nullable = true)
+ |-- depth: double (nullable = true)
+ |-- table: double (nullable = true)
+ |-- price: integer (nullable = true)
+ |-- x: double (nullable = true)
+ |-- y: double (nullable = true)
+ |-- z: double (nullable = true)
+
++---+-----+---------+-----+-------+-----+-----+-----+----+----+----+
+|_c0|carat|cut      |color|clarity|depth|table|price|x   |y   |z   |
++---+-----+---------+-----+-------+-----+-----+-----+----+----+----+
+|1  |0.23 |Ideal    |E    |SI2    |61.5 |55.0 |326  |3.95|3.98|2.43|
+|2  |0.21 |Premium  |E    |SI1    |59.8 |61.0 |326  |3.89|3.84|2.31|
+|3  |0.23 |Good     |E    |VS1    |56.9 |65.0 |327  |4.05|4.07|2.31|
+|4  |0.29 |Premium  |I    |VS2    |62.4 |58.0 |334  |4.2 |4.23|2.63|
+|5  |0.31 |Good     |J    |SI2    |63.3 |58.0 |335  |4.34|4.35|2.75|
+|6  |0.24 |Very Good|J    |VVS2   |62.8 |57.0 |336  |3.94|3.96|2.48|
+|7  |0.24 |Very Good|I    |VVS1   |62.3 |57.0 |336  |3.95|3.98|2.47|
+|8  |0.26 |Very Good|H    |SI1    |61.9 |55.0 |337  |4.07|4.11|2.53|
+|9  |0.22 |Fair     |E    |VS2    |65.1 |61.0 |337  |3.87|3.78|2.49|
+|10 |0.23 |Very Good|H    |VS1    |59.4 |61.0 |338  |4.0 |4.05|2.39|
++---+-----+---------+-----+-------+-----+-----+-----+----+----+----+
+only showing top 10 rows
+
+== Physical Plan ==
+*Project [x#83, y#84, z#85, ipAddress#22, endPoint#27, contentSize#30L, year(cast(dt#38 as date)) AS year#177, month(cast(dt#38 as date)) AS month#178]
++- *BroadcastHashJoin [cast(price#82 as bigint)], [contentSize#30L], Inner, BuildRight
+   :- *Project [price#82, x#83, y#84, z#85]
+   :  +- *Filter isnotnull(price#82)
+   :     +- *FileScan csv [price#82,x#83,y#84,z#85] Batched: false, Format: CSV, Location: InMemoryFileIndex[file:/home/fandev/workspace/samples/spark_tutorial_2/data/diamonds.csv], PartitionFilters: [], PushedFilters: [IsNotNull(price)], ReadSchema: struct<price:int,x:double,y:double,z:double>
+   +- BroadcastExchange HashedRelationBroadcastMode(List(input[0, bigint, true]))
+      +- *Project [contentSize#30L, cast(UDF(dateTime#25) as timestamp) AS dt#38, endPoint#27, ipAddress#22]
+         +- *Filter isnotnull(contentSize#30L)
+            +- *SerializeFromObject [staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).ipAddress, true) AS ipAddress#22, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).clientIdentd, true) AS clientIdentd#23, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).userId, true) AS userId#24, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).dateTime, true) AS dateTime#25, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).method, true) AS method#26, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).endPoint, true) AS endPoint#27, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).protocol, true) AS protocol#28, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).responseCode AS responseCode#29, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).contentSize AS contentSize#30L]
+               +- MapPartitions <function1>, obj#21: org.freemind.spark.sql.AccessLogRecord
+                  +- DeserializeToObject value#0.toString, obj#20: java.lang.String
+                     +- *FileScan text [value#0] Batched: false, Format: Text, Location: InMemoryFileIndex[file:/home/fandev/workspace/samples/spark_tutorial_2/data/access_log], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<value:string>
+== Physical Plan ==
+InMemoryTableScan [x#83, y#84, z#85, ipAddress#22, endPoint#27, contentSize#30L, year#177, month#178]
+   +- InMemoryRelation [x#83, y#84, z#85, ipAddress#22, endPoint#27, contentSize#30L, year#177, month#178], true, 10000, StorageLevel(disk, memory, deserialized, 1 replicas)
+         +- *Project [x#83, y#84, z#85, ipAddress#22, endPoint#27, contentSize#30L, year(cast(dt#38 as date)) AS year#177, month(cast(dt#38 as date)) AS month#178]
+            +- *BroadcastHashJoin [cast(price#82 as bigint)], [contentSize#30L], Inner, BuildRight
+               :- *Project [price#82, x#83, y#84, z#85]
+               :  +- *Filter isnotnull(price#82)
+               :     +- *FileScan csv [price#82,x#83,y#84,z#85] Batched: false, Format: CSV, Location: InMemoryFileIndex[file:/home/fandev/workspace/samples/spark_tutorial_2/data/diamonds.csv], PartitionFilters: [], PushedFilters: [IsNotNull(price)], ReadSchema: struct<price:int,x:double,y:double,z:double>
+               +- BroadcastExchange HashedRelationBroadcastMode(List(input[0, bigint, true]))
+                  +- *Project [contentSize#30L, cast(UDF(dateTime#25) as timestamp) AS dt#38, endPoint#27, ipAddress#22]
+                     +- *Filter isnotnull(contentSize#30L)
+                        +- *SerializeFromObject [staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).ipAddress, true) AS ipAddress#22, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).clientIdentd, true) AS clientIdentd#23, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).userId, true) AS userId#24, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).dateTime, true) AS dateTime#25, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).method, true) AS method#26, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).endPoint, true) AS endPoint#27, staticinvoke(class org.apache.spark.unsafe.types.UTF8String, StringType, fromString, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).protocol, true) AS protocol#28, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).responseCode AS responseCode#29, assertnotnull(input[0, org.freemind.spark.sql.AccessLogRecord, true], top level Product input object).contentSize AS contentSize#30L]
+                           +- MapPartitions <function1>, obj#21: org.freemind.spark.sql.AccessLogRecord
+                              +- DeserializeToObject value#0.toString, obj#20: java.lang.String
+                                 +- *FileScan text [value#0] Batched: false, Format: Text, Location: InMemoryFileIndex[file:/home/fandev/workspace/samples/spark_tutorial_2/data/access_log], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<value:string>
+======= archive-ready count = 5614
++----+----+----+---------------------------------------------------+-----------+-----------+----+-----+
+|x   |y   |z   |ipAddress                                          |endPoint   |contentSize|year|month|
++----+----+----+---------------------------------------------------+-----------+-----------+----+-----+
+|6.55|6.48|4.03|pd95f99f2.dip.t-dialin.net                         |/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|vlp181.vlp.fi                                      |/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|archserve.id.ucsb.edu                              |/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|64-93-34-186.client.dsl.net                        |/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|0x503e4fce.virnxx2.adsl-dhcp.tele.dk               |/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|spica.ukc.ac.uk                                    |/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|c-411472d5.04-138-73746f22.cust.bredbandsbolaget.se|/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|cacher2-ext.wise.edt.ericsson.se                   |/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|pd9e50809.dip.t-dialin.net                         |/razor.html|2869       |2004|3    |
+|6.55|6.48|4.03|212.21.228.26                                      |/razor.html|2869       |2004|3    |
++----+----+----+---------------------------------------------------+-----------+-----------+----+-----+
+only showing top 10 rows
+
