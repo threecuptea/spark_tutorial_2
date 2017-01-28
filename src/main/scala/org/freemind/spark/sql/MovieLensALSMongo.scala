@@ -14,13 +14,26 @@ import org.apache.spark.sql.types.DoubleType
 
 
 /**
-  * Inspired by https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055109/484361/latest.html
+  * http://cdn2.hubspot.net/hubfs/438089/notebooks/MongoDB_guest_blog/Using_MongoDB_Connector_for_Spark.html
   *
   * Using convert_csv.py to convert "::" delimiter to "," then
   * mongoimport -d movielens -c movie_ratings --type csv -f user_id,movie_id,rating,timestamp data/ratings.csv
   *
-  * Have to write a program to import if I really need to convert string
+  * I discovered one serious issue here.  The recommendation is very different from the recommendation from MovieLensALS.
+  * PersonalRatings comes from my choice.  the recommendation from MovieLensALS fit my taste much better than the recommendation here.
   *
+  * It turns out Mongo Spark 2 connector introduce a new bug when doing randomSplit.  The sum up of all splits does not equal to
+  * the count of whole (the toal: 1000209).  That distorts the results.  I opened a JIRA ticket on Mongo spark connector.
+  *
+  * Spark2 randomSplit is different from Spark 1.6.  Spark 1.6 always return the same result of the same count and thhe same seee.
+  * even when file content is different.   Spark2 is different.  It really randomly split.  Checkout recommend.log and recommend2.log
+  * which I generated using MovieLensALS in different run.
+  * The splits are different.  However, the total always match the count of the whole.
+  *
+  * Try both spark 2.1.0 and spark 2.0.2 and get the same results.
+  *
+  * $SPARK_HOME/bin/spark-submit --jars jars/org.mongodb.spark_mongo-spark-connector_2.11-2.0.0.jar,jars/org.mongodb_mongo-java-driver-3.2.2.jar \
+  * --master local[*] --class org.freemind.spark.sql.MovieLensALSMongo target/scala-2.11/spark_tutorial_2_2.11-1.0.jar
   *
   * @author sling(threecuptea) wrote on 12/30/16.
   */

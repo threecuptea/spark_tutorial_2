@@ -9,7 +9,13 @@ import org.apache.spark.sql.types._
 
 /**
   * Inspired by https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055109/484361/latest.html
-  * I first wrote on 09/15/2016
+  * The article itself use Scala mixed with some Python using Spark 1.6 DataFrame.
+  *
+  * This illustrate:
+  * 1. How to use org.apache.spark.sql.functions.udf (used in column) and SparkSession.udf.register (used in Spark SQL)
+  * 2. Use DataFrame join
+  *
+  * I (sling, threecuptea) re-wrote this using Spark 2 Dataset/ DataFrame Scala only
   *
   * @author sling(threecuptea) on 12/28/2016
   */
@@ -38,16 +44,15 @@ object AnalyzeWebLog {
     spark.sql("SELECT cast(\"21/Jun/2014:10:00:00 -0700\" as timestamp)").show() //We cannot cast '21/Jun/2014:10:00:00 -0700' directly timstamp
 
     val parseDateUdf = udf(parseDate(_:String): Long) //used in Column
-    //$"clientIdentd" is Column not TypedColumn, the returned result is DataFrame, The result of udf is Column cast to DataType. The result is another Column
+    //$"clientIdentd" is Column not TypedColumn, the returned result is DataFrame, The result of udf is a Column cast to DataType. The result is another Column
     val selectLogDF = logDS.select($"clientIdentd", $"contentSize", parseDateUdf($"dateTime").cast(TimestampType).alias("dt"),
       $"endPoint", $"ipAddress", $"responseCode")
     selectLogDF.explain()
     selectLogDF.show(10, false)
 
     //The function part is exactly the same as the one used in column.  The way to register is different
-    //Need to use original table not selected table
     logDS.createOrReplaceTempView("log_table")
-    spark.udf.register("parseDate", parseDate(_:String): Long)  //Use in spark.sql, plain sql
+    spark.udf.register("parseDate", parseDate(_:String): Long)  //Use in spark.sql, plain sql, the above udf used in column
 
     val logSqlDF = spark.sql(
       """
@@ -59,13 +64,14 @@ object AnalyzeWebLog {
 
     //It does not matter if it is local file or distribute file in HDFS.  What matter is the format.
     /*
-    Spark 1.6 does not support csv natively
+    Spark 1.6 does not support csv natively, You have to rely upon DataBrick's packages com.databricks:spark-csv_2.10:1.4.0,
+    It works as the followings
     sqlContext.read.
       format("com.databricks.spark.csv").
       option("delimiter","\t").
       option("header","true").
       load("hdfs:///demo/data/tsvtest.tsv").show
-      You have to rely upon DataBrick's packages com.databricks:spark-csv_2.10:1.4.0
+
       Spark 2.0
       spark.read.
         option("delimiter","\t").

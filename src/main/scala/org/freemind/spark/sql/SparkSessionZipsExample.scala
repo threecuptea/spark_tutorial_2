@@ -5,16 +5,10 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
 
-/*
-org.apache.spark.sql.functions._ is an object that encapsulate all sql functions, including aggregate, collection(explode):
-date_time, sorting(asc, desc), math, non-aggregate(col, expr, lit), string(lower, split, length etc.) and udf
-date_time: year, month, current_date, current_timestamp
- */
-
 /**
   * Inspied by http://cdn2.hubspot.net/hubfs/438089/notebooks/spark2.0/SparkSessionZipsExample.html
+  * It use Spark2 Dataset/ DataFrame and illustrate basic DataFrame usage
   *
-  * I first write on 9/2/2016
   * @author sling(threecuptea) on 12/28/2016
   */
 case class Zips(zip: String, city: String, loc:Array[Double], pop: Long, state: String)

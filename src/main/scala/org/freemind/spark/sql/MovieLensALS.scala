@@ -9,7 +9,7 @@ import org.apache.spark.sql.functions._
 
 
 /**
-  * Inspired by https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/346304/2168141618055109/484361/latest.html
+  * Inspired by http://cdn2.hubspot.net/hubfs/438089/notebooks/MongoDB_guest_blog/Using_MongoDB_Connector_for_Spark.html
   *
   *  However, that notebook generate all prediction 0.0. I did myself and find the root cause and completely revise it.
   *  This is related to Jira ticket SPARK-14489
@@ -26,9 +26,14 @@ import org.apache.spark.sql.functions._
   *  The Notebook use TrainValidationSplit which did all work automatically and
   *  leave no way to manually remove all NaN prediction
   *
-  * I first wrote on 9/24/2016
+  *  I instilled concepts learned from rom edx.org BerkeleyX course "CS120x: Distrubuted Machine Learning with Apache Spark"
   *
-  * @author sling(threecuptea) re-write on 12/29/16.
+  *  recommend.log use unratedDF generated with allDS distinct movieId then join movie (because I have to get name of movies)
+  *  recommend2.log use unratedDF generated with movieDS directly.  However, I have to filter out NaN in this cases because
+  *  there are some movies that have not been rated.
+  *
+  *  I first explores this issue on October 2016.
+  * @author sling(threecuptea) re-wrote on 12/29/16.
   */
 
 case class Rating(userId: Int, movieId: Int, rating: Float)
@@ -72,8 +77,8 @@ object MovieLensALS {
     println(s"Movies Snapshot= ${movieDS.value.count}")
     movieDS.value.show(10, false)
 
-    val Array(trainDS, valDS, testDS) = mrDS.randomSplit(Array(0.8,0.1,0.1)) //Follow the instruction of EDX class, use the model getting from validationSet on test
-    println(s"traing count=${trainDS.count}")
+    val Array(trainDS, valDS, testDS) = mrDS.randomSplit(Array(0.8,0.1,0.1)) //Follow the instruction of EDX class, use the model evaluated based upon validationSet on test
+    println(s"training count=${trainDS.count}")
     println(s"validation count=${valDS.count}")
     println(s"test count=${testDS.count}")
     val total = trainDS.count() + valDS.count() + testDS.count()
@@ -100,6 +105,8 @@ object MovieLensALS {
     val ranks = Array(10, 12)  //numbers of latent factor used to predict missing entries of user-item matrics, the default is 10
     val iters = Array(20) //the default is 10
     //It is a lambda multipler on the cost to prevent overfitting.  Increasing lambda will penalize the cost which are coefficients of linear regression
+    // It penalize Linear Regression Model with large coefficients.
+    // Linear Regression Model with large coefficients tends to be more complicated.
     //The default is 1.0
     val regParams = Array(0.1, 0.01)
 
@@ -150,7 +157,8 @@ object MovieLensALS {
     val pMovieIds = prDS.map(_.movieId).collect() // This should not be big, all movies that the person has rated
     val pUserId = 0
 
-    //We can use allDS then distinct or movieDS, We will save join step using movieDS.  However, we have to filter out NaN
+    //We can use allDS distinct movieId then join movieDS, We will save join step using movieDS.  However, we have to filter out NaN because Movie might
+    //have movieId not in allDS (Some movies have not been rated before)
     val unratedDF = movieDS.value.filter(movie => !pMovieIds.contains(movie.id)).withColumnRenamed("id", "movieId").withColumn("userId", lit(pUserId))
 
     //movieDS has more movies than allDS.  Therefore, we will getNaN.
