@@ -30,7 +30,6 @@ object SparkSessionZipsExample {
       .enableHiveSupport()
       .getOrCreate()
 
-    //The following line would include all Encoders which are needed to convert any DS, DF
     import spark.implicits._
 
     val lst = List(("Scala", 35), ("Python", 30), ("R", 15), ("Java", 20))
@@ -38,20 +37,23 @@ object SparkSessionZipsExample {
     //orderBy is Dataset function
     lstDF.orderBy(desc("percent")).show()
 
-    //It does not matter if it is local file or distribute file in HDFS.
+    //.as[Zips] make this a Dataset that I can use typed operation like retrieve field
     val zipDS = spark.read.json(jsonFile).withColumnRenamed("_id", "zip").as[Zips]
     zipDS.printSchema()
 
     println("Population > 40000")
-    //select Column (not TypedColumn), filter(condition: Column) peopleDs.filter($"age" > 15)
-    zipDS.select($"state", $"city", $"zip", $"pop").filter($"pop" > 40000).orderBy(desc("pop")).show(10, false)
+
+    //I can use DataSet filter method as the first line.  DataSet is a typed object. Therefore, I can retrieve 'pop' field.
+    // In Spark 1.6, I can only use DataFrame filter method as the second line.  DataFrame is not typed object in Spark 1.6
+    zipDS.filter(_.pop > 40000).select($"state", $"city", $"zip", $"pop").orderBy(desc("pop")).show(10, false)
+    //zipDS.select($"state", $"city", $"zip", $"pop").filter($"pop" > 40000).orderBy(desc("pop")).show(10, false)
 
     println("States in order of population")
     //sum("columnName") or sum(Col): Column
     zipDS.select($"state", $"pop").groupBy($"state").sum("pop").orderBy(desc("sum(pop)")).show(10, false)
 
     println("California cities in order of population, count zip and sum pop")
-    zipDS.filter($"state" === "CA").groupBy($"city").agg(count($"zip"), sum($"pop"))
+    zipDS.filter(_.state == "CA").groupBy($"city").agg(count($"zip"), sum($"pop"))
       .withColumnRenamed("count(zip)", "num_zips").withColumnRenamed("sum(pop)", "population")
       .orderBy(desc("population")).show(10, false)
 

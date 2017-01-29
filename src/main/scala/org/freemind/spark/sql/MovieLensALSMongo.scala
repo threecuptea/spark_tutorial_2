@@ -4,12 +4,10 @@ import com.mongodb.spark.MongoSpark
 import com.mongodb.spark.config.{ReadConfig, WriteConfig}
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.param.ParamMap
-import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.apache.spark.ml.recommendation.{ALS, ALSModel}
 import org.apache.spark.ml.tuning.ParamGridBuilder
-import org.apache.spark.sql.{Encoder, SparkSession}
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types.DoubleType
 
 
 
@@ -57,7 +55,7 @@ object MovieLensALSMongo {
     val recomWriteConfig = WriteConfig(Map("uri" -> "mongodb://localhost:27017/movielens.recommendations"))
     //MongoSpark.toDS route does not work
     //val mrDS = MongoSpark.load(spark, mrReadConfig, classOf[MongoRating]) //Will get error 'Cannot infer type for class org.freemind.spark.sql.MongoRating because it is not bean-compliant'
-    //I have to use old route toDF then as to DS
+    //I have to use old route toDF then as to DS.  MongoSpark.load(spark, mrReadConfig) return DataFrame then map to type
     val mrDS = MongoSpark.load(spark, mrReadConfig).map(r => MongoRating(r.getAs[Int]("user_id"), r.getAs[Int]("movie_id"), r.getAs[Int]("rating")))
     val prDS = MongoSpark.load(spark, prReadConfig).map(r => MongoRating(r.getAs[Int]("user_id"), r.getAs[Int]("movie_id"), r.getAs[Int]("rating")))
     val movieDS = MongoSpark.load(spark, movieReadConfig).map(r => MongoMovie(r.getAs[Int]("id"), r.getAs[String]("title"), r.getAs[String]("genre_concat").split("\\|")))
@@ -147,8 +145,8 @@ object MovieLensALSMongo {
     val pMovieIds = prDS.map(_.movie_id).collect() // This should not be big, all movies that the person has rated
     val pUserId = 0
 
-    //We can use allDS then distinct or movieDS, We will save join step by using movieDS.  However, we have to filter out NaN
-    //Since we use allDS to model and moviesDS has more movies than allDS
+    //We can use allDS distinct movieId then join movieDS, We awill save join step by using movieDS directly. However,
+    //we have to filter out NaN because Movies might have movieId not in allDS (Some movies have not been rated before)
     val unratedDF = bMovieDS.value.filter(movie => !pMovieIds.contains(movie.id)).withColumnRenamed("id", "movie_id").withColumn("user_id", lit(pUserId)) //als use those fields
 
     //com.mongodb.spark.exceptions.MongoTypeConversionException: Cannot cast 4.591038 into a BsonValue. FloatType has no matching BsonValue.  Try DoubleType

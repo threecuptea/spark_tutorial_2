@@ -157,8 +157,8 @@ object MovieLensALS {
     val pMovieIds = prDS.map(_.movieId).collect() // This should not be big, all movies that the person has rated
     val pUserId = 0
 
-    //We can use allDS distinct movieId then join movieDS, We will save join step using movieDS.  However, we have to filter out NaN because Movie might
-    //have movieId not in allDS (Some movies have not been rated before)
+    //We can use allDS distinct movieId then join movieDS, We awill save join step by using movieDS directly. However,
+    //we have to filter out NaN because Movies might have movieId not in allDS (Some movies have not been rated before)
     val unratedDF = movieDS.value.filter(movie => !pMovieIds.contains(movie.id)).withColumnRenamed("id", "movieId").withColumn("userId", lit(pUserId))
 
     //movieDS has more movies than allDS.  Therefore, we will getNaN.
