@@ -23,7 +23,7 @@ object AnalyzeWebLog {
 
   def main(args: Array[String]): Unit = {
 
-    if (args.length < 1) {
+    if (args.length < 2) {
       println("Usage: AnalyzeWebLog [access-log-file] [diamond-file]")
       System.exit(-1)
     }
