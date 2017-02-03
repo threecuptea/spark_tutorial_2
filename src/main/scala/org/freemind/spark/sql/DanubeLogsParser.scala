@@ -9,20 +9,23 @@ import java.util.regex.{Matcher, Pattern}
 case class DanubeNonJTState (
                                roviId: Long,
                                resource: String,
-                               nonJtState: String
+                               nonJtState: String,
+                               pubId: Long
                              )
 case class DanubeJTState (
                                roviId: Long,
                                resource: String,
-                               jtState: String
+                               jtState: String,
+                               pubId: Long
                              )
 
 class DanubeLogsParser extends Serializable {
 
   //Ignore the rest of logs. We do not care about it at this case
-  val nonJtLogRegEx = "\\[listener\\-\\d{1}\\] \\S+ (PUBLISH|NOPUBLISH|UNPUBLISH) ([a-z_]+) (\\d+)"
+  val nonJtLogRegEx = "\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+) (\\d+) \\((\\d+)\\)"
 
-  val jtLogRegEx    = "^\\[listener\\-\\d{1}\\] \\S+ (PUBLISH|NOPUBLISH|UNPUBLISH) ([a-z_]+)\\-(\\d+)"
+  val jtLogRegEx    = "^\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+)\\-(\\d+) \\((\\d+)\\)"
+
 
   val nonjtPattern:Pattern = Pattern.compile(nonJtLogRegEx)
 
@@ -36,7 +39,8 @@ class DanubeLogsParser extends Serializable {
         DanubeNonJTState(
           nonJtState = m.group(1),
           resource = m.group(2),
-          roviId = m.group(3).toLong
+          roviId = m.group(3).toLong,
+          pubId = m.group(4).toLong
         )
       )
     }
@@ -48,13 +52,14 @@ class DanubeLogsParser extends Serializable {
   def parseJtLog(s: String): Option[DanubeJTState] = {
     val m:Matcher = jtPattern.matcher(s)
     if (m.find) {
-      Some(
-        DanubeJTState (
-          jtState = m.group(1),
-          resource = m.group(2),
-          roviId = m.group(3).toLong
+        Some(
+          DanubeJTState (
+            jtState = m.group(1),
+            resource = m.group(2),
+            roviId = m.group(3).toLong,
+            pubId = m.group(4).toLong
+          )
         )
-      )
     }
     else {
       None

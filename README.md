@@ -25,5 +25,10 @@
        b) Write parseDate UDF to parse access log date format to be compatible with timestamp type 
        c) Load diamond.csv using new SparkSession.read.csv with correct options 
        d) DataFrame Join of access log data with diamond.csv
+    
+    4. DanubeStatesAnalysis   
+       A task for Rovi to ensure the java-transform system is compatible with Pri-java-transform system by analyze 
+       log entries, including parsing, filter data by pubId and grouping.
+       
 
-    4. SparkSessionZipsExample to be familiar with Spark 2 Dataset/ DataFrame operation.
+    5. SparkSessionZipsExample to be familiar with Spark 2 Dataset/ DataFrame operation.

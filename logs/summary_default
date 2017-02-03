@@ -1,0 +1,163 @@
+NON Java-transform pubId boundary is [25639385488. 25642390010].
+Java-transform pubId boundary is [25379046790. 25380864486].
+
+NON Java-transform DanubeState count= 2505111
++----------+---------------+----------+-----------+
+|roviId    |resource       |nonJtState|pubId      |
++----------+---------------+----------+-----------+
+|4499019185|airing_synopses|PUBLISH   |25639386224|
+|4499019177|airing_credits |NOPUBLISH |25639386290|
+|4499019163|airing_synopses|PUBLISH   |25639386296|
+|4499019213|airing_credits |NOPUBLISH |25639386320|
+|4499019207|airing_credits |NOPUBLISH |25639386327|
+|4499019197|airing         |PUBLISH   |25639386328|
+|4499019191|airing         |PUBLISH   |25639386289|
+|4499019217|airing         |PUBLISH   |25639386338|
+|4499019200|airing_credits |NOPUBLISH |25639386375|
+|4499019196|airing_credits |NOPUBLISH |25639386380|
++----------+---------------+----------+-----------+
+only showing top 10 rows
+
+Java-transform DanubeState count= 1572374
++---------+----------------------------------------+---------+-----------+
+|roviId   |resource                                |jtState  |pubId      |
++---------+----------------------------------------+---------+-----------+
+|904822338|MXNormalizedVideoWorkGrouping           |NOPUBLISH|25379046916|
+|907775007|series_history                          |NOPUBLISH|25379046915|
+|904574392|movie_credits                           |NOPUBLISH|25379046918|
+|903734172|series                                  |NOPUBLISH|25379046917|
+|907525043|movie_aired                             |NOPUBLISH|25379046995|
+|904822338|movie_awards                            |NOPUBLISH|25379046997|
+|907525043|other_synopses                          |NOPUBLISH|25379047000|
+|904299776|other_related                           |PUBLISH  |25379047176|
+|17119833 |MXNormalizedVideoWorkReleasePrimaryImage|NOPUBLISH|25379047203|
+|905313233|movie_related                           |NOPUBLISH|25379047230|
++---------+----------------------------------------+---------+-----------+
+only showing top 10 rows
+
+NON Java-transform groupBy PUBLISH_STATE
++----------+-------+
+|nonJtState|count  |
++----------+-------+
+|NOPUBLISH |373708 |
+|PUBLISH   |1494606|
+|UNPUBLISH |636797 |
++----------+-------+
+
+Java-transform groupBy PUBLISH_STATE
++---------+------+
+|jtState  |count |
++---------+------+
+|NOPUBLISH|277860|
+|PUBLISH  |775031|
+|UNPUBLISH|519483|
++---------+------+
+
+NON Java-transform groupBy RESOURCE
++-----------------------------------------+-------+
+|resource                                 |count  |
++-----------------------------------------+-------+
+|MXCreditMajor                            |2600   |
+|MXNamePersonPrimaryImage                 |94     |
+|MXNormalizedVideoWorkGrouping            |4414   |
+|MXNormalizedVideoWorkGroupingPrimaryImage|5713   |
+|MXNormalizedVideoWorkRelease             |4076   |
+|MXNormalizedVideoWorkReleasePrimaryImage |9378   |
+|MXVideoWorkGroupingPrimaryImage          |4388   |
+|MXVideoWorkPrimaryImage                  |4083   |
+|airing                                   |563730 |
+|airing_credits                           |1080514|
+|airing_synopses                          |543819 |
+|award                                    |253    |
+|content                                  |7467   |
+|content_images                           |4493   |
+|episode                                  |8936   |
+|episode_aired                            |4124   |
+|episode_credits                          |16432  |
+|episode_ratings                          |5260   |
+|episode_releases                         |9570   |
+|episode_synopses                         |6408   |
++-----------------------------------------+-------+
+only showing top 20 rows
+
+Java-transform groupBy RESOURCE
++-----------------------------------------+------+
+|resource                                 |count |
++-----------------------------------------+------+
+|MXCreditMajor                            |1096  |
+|MXNamePersonPrimaryImage                 |47    |
+|MXNormalizedVideoWorkGrouping            |2727  |
+|MXNormalizedVideoWorkGroupingPrimaryImage|4103  |
+|MXNormalizedVideoWorkRelease             |2718  |
+|MXNormalizedVideoWorkReleasePrimaryImage |5933  |
+|MXVideoWorkGroupingPrimaryImage          |2658  |
+|MXVideoWorkPrimaryImage                  |2828  |
+|airing                                   |488554|
+|airing_credits                           |467946|
+|airing_synopses                          |444253|
+|award                                    |35    |
+|content                                  |3826  |
+|content_images                           |2752  |
+|episode                                  |4691  |
+|episode_aired                            |2503  |
+|episode_credits                          |2633  |
+|episode_ratings                          |3132  |
+|episode_releases                         |5990  |
+|episode_synopses                         |2843  |
++-----------------------------------------+------+
+only showing top 20 rows
+
+NON Java-transform groupBy RESOURCE and PUBLISH_STATE
++-----------------------------------------+----------+------+
+|resource                                 |nonJtState|count |
++-----------------------------------------+----------+------+
+|MXCreditMajor                            |NOPUBLISH |1461  |
+|MXCreditMajor                            |PUBLISH   |186   |
+|MXCreditMajor                            |UNPUBLISH |953   |
+|MXNamePersonPrimaryImage                 |PUBLISH   |82    |
+|MXNamePersonPrimaryImage                 |UNPUBLISH |12    |
+|MXNormalizedVideoWorkGrouping            |NOPUBLISH |3610  |
+|MXNormalizedVideoWorkGrouping            |PUBLISH   |804   |
+|MXNormalizedVideoWorkGroupingPrimaryImage|PUBLISH   |5713  |
+|MXNormalizedVideoWorkRelease             |NOPUBLISH |443   |
+|MXNormalizedVideoWorkRelease             |PUBLISH   |724   |
+|MXNormalizedVideoWorkRelease             |UNPUBLISH |2909  |
+|MXNormalizedVideoWorkReleasePrimaryImage |NOPUBLISH |4810  |
+|MXNormalizedVideoWorkReleasePrimaryImage |PUBLISH   |386   |
+|MXNormalizedVideoWorkReleasePrimaryImage |UNPUBLISH |4182  |
+|MXVideoWorkGroupingPrimaryImage          |NOPUBLISH |4207  |
+|MXVideoWorkGroupingPrimaryImage          |PUBLISH   |181   |
+|MXVideoWorkPrimaryImage                  |NOPUBLISH |581   |
+|MXVideoWorkPrimaryImage                  |PUBLISH   |593   |
+|MXVideoWorkPrimaryImage                  |UNPUBLISH |2909  |
+|airing                                   |PUBLISH   |365800|
++-----------------------------------------+----------+------+
+only showing top 20 rows
+
+Java-transform groupBy RESOURCE and PUBLISH_STATE
++-----------------------------------------+---------+------+
+|resource                                 |jtState  |count |
++-----------------------------------------+---------+------+
+|MXCreditMajor                            |NOPUBLISH|435   |
+|MXCreditMajor                            |PUBLISH  |178   |
+|MXCreditMajor                            |UNPUBLISH|483   |
+|MXNamePersonPrimaryImage                 |PUBLISH  |35    |
+|MXNamePersonPrimaryImage                 |UNPUBLISH|12    |
+|MXNormalizedVideoWorkGrouping            |NOPUBLISH|2127  |
+|MXNormalizedVideoWorkGrouping            |PUBLISH  |600   |
+|MXNormalizedVideoWorkGroupingPrimaryImage|PUBLISH  |4103  |
+|MXNormalizedVideoWorkRelease             |NOPUBLISH|191   |
+|MXNormalizedVideoWorkRelease             |PUBLISH  |534   |
+|MXNormalizedVideoWorkRelease             |UNPUBLISH|1993  |
+|MXNormalizedVideoWorkReleasePrimaryImage |NOPUBLISH|1883  |
+|MXNormalizedVideoWorkReleasePrimaryImage |PUBLISH  |208   |
+|MXNormalizedVideoWorkReleasePrimaryImage |UNPUBLISH|3842  |
+|MXVideoWorkGroupingPrimaryImage          |NOPUBLISH|2556  |
+|MXVideoWorkGroupingPrimaryImage          |PUBLISH  |102   |
+|MXVideoWorkPrimaryImage                  |NOPUBLISH|421   |
+|MXVideoWorkPrimaryImage                  |PUBLISH  |414   |
+|MXVideoWorkPrimaryImage                  |UNPUBLISH|1993  |
+|airing                                   |PUBLISH  |325819|
++-----------------------------------------+---------+------+
+only showing top 20 rows
+
