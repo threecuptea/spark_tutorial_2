@@ -29,11 +29,21 @@ import org.apache.spark.sql.functions._
   *  I instilled concepts learned from rom edx.org BerkeleyX course "CS120x: Distrubuted Machine Learning with Apache Spark"
   *
   *  recommend.log use unratedDF generated with allDS distinct movieId then join movie (because I have to get name of movies)
-  *  recommend2.log use unratedDF generated with movieDS directly.  However, I have to filter out NaN in this cases because
-  *  there are some movies that have not been rated.
+  *  recommend2.log use unratedDF generated with movieDS directly. This is more efficient by saving distinct
+  *  and join operation. However, I have to filter out NaN in this cases because there are some movies that have not been rated.
+  *
+  *  There is one remaining issue.  There are accented characters in title of movies like La Vita è bella.
+  *  They display correctly after spark streaming: spark.read.textFile(movieFile).map(parseMovie).  However,
+  *  those accented characters are lost in further Spark DataFrame operation like recommendation transformation.
+  *  La Vita è bella become La Vita � bella (see recommend.log, recommend2.log or reccommend_mong.log
+  *
+  *  My wild guess is that a Dataset is a strongly typed collection of domain-specific objects
+  *  To efficiently support domain-specific objects, an Encoder is required. The encoder maps the high-level
+  *  domain specific type T to Spark's internal type system which is a low-level binary structure.
+  *  Need to work on org.apache.spark.sql.Encoder
   *
   *  I first explores this issue on October 2016.
-  * @author sling(threecuptea) re-wrote on 12/29/16.
+  * @author sling(threecuptea) re-wrote on 12/29/16 - 02/04/17
   */
 
 case class Rating(userId: Int, movieId: Int, rating: Float)
