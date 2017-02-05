@@ -18,6 +18,7 @@ only showing top 10 rows
 traing count=800141
 validation count=100201
 test count=99867
+TOTAL COUNT=1000209
 
 The baseline rmse= 1.12.
 

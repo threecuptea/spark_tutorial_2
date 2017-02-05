@@ -69,9 +69,9 @@ object MovieLensALS {
       .getOrCreate()
     import spark.implicits._
 
-    val mrDS = spark.read.textFile(mrFile).map(parseRating)
-    val prDS = spark.read.textFile(prFile).map(parseRating)
-    val movieDS = spark.sparkContext.broadcast(spark.read.textFile(movieFile).map(parseMovie))
+    val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
+    val prDS = spark.read.textFile(prFile).map(parseRating).cache()
+    val movieDS = spark.sparkContext.broadcast(spark.read.textFile(movieFile).map(parseMovie).cache())
     println(s"Rating Snapshot= ${mrDS.count}, ${prDS.count}")
     mrDS.show(10, false)
     println(s"Movies Snapshot= ${movieDS.value.count}")
@@ -125,7 +125,11 @@ object MovieLensALS {
     for (paramMap <- paramGrids) {
       val model = als.fit(trainPlusDS, paramMap)
       //transform returns a DF with additional field 'prediction'
-      val prediction = model.transform(valDS).filter(r => !r.getAs[Float]("prediction").isNaN) //Need to exclude NaN from prediction, otherwise rmse will be NaN too
+      //Filter has different flavors.
+      //def filter(func: (T) ⇒ Boolean): Dataset[T] for the followings
+      //val prediction = model.transform(valDS).filter(r => !r.getAs[Float]("prediction").isNaN) //Need to exclude NaN from prediction, otherwise rmse will be NaN too
+      //def filter(condition: Column): Dataset[T], for the following
+      val prediction = model.transform(valDS).filter(!$"prediction".isNaN)
       val rmse = evaluator.evaluate(prediction)
       //NaN is bigger than maximum
       if (rmse < bestRmse)       {
@@ -142,7 +146,7 @@ object MovieLensALS {
         System.exit(-1)
       case Some(goodModel) =>
         //We still need to filter out NaN
-        val testPrediction = goodModel.transform(testDS).filter(r => !r.getAs[Float]("prediction").isNaN)
+        val testPrediction = goodModel.transform(testDS).filter(!$"prediction".isNaN)
         val testRmse = evaluator.evaluate(testPrediction)
         val improvement = (baselineRmse - testRmse) / baselineRmse * 100
         println(s"The best model was trained with param = ${bestParam.get}")
@@ -162,7 +166,7 @@ object MovieLensALS {
     val unratedDF = movieDS.value.filter(movie => !pMovieIds.contains(movie.id)).withColumnRenamed("id", "movieId").withColumn("userId", lit(pUserId))
 
     //movieDS has more movies than allDS.  Therefore, we will getNaN.
-    val recommendation = augmentModel.transform(unratedDF).filter(r => !r.getAs[Float]("prediction").isNaN).sort(desc("prediction"))
+    val recommendation = augmentModel.transform(unratedDF).filter(!$"prediction".isNaN).sort(desc("prediction"))
     recommendation.show(50, false)
 
     printf("Execution time= %7.3f seconds\n", (System.currentTimeMillis() - start)/1000.00)

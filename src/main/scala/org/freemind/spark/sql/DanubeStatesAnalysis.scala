@@ -3,14 +3,14 @@ package org.freemind.spark.sql
 import org.apache.spark.sql.SparkSession
 
 /**
-  * Danube is the data pipeline system of Rovi Corp. In Danube, we use XSLT transformation to transform normalized data into  NoSql data.
-  * We abel data into PUBLISH, UNPUBLISH and NOPUBLISH state after transformation is done then execute futher operation on those states.
+  * Danube is the data pipeline system of Rovi Corp. In Danube, we use XSLT transformation to transform normalized data into NoSql data.
+  * We label data into PUBLISH, UNPUBLISH and NOPUBLISH state after transformation is done then execute futher operation based on those states.
   * We recently implemented proprietary framework java-transform and gradually replace XSLT transformation with java transformation.
   *
   * This task is to ensure we label data correctly as we transit into java-transform framework by parsing and comparing logs from NON java-transform
-  * as well as java-transform environment.  There is no 1-to-1 coordination of log entry across environment.
+  * environment with java-transform environment.  There is no 1-to-1 coordination of log entry across environments.
   * The combination of resource plus roviId uniquely identify a resource document.  However, Messages for the combination can come
-  * multiple times.  Therefore, I cannot use join.
+  * multiple times (insert, updates, delete).  Therefore, I cannot use join.
   *
   * Records.from different environments might come at different time.  However, they probably come in similar sequence pattern.
   * I design a methodology to find a beginning reference point and an ending reference point of logging entries in one environment.

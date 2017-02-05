@@ -17,8 +17,7 @@
        a) Write simple convert.py to covert the delimiter from '::' to ',' so that I can use mongoimport to import Ratings and Movies data
        b) Use MongoSpark and ReadConfig of mongo-spark-connector 2.0 to load Mongodb data
        c) Perform similar steps as the above ML-1M recommendation system.
-       d) Mongo Spark 2 connector introduce a new bug when doing randomSplit.  The sum of all splits does not equal to the count of the whole (the toal: 1000209).  
-          That distorts the results.  I opened a JIRA ticket on Mongo spark connector site to track it.
+       d) Save recommendations to mongo
 
     3. Analyze Apache access log
        a) Write AccessLogParser using RegEx pattern to parse data into AccessLogRecord 
@@ -27,8 +26,7 @@
        d) DataFrame Join of access log data with diamond.csv
     
     4. DanubeStatesAnalysis   
-       A task for Rovi to ensure the java-transform system is compatible with Pri-java-transform system by analyze 
+       A task for Rovi to ensure the java-transform system is compatible with Pri-java-transform system by analyzing 
        log entries, including parsing, filter data by pubId and grouping.
        
-
     5. SparkSessionZipsExample to be familiar with Spark 2 Dataset/ DataFrame operation.
