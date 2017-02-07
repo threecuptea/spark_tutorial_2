@@ -19,7 +19,7 @@ import org.apache.spark.sql.types.DoubleType
   * mongoimport -d movielens -c movie_ratings --type csv -f user_id,movie_id,rating,timestamp data/ratings.csv
   *
   * To run it locally
-  * $SPARK_HOME/bin/spark-submit -packages org.mongodb.spark:mongo-spark-connector_2.11:2.0.0 \
+  * $SPARK_HOME/bin/spark-submit --packages org.mongodb.spark:mongo-spark-connector_2.11:2.0.0 \
   * --master local[*] --class org.freemind.spark.sql.MovieLensALSMongo target/scala-2.11/spark_tutorial_2_2.11-1.0.jar
   *
   * @author sling(threecuptea) wrote on 12/30/2016 - 2/4/2017 .
@@ -143,7 +143,7 @@ object MovieLensALSMongo {
     recommendation.show(50, false)
 
     printf("Execution time= %7.3f seconds\n", (System.currentTimeMillis() - start)/1000.00)
-    MongoSpark.save(recommendation.select($"movie_Id", $"title", $"prediction".cast(DoubleType)).write.mode("overwrite"), recomWriteConfig)
+    MongoSpark.save(recommendation.select($"movie_id", $"title", $"prediction".cast(DoubleType)).write.mode("overwrite"), recomWriteConfig)
 
     printf("Execution time= %7.3f seconds\n", (System.currentTimeMillis() - start)/1000.00)
   }
