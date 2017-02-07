@@ -1,4 +1,3 @@
-
 NON Java-transform pubId boundary is [25767515162. 25775536915], diff, inc= 8021754.
 NON Java-transform DanubeState count= 6708626
 +----------+---------------+----------+-----------+
@@ -77,8 +76,57 @@ NON Java-transform groupBy RESOURCE
 |episode_credits                          |51723  |
 |episode_ratings                          |41869  |
 |episode_releases                         |50580  |
+|episode_synopses                         |43721  |
+|group_id_mapping                         |40351  |
+|image                                    |10260  |
+|logo                                     |12     |
+|movie                                    |34266  |
+|movie_aired                              |30181  |
+|movie_awards                             |30212  |
+|movie_credits                            |32173  |
+|movie_ratings                            |30289  |
+|movie_related                            |30709  |
+|movie_releases                           |32126  |
+|movie_review                             |42222  |
+|movie_synopses                           |30389  |
+|movie_theatricals                        |30133  |
+|name                                     |355    |
+|name_images                              |496    |
+|other                                    |31250  |
+|other_aired                              |30496  |
+|other_awards                             |30324  |
+|other_credits                            |30567  |
+|other_ratings                            |30381  |
+|other_related                            |30734  |
+|other_releases                           |32755  |
+|other_synopses                           |30583  |
+|other_theatricals                        |30323  |
+|person                                   |571    |
+|person_awards                            |657    |
+|person_bios                              |335    |
+|person_filmography                       |4893   |
+|person_relatives                         |336    |
+|release                                  |39020  |
+|release_aired                            |33551  |
+|release_credits                          |40500  |
+|release_images                           |37752  |
+|release_ratings                          |38475  |
+|release_synopses                         |40792  |
+|release_theatricals                      |33207  |
+|season                                   |31946  |
+|season_episodes                          |36113  |
+|season_synopses                          |30077  |
+|series                                   |30780  |
+|series_awards                            |30332  |
+|series_credits                           |30591  |
+|series_history                           |30303  |
+|series_ratings                           |30343  |
+|series_seasons                           |30306  |
+|series_synopses                          |30414  |
+|service_channels                         |1957   |
+|source                                   |48     |
+|source_logos                             |2      |
 +-----------------------------------------+-------+
-only showing top 20 rows
 
 Java-transform groupBy RESOURCE
 +-----------------------------------------+-------+
@@ -104,60 +152,455 @@ Java-transform groupBy RESOURCE
 |episode                                  |71530  |
 |episode_aired                            |41100  |
 |episode_credits                          |43345  |
+|episode_ratings                          |42453  |
+|episode_releases                         |67648  |
+|episode_synopses                         |44012  |
+|group_id_mapping                         |40523  |
+|image                                    |11340  |
+|logo                                     |13     |
+|movie                                    |34740  |
+|movie_aired                              |30043  |
+|movie_awards                             |30034  |
+|movie_credits                            |31521  |
+|movie_ratings                            |30127  |
+|movie_related                            |30223  |
+|movie_releases                           |44564  |
+|movie_review                             |43227  |
+|movie_synopses                           |30278  |
+|movie_theatricals                        |29990  |
+|name                                     |357    |
+|name_images                              |600    |
+|other                                    |31899  |
+|other_aired                              |30337  |
+|other_awards                             |30160  |
+|other_credits                            |30237  |
+|other_ratings                            |30218  |
+|other_related                            |30809  |
+|other_releases                           |45338  |
+|other_synopses                           |30988  |
+|other_theatricals                        |30159  |
+|person                                   |624    |
+|person_awards                            |801    |
+|person_bios                              |336    |
+|person_filmography                       |8249   |
+|person_relatives                         |325    |
+|release                                  |45960  |
+|release_aired                            |50052  |
+|release_credits                          |36196  |
+|release_images                           |50993  |
+|release_ratings                          |51957  |
+|release_synopses                         |54198  |
+|release_theatricals                      |48910  |
+|season                                   |34698  |
+|season_episodes                          |47880  |
+|season_synopses                          |29902  |
+|series                                   |31011  |
+|series_awards                            |30184  |
+|series_credits                           |30302  |
+|series_history                           |30190  |
+|series_ratings                           |30214  |
+|series_seasons                           |30186  |
+|series_synopses                          |30288  |
+|service_channels                         |2592   |
+|source                                   |70     |
+|source_logos                             |3      |
 +-----------------------------------------+-------+
-only showing top 20 rows
 
 NON Java-transform groupBy RESOURCE and PUBLISH_STATE
-+-----------------------------------------+----------+-----+
-|resource                                 |nonJtState|count|
-+-----------------------------------------+----------+-----+
-|MXCreditMajor                            |NOPUBLISH |83752|
-|MXCreditMajor                            |PUBLISH   |737  |
-|MXCreditMajor                            |UNPUBLISH |5030 |
-|MXNamePersonPrimaryImage                 |PUBLISH   |311  |
-|MXNamePersonPrimaryImage                 |UNPUBLISH |178  |
-|MXNormalizedVideoWorkGrouping            |NOPUBLISH |15294|
-|MXNormalizedVideoWorkGrouping            |PUBLISH   |12492|
-|MXNormalizedVideoWorkGrouping            |UNPUBLISH |13828|
-|MXNormalizedVideoWorkGroupingPrimaryImage|NOPUBLISH |5833 |
-|MXNormalizedVideoWorkGroupingPrimaryImage|PUBLISH   |13015|
-|MXNormalizedVideoWorkGroupingPrimaryImage|UNPUBLISH |8134 |
-|MXNormalizedVideoWorkRelease             |NOPUBLISH |19737|
-|MXNormalizedVideoWorkRelease             |PUBLISH   |12224|
-|MXNormalizedVideoWorkRelease             |UNPUBLISH |21605|
-|MXNormalizedVideoWorkReleasePrimaryImage |NOPUBLISH |20811|
-|MXNormalizedVideoWorkReleasePrimaryImage |PUBLISH   |5854 |
-|MXNormalizedVideoWorkReleasePrimaryImage |UNPUBLISH |12492|
-|MXSourcePrimaryLogos                     |NOPUBLISH |1    |
-|MXSourcePrimaryLogos                     |PUBLISH   |1    |
-|MXVideoWorkGroupingPrimaryImage          |NOPUBLISH |23312|
-+-----------------------------------------+----------+-----+
-only showing top 20 rows
++-----------------------------------------+----------+-------+
+|resource                                 |nonJtState|count  |
++-----------------------------------------+----------+-------+
+|MXCreditMajor                            |NOPUBLISH |83752  |
+|MXCreditMajor                            |PUBLISH   |737    |
+|MXCreditMajor                            |UNPUBLISH |5030   |
+|MXNamePersonPrimaryImage                 |PUBLISH   |311    |
+|MXNamePersonPrimaryImage                 |UNPUBLISH |178    |
+|MXNormalizedVideoWorkGrouping            |NOPUBLISH |15294  |
+|MXNormalizedVideoWorkGrouping            |PUBLISH   |12492  |
+|MXNormalizedVideoWorkGrouping            |UNPUBLISH |13828  |
+|MXNormalizedVideoWorkGroupingPrimaryImage|NOPUBLISH |5833   |
+|MXNormalizedVideoWorkGroupingPrimaryImage|PUBLISH   |13015  |
+|MXNormalizedVideoWorkGroupingPrimaryImage|UNPUBLISH |8134   |
+|MXNormalizedVideoWorkRelease             |NOPUBLISH |19737  |
+|MXNormalizedVideoWorkRelease             |PUBLISH   |12224  |
+|MXNormalizedVideoWorkRelease             |UNPUBLISH |21605  |
+|MXNormalizedVideoWorkReleasePrimaryImage |NOPUBLISH |20811  |
+|MXNormalizedVideoWorkReleasePrimaryImage |PUBLISH   |5854   |
+|MXNormalizedVideoWorkReleasePrimaryImage |UNPUBLISH |12492  |
+|MXSourcePrimaryLogos                     |NOPUBLISH |1      |
+|MXSourcePrimaryLogos                     |PUBLISH   |1      |
+|MXVideoWorkGroupingPrimaryImage          |NOPUBLISH |23312  |
+|MXVideoWorkGroupingPrimaryImage          |PUBLISH   |4459   |
+|MXVideoWorkGroupingPrimaryImage          |UNPUBLISH |13828  |
+|MXVideoWorkPrimaryImage                  |NOPUBLISH |2212   |
+|MXVideoWorkPrimaryImage                  |PUBLISH   |2489   |
+|MXVideoWorkPrimaryImage                  |UNPUBLISH |21605  |
+|airing                                   |PUBLISH   |971703 |
+|airing                                   |UNPUBLISH |492772 |
+|airing_credits                           |NOPUBLISH |390762 |
+|airing_credits                           |PUBLISH   |1100049|
+|airing_credits                           |UNPUBLISH |492905 |
+|airing_synopses                          |PUBLISH   |843574 |
+|airing_synopses                          |UNPUBLISH |492951 |
+|award                                    |NOPUBLISH |7      |
+|award                                    |PUBLISH   |408    |
+|content                                  |NOPUBLISH |15287  |
+|content                                  |PUBLISH   |18484  |
+|content                                  |UNPUBLISH |13828  |
+|content_images                           |NOPUBLISH |23704  |
+|content_images                           |PUBLISH   |4480   |
+|content_images                           |UNPUBLISH |13828  |
+|episode                                  |NOPUBLISH |15668  |
+|episode                                  |PUBLISH   |21671  |
+|episode                                  |UNPUBLISH |13828  |
+|episode_aired                            |NOPUBLISH |19974  |
+|episode_aired                            |PUBLISH   |6900   |
+|episode_aired                            |UNPUBLISH |13828  |
+|episode_credits                          |NOPUBLISH |15677  |
+|episode_credits                          |PUBLISH   |22218  |
+|episode_credits                          |UNPUBLISH |13828  |
+|episode_ratings                          |NOPUBLISH |16016  |
+|episode_ratings                          |PUBLISH   |12025  |
+|episode_ratings                          |UNPUBLISH |13828  |
+|episode_releases                         |NOPUBLISH |17864  |
+|episode_releases                         |PUBLISH   |24599  |
+|episode_releases                         |UNPUBLISH |8117   |
+|episode_synopses                         |NOPUBLISH |15677  |
+|episode_synopses                         |PUBLISH   |14216  |
+|episode_synopses                         |UNPUBLISH |13828  |
+|group_id_mapping                         |NOPUBLISH |15295  |
+|group_id_mapping                         |PUBLISH   |11228  |
+|group_id_mapping                         |UNPUBLISH |13828  |
+|image                                    |NOPUBLISH |7946   |
+|image                                    |PUBLISH   |2309   |
+|image                                    |UNPUBLISH |5      |
+|logo                                     |NOPUBLISH |1      |
+|logo                                     |PUBLISH   |11     |
+|movie                                    |NOPUBLISH |16128  |
+|movie                                    |PUBLISH   |4310   |
+|movie                                    |UNPUBLISH |13828  |
+|movie_aired                              |NOPUBLISH |16279  |
+|movie_aired                              |PUBLISH   |74     |
+|movie_aired                              |UNPUBLISH |13828  |
+|movie_awards                             |NOPUBLISH |16293  |
+|movie_awards                             |PUBLISH   |91     |
+|movie_awards                             |UNPUBLISH |13828  |
+|movie_credits                            |NOPUBLISH |16128  |
+|movie_credits                            |PUBLISH   |2217   |
+|movie_credits                            |UNPUBLISH |13828  |
+|movie_ratings                            |NOPUBLISH |16178  |
+|movie_ratings                            |PUBLISH   |283    |
+|movie_ratings                            |UNPUBLISH |13828  |
+|movie_related                            |NOPUBLISH |16059  |
+|movie_related                            |PUBLISH   |822    |
+|movie_related                            |UNPUBLISH |13828  |
+|movie_releases                           |NOPUBLISH |23248  |
+|movie_releases                           |PUBLISH   |956    |
+|movie_releases                           |UNPUBLISH |7922   |
+|movie_review                             |NOPUBLISH |28377  |
+|movie_review                             |PUBLISH   |17     |
+|movie_review                             |UNPUBLISH |13828  |
+|movie_synopses                           |NOPUBLISH |16128  |
+|movie_synopses                           |PUBLISH   |433    |
+|movie_synopses                           |UNPUBLISH |13828  |
+|movie_theatricals                        |NOPUBLISH |16273  |
+|movie_theatricals                        |PUBLISH   |32     |
+|movie_theatricals                        |UNPUBLISH |13828  |
+|name                                     |PUBLISH   |177    |
+|name                                     |UNPUBLISH |178    |
+|name_images                              |PUBLISH   |318    |
+|name_images                              |UNPUBLISH |178    |
+|other                                    |NOPUBLISH |16036  |
+|other                                    |PUBLISH   |1386   |
+|other                                    |UNPUBLISH |13828  |
+|other_aired                              |NOPUBLISH |16487  |
+|other_aired                              |PUBLISH   |181    |
+|other_aired                              |UNPUBLISH |13828  |
+|other_awards                             |NOPUBLISH |16494  |
+|other_awards                             |PUBLISH   |2      |
+|other_awards                             |UNPUBLISH |13828  |
+|other_credits                            |NOPUBLISH |16035  |
+|other_credits                            |PUBLISH   |704    |
+|other_credits                            |UNPUBLISH |13828  |
+|other_ratings                            |NOPUBLISH |16400  |
+|other_ratings                            |PUBLISH   |153    |
+|other_ratings                            |UNPUBLISH |13828  |
+|other_related                            |NOPUBLISH |9556   |
+|other_related                            |PUBLISH   |7350   |
+|other_related                            |UNPUBLISH |13828  |
+|other_releases                           |NOPUBLISH |8170   |
+|other_releases                           |PUBLISH   |16690  |
+|other_releases                           |UNPUBLISH |7895   |
+|other_synopses                           |NOPUBLISH |16037  |
+|other_synopses                           |PUBLISH   |718    |
+|other_synopses                           |UNPUBLISH |13828  |
+|other_theatricals                        |NOPUBLISH |16495  |
+|other_theatricals                        |UNPUBLISH |13828  |
+|person                                   |PUBLISH   |393    |
+|person                                   |UNPUBLISH |178    |
+|person_awards                            |NOPUBLISH |158    |
+|person_awards                            |PUBLISH   |321    |
+|person_awards                            |UNPUBLISH |178    |
+|person_bios                              |PUBLISH   |157    |
+|person_bios                              |UNPUBLISH |178    |
+|person_filmography                       |NOPUBLISH |148    |
+|person_filmography                       |PUBLISH   |4567   |
+|person_filmography                       |UNPUBLISH |178    |
+|person_relatives                         |PUBLISH   |158    |
+|person_relatives                         |UNPUBLISH |178    |
+|release                                  |PUBLISH   |27447  |
+|release                                  |UNPUBLISH |11573  |
+|release_aired                            |NOPUBLISH |11225  |
+|release_aired                            |PUBLISH   |8284   |
+|release_aired                            |UNPUBLISH |14042  |
+|release_credits                          |PUBLISH   |26737  |
+|release_credits                          |UNPUBLISH |13763  |
+|release_images                           |NOPUBLISH |18077  |
+|release_images                           |PUBLISH   |5758   |
+|release_images                           |UNPUBLISH |13917  |
+|release_ratings                          |NOPUBLISH |10841  |
+|release_ratings                          |PUBLISH   |15728  |
+|release_ratings                          |UNPUBLISH |11906  |
+|release_synopses                         |NOPUBLISH |8433   |
+|release_synopses                         |PUBLISH   |19151  |
+|release_synopses                         |UNPUBLISH |13208  |
+|release_theatricals                      |NOPUBLISH |19658  |
+|release_theatricals                      |PUBLISH   |53     |
+|release_theatricals                      |UNPUBLISH |13496  |
+|season                                   |NOPUBLISH |16163  |
+|season                                   |PUBLISH   |1955   |
+|season                                   |UNPUBLISH |13828  |
+|season_episodes                          |NOPUBLISH |17291  |
+|season_episodes                          |PUBLISH   |4994   |
+|season_episodes                          |UNPUBLISH |13828  |
+|season_synopses                          |NOPUBLISH |16163  |
+|season_synopses                          |PUBLISH   |86     |
+|season_synopses                          |UNPUBLISH |13828  |
+|series                                   |NOPUBLISH |16062  |
+|series                                   |PUBLISH   |890    |
+|series                                   |UNPUBLISH |13828  |
+|series_awards                            |NOPUBLISH |16453  |
+|series_awards                            |PUBLISH   |51     |
+|series_awards                            |UNPUBLISH |13828  |
+|series_credits                           |NOPUBLISH |16063  |
+|series_credits                           |PUBLISH   |700    |
+|series_credits                           |UNPUBLISH |13828  |
+|series_history                           |NOPUBLISH |16062  |
+|series_history                           |PUBLISH   |413    |
+|series_history                           |UNPUBLISH |13828  |
+|series_ratings                           |NOPUBLISH |16292  |
+|series_ratings                           |PUBLISH   |223    |
+|series_ratings                           |UNPUBLISH |13828  |
+|series_seasons                           |NOPUBLISH |16430  |
+|series_seasons                           |PUBLISH   |48     |
+|series_seasons                           |UNPUBLISH |13828  |
+|series_synopses                          |NOPUBLISH |16062  |
+|series_synopses                          |PUBLISH   |524    |
+|series_synopses                          |UNPUBLISH |13828  |
+|service_channels                         |PUBLISH   |1957   |
+|source                                   |PUBLISH   |48     |
+|source_logos                             |PUBLISH   |2      |
++-----------------------------------------+----------+-------+
 
 Java-transform groupBy RESOURCE and PUBLISH_STATE
-+-----------------------------------------+---------+------+
-|resource                                 |jtState  |count |
-+-----------------------------------------+---------+------+
-|MXCreditEpisodeGuest                     |NOPUBLISH|101411|
-|MXCreditEpisodeGuest                     |PUBLISH  |1028  |
-|MXCreditEpisodeGuest                     |UNPUBLISH|4895  |
-|MXCreditEpisodeRegular                   |NOPUBLISH|89084 |
-|MXCreditEpisodeRegular                   |PUBLISH  |13355 |
-|MXCreditEpisodeRegular                   |UNPUBLISH|4895  |
-|MXCreditMajor                            |NOPUBLISH|91455 |
-|MXCreditMajor                            |PUBLISH  |931   |
-|MXCreditMajor                            |UNPUBLISH|4900  |
-|MXNamePersonPrimaryImage                 |PUBLISH  |404   |
-|MXNamePersonPrimaryImage                 |UNPUBLISH|178   |
-|MXNormalizedVideoWorkGrouping            |NOPUBLISH|15278 |
-|MXNormalizedVideoWorkGrouping            |PUBLISH  |12830 |
-|MXNormalizedVideoWorkGrouping            |UNPUBLISH|13829 |
-|MXNormalizedVideoWorkGroupingPrimaryImage|NOPUBLISH|13650 |
-|MXNormalizedVideoWorkGroupingPrimaryImage|PUBLISH  |14723 |
-|MXNormalizedVideoWorkGroupingPrimaryImage|UNPUBLISH|9997  |
-|MXNormalizedVideoWorkRelease             |NOPUBLISH|20616 |
-|MXNormalizedVideoWorkRelease             |PUBLISH  |12465 |
-|MXNormalizedVideoWorkRelease             |UNPUBLISH|21468 |
-+-----------------------------------------+---------+------+
-only showing top 20 rows
++-----------------------------------------+---------+-------+
+|resource                                 |jtState  |count  |
++-----------------------------------------+---------+-------+
+|MXCreditEpisodeGuest                     |NOPUBLISH|101411 |
+|MXCreditEpisodeGuest                     |PUBLISH  |1028   |
+|MXCreditEpisodeGuest                     |UNPUBLISH|4895   |
+|MXCreditEpisodeRegular                   |NOPUBLISH|89084  |
+|MXCreditEpisodeRegular                   |PUBLISH  |13355  |
+|MXCreditEpisodeRegular                   |UNPUBLISH|4895   |
+|MXCreditMajor                            |NOPUBLISH|91455  |
+|MXCreditMajor                            |PUBLISH  |931    |
+|MXCreditMajor                            |UNPUBLISH|4900   |
+|MXNamePersonPrimaryImage                 |PUBLISH  |404    |
+|MXNamePersonPrimaryImage                 |UNPUBLISH|178    |
+|MXNormalizedVideoWorkGrouping            |NOPUBLISH|15278  |
+|MXNormalizedVideoWorkGrouping            |PUBLISH  |12830  |
+|MXNormalizedVideoWorkGrouping            |UNPUBLISH|13829  |
+|MXNormalizedVideoWorkGroupingPrimaryImage|NOPUBLISH|13650  |
+|MXNormalizedVideoWorkGroupingPrimaryImage|PUBLISH  |14723  |
+|MXNormalizedVideoWorkGroupingPrimaryImage|UNPUBLISH|9997   |
+|MXNormalizedVideoWorkRelease             |NOPUBLISH|20616  |
+|MXNormalizedVideoWorkRelease             |PUBLISH  |12465  |
+|MXNormalizedVideoWorkRelease             |UNPUBLISH|21468  |
+|MXNormalizedVideoWorkReleasePrimaryImage |NOPUBLISH|28182  |
+|MXNormalizedVideoWorkReleasePrimaryImage |PUBLISH  |8749   |
+|MXNormalizedVideoWorkReleasePrimaryImage |UNPUBLISH|14062  |
+|MXSourcePrimaryLogos                     |NOPUBLISH|1      |
+|MXSourcePrimaryLogos                     |PUBLISH  |2      |
+|MXVideoWorkGroupingPrimaryImage          |NOPUBLISH|23426  |
+|MXVideoWorkGroupingPrimaryImage          |PUBLISH  |5223   |
+|MXVideoWorkGroupingPrimaryImage          |UNPUBLISH|13829  |
+|MXVideoWorkPrimaryImage                  |NOPUBLISH|2230   |
+|MXVideoWorkPrimaryImage                  |PUBLISH  |3839   |
+|MXVideoWorkPrimaryImage                  |UNPUBLISH|21466  |
+|airing                                   |PUBLISH  |1333421|
+|airing                                   |UNPUBLISH|487299 |
+|airing_credits                           |NOPUBLISH|389409 |
+|airing_credits                           |PUBLISH  |552433 |
+|airing_credits                           |UNPUBLISH|485795 |
+|airing_synopses                          |PUBLISH  |864977 |
+|airing_synopses                          |UNPUBLISH|485762 |
+|award                                    |NOPUBLISH|12     |
+|award                                    |PUBLISH  |573    |
+|content                                  |NOPUBLISH|15289  |
+|content                                  |PUBLISH  |23368  |
+|content                                  |UNPUBLISH|13829  |
+|content_images                           |NOPUBLISH|23908  |
+|content_images                           |PUBLISH  |5246   |
+|content_images                           |UNPUBLISH|13829  |
+|episode                                  |NOPUBLISH|15670  |
+|episode                                  |PUBLISH  |42031  |
+|episode                                  |UNPUBLISH|13829  |
+|episode_aired                            |NOPUBLISH|20067  |
+|episode_aired                            |PUBLISH  |7204   |
+|episode_aired                            |UNPUBLISH|13829  |
+|episode_credits                          |NOPUBLISH|15654  |
+|episode_credits                          |PUBLISH  |13862  |
+|episode_credits                          |UNPUBLISH|13829  |
+|episode_ratings                          |NOPUBLISH|15998  |
+|episode_ratings                          |PUBLISH  |12626  |
+|episode_ratings                          |UNPUBLISH|13829  |
+|episode_releases                         |NOPUBLISH|33419  |
+|episode_releases                         |PUBLISH  |24298  |
+|episode_releases                         |UNPUBLISH|9931   |
+|episode_synopses                         |NOPUBLISH|15628  |
+|episode_synopses                         |PUBLISH  |14555  |
+|episode_synopses                         |UNPUBLISH|13829  |
+|group_id_mapping                         |NOPUBLISH|15265  |
+|group_id_mapping                         |PUBLISH  |11429  |
+|group_id_mapping                         |UNPUBLISH|13829  |
+|image                                    |NOPUBLISH|8380   |
+|image                                    |PUBLISH  |2955   |
+|image                                    |UNPUBLISH|5      |
+|logo                                     |NOPUBLISH|1      |
+|logo                                     |PUBLISH  |12     |
+|movie                                    |NOPUBLISH|15968  |
+|movie                                    |PUBLISH  |4941   |
+|movie                                    |UNPUBLISH|13831  |
+|movie_aired                              |NOPUBLISH|16108  |
+|movie_aired                              |PUBLISH  |106    |
+|movie_aired                              |UNPUBLISH|13829  |
+|movie_awards                             |NOPUBLISH|16123  |
+|movie_awards                             |PUBLISH  |82     |
+|movie_awards                             |UNPUBLISH|13829  |
+|movie_credits                            |NOPUBLISH|15963  |
+|movie_credits                            |PUBLISH  |1729   |
+|movie_credits                            |UNPUBLISH|13829  |
+|movie_ratings                            |NOPUBLISH|16014  |
+|movie_ratings                            |PUBLISH  |284    |
+|movie_ratings                            |UNPUBLISH|13829  |
+|movie_related                            |NOPUBLISH|16100  |
+|movie_related                            |PUBLISH  |294    |
+|movie_related                            |UNPUBLISH|13829  |
+|movie_releases                           |NOPUBLISH|34019  |
+|movie_releases                           |PUBLISH  |860    |
+|movie_releases                           |UNPUBLISH|9685   |
+|movie_review                             |NOPUBLISH|29383  |
+|movie_review                             |PUBLISH  |15     |
+|movie_review                             |UNPUBLISH|13829  |
+|movie_synopses                           |NOPUBLISH|15962  |
+|movie_synopses                           |PUBLISH  |487    |
+|movie_synopses                           |UNPUBLISH|13829  |
+|movie_theatricals                        |NOPUBLISH|16104  |
+|movie_theatricals                        |PUBLISH  |57     |
+|movie_theatricals                        |UNPUBLISH|13829  |
+|name                                     |PUBLISH  |179    |
+|name                                     |UNPUBLISH|178    |
+|name_images                              |PUBLISH  |422    |
+|name_images                              |UNPUBLISH|178    |
+|other                                    |NOPUBLISH|15872  |
+|other                                    |PUBLISH  |2194   |
+|other                                    |UNPUBLISH|13833  |
+|other_aired                              |NOPUBLISH|16324  |
+|other_aired                              |PUBLISH  |184    |
+|other_aired                              |UNPUBLISH|13829  |
+|other_awards                             |NOPUBLISH|16329  |
+|other_awards                             |PUBLISH  |2      |
+|other_awards                             |UNPUBLISH|13829  |
+|other_credits                            |NOPUBLISH|15868  |
+|other_credits                            |PUBLISH  |540    |
+|other_credits                            |UNPUBLISH|13829  |
+|other_ratings                            |NOPUBLISH|16234  |
+|other_ratings                            |PUBLISH  |155    |
+|other_ratings                            |UNPUBLISH|13829  |
+|other_related                            |NOPUBLISH|9499   |
+|other_related                            |PUBLISH  |7481   |
+|other_related                            |UNPUBLISH|13829  |
+|other_releases                           |NOPUBLISH|33938  |
+|other_releases                           |PUBLISH  |1734   |
+|other_releases                           |UNPUBLISH|9666   |
+|other_synopses                           |NOPUBLISH|15844  |
+|other_synopses                           |PUBLISH  |1315   |
+|other_synopses                           |UNPUBLISH|13829  |
+|other_theatricals                        |NOPUBLISH|16330  |
+|other_theatricals                        |UNPUBLISH|13829  |
+|person                                   |PUBLISH  |446    |
+|person                                   |UNPUBLISH|178    |
+|person_awards                            |NOPUBLISH|169    |
+|person_awards                            |PUBLISH  |454    |
+|person_awards                            |UNPUBLISH|178    |
+|person_bios                              |PUBLISH  |158    |
+|person_bios                              |UNPUBLISH|178    |
+|person_filmography                       |NOPUBLISH|148    |
+|person_filmography                       |PUBLISH  |7923   |
+|person_filmography                       |UNPUBLISH|178    |
+|person_relatives                         |PUBLISH  |147    |
+|person_relatives                         |UNPUBLISH|178    |
+|release                                  |PUBLISH  |31937  |
+|release                                  |UNPUBLISH|14023  |
+|release_aired                            |NOPUBLISH|22728  |
+|release_aired                            |PUBLISH  |13264  |
+|release_aired                            |UNPUBLISH|14060  |
+|release_credits                          |PUBLISH  |22149  |
+|release_credits                          |UNPUBLISH|14047  |
+|release_images                           |NOPUBLISH|28209  |
+|release_images                           |PUBLISH  |8749   |
+|release_images                           |UNPUBLISH|14035  |
+|release_ratings                          |NOPUBLISH|13644  |
+|release_ratings                          |PUBLISH  |24272  |
+|release_ratings                          |UNPUBLISH|14041  |
+|release_synopses                         |NOPUBLISH|14779  |
+|release_synopses                         |PUBLISH  |25394  |
+|release_synopses                         |UNPUBLISH|14025  |
+|release_theatricals                      |NOPUBLISH|34773  |
+|release_theatricals                      |PUBLISH  |100    |
+|release_theatricals                      |UNPUBLISH|14037  |
+|season                                   |NOPUBLISH|15993  |
+|season                                   |PUBLISH  |4876   |
+|season                                   |UNPUBLISH|13829  |
+|season_episodes                          |NOPUBLISH|17149  |
+|season_episodes                          |PUBLISH  |16902  |
+|season_episodes                          |UNPUBLISH|13829  |
+|season_synopses                          |NOPUBLISH|15990  |
+|season_synopses                          |PUBLISH  |83     |
+|season_synopses                          |UNPUBLISH|13829  |
+|series                                   |NOPUBLISH|15906  |
+|series                                   |PUBLISH  |1276   |
+|series                                   |UNPUBLISH|13829  |
+|series_awards                            |NOPUBLISH|16315  |
+|series_awards                            |PUBLISH  |40     |
+|series_awards                            |UNPUBLISH|13829  |
+|series_credits                           |NOPUBLISH|15902  |
+|series_credits                           |PUBLISH  |571    |
+|series_credits                           |UNPUBLISH|13829  |
+|series_history                           |NOPUBLISH|15902  |
+|series_history                           |PUBLISH  |459    |
+|series_history                           |UNPUBLISH|13829  |
+|series_ratings                           |NOPUBLISH|16156  |
+|series_ratings                           |PUBLISH  |229    |
+|series_ratings                           |UNPUBLISH|13829  |
+|series_seasons                           |NOPUBLISH|16295  |
+|series_seasons                           |PUBLISH  |62     |
+|series_seasons                           |UNPUBLISH|13829  |
+|series_synopses                          |NOPUBLISH|15902  |
+|series_synopses                          |PUBLISH  |557    |
+|series_synopses                          |UNPUBLISH|13829  |
+|service_channels                         |PUBLISH  |2592   |
+|source                                   |PUBLISH  |70     |
+|source_logos                             |PUBLISH  |3      |
++-----------------------------------------+---------+-------+
 

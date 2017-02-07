@@ -65,14 +65,14 @@ object DanubeStatesAnalysis {
     jtDS.groupBy($"jtState").count().show(truncate = false)
 
     println("NON Java-transform groupBy RESOURCE")
-    nonJtDS.groupBy($"resource").count().sort("resource").show(truncate = false)
+    nonJtDS.groupBy($"resource").count().sort("resource").show(250, truncate = false)
     println("Java-transform groupBy RESOURCE")
-    jtDS.groupBy($"resource").count().sort("resource").show(truncate = false)
+    jtDS.groupBy($"resource").count().sort("resource").show(250, truncate = false)
 
     println("NON Java-transform groupBy RESOURCE and PUBLISH_STATE")
-    nonJtDS.groupBy($"resource", $"nonJtState").count().sort($"resource", $"nonJtState").show(truncate = false)
+    nonJtDS.groupBy($"resource", $"nonJtState").count().sort($"resource", $"nonJtState").show(500, truncate = false)
     println("Java-transform groupBy RESOURCE and PUBLISH_STATE")
-    jtDS.groupBy($"resource", $"jtState").count().sort($"resource", $"jtState").show(truncate = false)
+    jtDS.groupBy($"resource", $"jtState").count().sort($"resource", $"jtState").show(500, truncate = false)
 
 
   }
