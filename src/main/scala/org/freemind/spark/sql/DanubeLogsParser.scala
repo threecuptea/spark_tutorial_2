@@ -24,7 +24,7 @@ class DanubeLogsParser extends Serializable {
   //Ignore the rest of logs. We do not care about it at this case
   val nonJtLogRegEx = "\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+) (\\d+) \\((\\d+)\\)"
 
-  val jtLogRegEx    = "^\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+)\\-(\\d+) \\((\\d+)\\)"
+  val jtLogRegEx    = "\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+)\\-(\\d+) \\((\\d+)\\)"
 
 
   val nonjtPattern:Pattern = Pattern.compile(nonJtLogRegEx)

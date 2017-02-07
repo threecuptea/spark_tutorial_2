@@ -35,9 +35,7 @@ object DanubeStatesAnalysis {
     val nonJtUpper = if (args.length > 2) args(3).toLong else 99999999999L
     val jtLower = if (args.length > 2) args(4).toLong else 0L
     val jtUpper = if (args.length > 2) args(5).toLong else 99999999999L
-    printf("NON Java-transform pubId boundary is [%d. %d].\n", nonJtLower, nonJtUpper)
-    printf("Java-transform pubId boundary is [%d. %d].\n", jtLower, jtUpper)
-    println()
+
     val spark = SparkSession
       .builder()
       .appName("MovieLensALS")
@@ -48,15 +46,16 @@ object DanubeStatesAnalysis {
     val jtRawDS = spark.read.textFile(jtLog)
 
     val parser = new DanubeLogsParser()
-
-    val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog).filter($"pubId".between(nonJtLower, nonJtUpper)).cache()
     //Do the followings if I only want to include PUBLISH and UNPUBLISH state in the report
     //val statesInc = Seq("PUBLISH", "UNPUBLISH") //_* expanded to var args
     //val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog).filter($"pubId".between(nonJtLower, nonJtUpper) && $"pubId".isin(statesInc:_*)).cache()
+    val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog).filter($"pubId".between(nonJtLower, nonJtUpper)).cache()
+    printf("NON Java-transform pubId boundary is [%d. %d], diff, inc= %d.\n", nonJtLower, nonJtUpper, (nonJtUpper - nonJtLower + 1))
     println(s"NON Java-transform DanubeState count= ${nonJtDS.count}")
     nonJtDS.show(10, truncate = false)
 
     val jtDS = jtRawDS.flatMap(parser.parseJtLog).filter($"pubId".between(jtLower, jtUpper)).cache()
+    printf("Java-transform pubId boundary is [%d. %d], diff, inc= %d.\n", jtLower, jtUpper, (jtUpper - jtLower + 1))
     println(s"Java-transform DanubeState count= ${jtDS.count}")
     jtDS.show(10, truncate = false)
 
