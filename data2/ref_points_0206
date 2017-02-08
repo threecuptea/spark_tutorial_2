@@ -1,0 +1,87 @@
+
+>=25767515162, <= 25775536915
+fandev@ubuntu:~/Downloads/0206/prod$ zcat *.gz | grep 4515519872
+2017-02-06 16:37:17,157[listener-2] - PUBLISH airing 4515519872 (25767515174) - poll: 1ms get: 64ms xml: 0ms transform: 6ms publish: 0ms confirm: 6ms [ 77ms 2017-02-06T16:37:17.080 ] 
+2017-02-06 16:37:17,094[listener-1] - PUBLISH airing_credits 4515519872 (25767515162) - poll: 5ms get: 26ms xml: 0ms transform: 3ms publish: 0ms confirm: 1ms [ 35ms 2017-02-06T16:37:17.059 ] 
+2017-02-06 16:37:17,121[listener-5] - PUBLISH airing_synopses 4515519872 (25767515181) - poll: 4ms get: 23ms xml: 0ms transform: 2ms publish: 0ms confirm: 1ms [ 30ms 2017-02-06T16:37:17.091 ] 
+fandev@ubuntu:~/Downloads/0206/prod$ zcat *.gz | grep 4515533278
+2017-02-06 16:38:12,794[listener-2] - NOPUBLISH airing_credits 4515533278 (25767577064) - (root only) poll: 1ms get: 3ms xml: 0ms transform: 1ms publish: 0ms confirm: 0ms [ 5ms 2017-02-06T16:38:12.789 ] 
+2017-02-06 16:38:12,974[listener-5] - PUBLISH airing 4515533278 (25767577068) - poll: 2ms get: 167ms xml: 1ms transform: 6ms publish: 0ms confirm: 1ms [ 177ms 2017-02-06T16:38:12.797 ] 
+2017-02-06 16:38:12,836[listener-3] - PUBLISH airing_synopses 4515533278 (25767577071) - poll: 39ms get: 26ms xml: 1ms transform: 4ms publish: 0ms confirm: 1ms [ 71ms 2017-02-06T16:38:12.765 ] 
+
+
+fandev@ubuntu:~/Downloads/0206/prod$ zcat *.gz | grep 4516652543
+2017-02-06 23:44:31,185[listener-3] - PUBLISH airing 4516652543 (25775536460) - poll: 15ms get: 25ms xml: 1ms transform: 5ms publish: 0ms confirm: 1ms [ 47ms 2017-02-06T23:44:31.138 ] 
+2017-02-06 23:44:31,144[listener-1] - NOPUBLISH airing_credits 4516652543 (25775536453) - (root only) poll: 4ms get: 6ms xml: 0ms transform: 0ms publish: 0ms confirm: 2ms [ 12ms 2017-02-06T23:44:31.132 ] 
+2017-02-06 23:44:31,183[listener-1] - PUBLISH airing_synopses 4516652543 (25775536472) - poll: 8ms get: 14ms xml: 0ms transform: 2ms publish: 0ms confirm: 1ms [ 25ms 2017-02-06T23:44:31.158 ] 
+
+fandev@ubuntu:~/Downloads/0206/prod$ zcat *.gz | grep 4516652602
+2017-02-06 23:44:33,313[listener-0] - PUBLISH airing_synopses 4516652602 (25775536915) - poll: 19ms get: 16ms xml: 0ms transform: 1ms publish: 0ms confirm: 4ms [ 40ms 2017-02-06T23:44:33.273 ] 
+2017-02-06 23:44:33,389[listener-6] - PUBLISH airing 4516652602 (25775536914) - poll: 2ms get: 86ms xml: 1ms transform: 8ms publish: 1ms confirm: 1ms [ 99ms 2017-02-06T23:44:33.290 ] 
+2017-02-06 23:44:33,380[listener-3] - PUBLISH airing_credits 4516652602 (25775536906) - poll: 20ms get: 92ms xml: 0ms transform: 8ms publish: 0ms confirm: 1ms [ 121ms 2017-02-06T23:44:33.259 ] 
+
+
+
+>= 25773078578, <= 25780664868
+fandev@ubuntu:~/Downloads/0206/dev$ zcat *.gz | grep 4515519872
+INFO [listener-6] - PUBLISH airing_synopses-4515519872 (25773078620) - poll: 9ms get: 36ms xml: 0ms transform: 7ms publish: 45ms confirm: 4ms [ 58ms 2017-02-06T20:01:22.729 ] 
+INFO [listener-5] - PUBLISH airing_credits-4515519872 (25773078609) - poll: 8ms get: 24ms xml: 0ms transform: 2ms publish: 28ms confirm: 3ms [ 39ms 2017-02-06T20:01:22.723 ] 
+INFO [listener-6] - PUBLISH airing-4515519872 (25773078598) - poll: 2ms get: 83ms xml: 2ms transform: 56ms publish: 142ms confirm: 1ms [ 146ms 2017-02-06T20:01:22.719 ] 
+fandev@ubuntu:~/Downloads/0206/dev$ zcat *.gz | grep 4515533278
+INFO [listener-6] - PUBLISH airing_synopses-4515533278 (25773078601) - poll: 24ms get: 41ms xml: 1ms transform: 14ms publish: 57ms confirm: 2ms [ 83ms 2017-02-06T20:01:22.700 ] 
+INFO [listener-2] - NOPUBLISH airing_credits-4515533278 (25773078595) - (root only) poll: 5ms get: 9ms xml: 0ms transform: 0ms publish: 9ms confirm: 1ms [ 16ms 2017-02-06T20:01:22.711 ] 
+INFO [listener-2] - PUBLISH airing-4515533278 (25773078578) - poll: 5ms get: 106ms xml: 2ms transform: 41ms publish: 150ms confirm: 2ms [ 157ms 2017-02-06T20:01:22.700 ] 
+
+
+fandev@ubuntu:~/Downloads/0206/dev$ zcat *.gz | grep 4516652543
+INFO [listener-2] - NOPUBLISH airing_credits-4516652543 (25780664258) - (root only) poll: 4ms get: 5ms xml: 0ms transform: 0ms publish: 5ms confirm: 2ms [ 12ms 2017-02-06T23:57:48.382 ] 
+INFO [listener-4] - PUBLISH airing-4516652543 (25780664255) - poll: 6ms get: 79ms xml: 1ms transform: 33ms publish: 114ms confirm: 17ms [ 138ms 2017-02-06T23:57:48.364 ] 
+INFO [listener-4] - PUBLISH airing_synopses-4516652543 (25780664260) - poll: 3ms get: 32ms xml: 0ms transform: 1ms publish: 35ms confirm: 3ms [ 41ms 2017-02-06T23:57:48.407 ] 
+
+fandev@ubuntu:~/Downloads/0206/dev$ zcat *.gz | grep 4516652602
+INFO [listener-2] - PUBLISH airing_synopses-4516652602 (25780664863) - poll: 4ms get: 25ms xml: 0ms transform: 1ms publish: 28ms confirm: 1ms [ 33ms 2017-02-06T23:57:53.819 ] 
+INFO [listener-5] - PUBLISH airing-4516652602 (25780664865) - poll: 9ms get: 48ms xml: 1ms transform: 25ms publish: 75ms confirm: 13ms [ 97ms 2017-02-06T23:57:53.841 ] 
+INFO [listener-2] - PUBLISH airing_credits-4516652602 (25780664868) - poll: 2ms get: 232ms xml: 1ms transform: 33ms publish: 283ms confirm: 1ms [ 286ms 2017-02-06T23:57:53.852 ] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INFO [listener-2] - UNPUBLISH airing-4446488327 (25780664123) - (delete) poll: 4ms get: 0ms xml: 0ms transform: 0ms publish: 1ms confirm: 0ms [ 6ms 2017-02-06T23:57:47.246 ] 
+INFO [listener-4] - PUBLISH airing-4516652543 (25780664255) - poll: 6ms get: 79ms xml: 1ms transform: 33ms publish: 114ms confirm: 17ms [ 138ms 2017-02-06T23:57:48.364 ] 
+INFO [listener-5] - PUBLISH airing-4516652602 (25780664865) - poll: 9ms get: 48ms xml: 1ms transform: 25ms publish: 75ms confirm: 13ms [ 97ms 2017-02-06T23:57:53.841 ] 
+INFO [listener-3] - PUBLISH airing-4516652561 (25780665025) - poll: 17ms get: 75ms xml: 1ms transform: 42ms publish: 120ms confirm: 1ms [ 139ms 2017-02-06T23:57:55.122 ] 
+INFO [listener-0] - UNPUBLISH airing-4444672606 (25780666389) - (delete) poll: 10ms get: 0ms xml: 0ms transform: 0ms publish: 0ms confirm: 1ms [ 12ms 2017-02-06T23:58:06.054 ] 
+INFO [listener-5] - UNPUBLISH airing-4453708184 (25780669173) - (delete) poll: 15ms get: 2ms xml: 0ms transform: 0ms publish: 2ms confirm: 0ms [ 18ms 2017-02-06T23:58:31.176 ] 
+INFO [listener-0] - UNPUBLISH airing-4375973545 (25780672332) - (delete) poll: 4ms get: 6ms xml: 0ms transform: 0ms publish: 7ms confirm: 0ms [ 12ms 2017-02-06T23:58:56.658 ] 
+INFO [listener-1] - UNPUBLISH airing-4375973546 (25780672343) - (delete) poll: 4ms get: 0ms xml: 0ms transform: 0ms publish: 0ms confirm: 1ms [ 5ms 2017-02-06T23:58:56.697 ] 
+INFO [listener-2] - PUBLISH airing-4375770501 (25780672326) - poll: 13ms get: 105ms xml: 1ms transform: 82ms publish: 189ms confirm: 1ms [ 204ms 2017-02-06T23:58:56.599 ] 
+INFO [listener-2] - UNPUBLISH airing-4375770634 (25780672366) - (delete) poll: 10ms get: 0ms xml: 0ms transform: 0ms publish: 0ms confirm: 1ms [ 12ms 2017-02-06T23:58:56.803 ] 
+INFO [listener-1] - PUBLISH airing-4390137029 (25780672434) - poll: 6ms get: 112ms xml: 1ms transform: 65ms publish: 179ms confirm: 17ms [ 203ms 2017-02-06T23:58:57.318 ] 
+INFO [listener-5] - PUBLISH airing-4345647832 (25780674938) - poll: 2ms get: 88ms xml: 1ms transform: 41ms publish: 132ms confirm: 3ms [ 137ms 2017-02-06T23:59:13.505 ] 
+
+
+
+

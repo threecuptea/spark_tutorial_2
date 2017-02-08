@@ -19,6 +19,15 @@ case class DanubeJTState (
                                pubId: Long
                              )
 
+case class DanubeStates (
+                           roviId: Long,
+                           resource: String,
+                           state: String,
+                           pubId: Long,
+                           jtNo: Byte,
+                           jtYes: Byte
+                         )
+
 class DanubeLogsParser extends Serializable {
 
   //Ignore the rest of logs. We do not care about it at this case
@@ -41,6 +50,44 @@ class DanubeLogsParser extends Serializable {
           resource = m.group(2),
           roviId = m.group(3).toLong,
           pubId = m.group(4).toLong
+        )
+      )
+    }
+    else {
+      None
+    }
+  }
+
+  def parseNonJtLog2(s: String): Option[DanubeStates] = {
+    val m:Matcher = nonjtPattern.matcher(s)
+    if (m.find) {
+      Some(
+        DanubeStates(
+          state = m.group(1),
+          resource = m.group(2),
+          roviId = m.group(3).toLong,
+          pubId = m.group(4).toLong,
+          jtNo = 1,
+          jtYes = 0
+        )
+      )
+    }
+    else {
+      None
+    }
+  }
+
+  def parseJtLog2(s: String): Option[DanubeStates] = {
+    val m:Matcher = jtPattern.matcher(s)
+    if (m.find) {
+      Some(
+        DanubeStates (
+          state = m.group(1),
+          resource = m.group(2),
+          roviId = m.group(3).toLong,
+          pubId = m.group(4).toLong,
+          jtNo = 0,
+          jtYes = 1
         )
       )
     }
