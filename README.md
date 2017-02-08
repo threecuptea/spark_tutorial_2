@@ -27,8 +27,15 @@
        c) Load diamond.csv using new SparkSession.read.csv with correct options 
        d) DataFrame Join of access log data with diamond.csv
     
-    4. DanubeStatesAnalysis   
+    4. DanubeStatesAnalysis,DanubeStatesAnalysis2
        A task for Rovi to ensure the java-transform system is compatible with Pri-java-transform system by analyzing 
        log entries, including parsing, filter data by pubId and grouping.
+       a) DanubeStatesAnalysis has separate non java-transform Dataset and java-transform Dataset and group them and 
+          generate reports separately.  However, it's difficult to compare separate reports grouped by resources since
+          there are too many resources.
+       b) DanubeStatesAnalysis2 improves on top of DanubeStatesAnalysis. It parses non java-transform and java-transform 
+          into a common obeject: DanubeStates which has additional numeric fields jtNo and jtYes of value 0 or 1.   
+          In this way, I can generate report of sum(jtNo) and sum(jtYes) side by side grouped by publish state, 
+          resource or both.
        
     5. SparkSessionZipsExample to be familiar with Spark 2 Dataset/ DataFrame operation.

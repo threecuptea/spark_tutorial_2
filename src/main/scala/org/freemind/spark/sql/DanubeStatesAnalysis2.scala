@@ -4,8 +4,14 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
 /**
-  * Created by fandev on 2/7/17.
+  * DanubeStatesAnalysis2 improves on top of DanubeStatesAnalysis. It parses non java-transform and java-transform
+  * into a common obeject: DanubeStates which has additional numeric fields jtNo and jtYes of value 0 or 1.
+  * In this way, I can generate report of sum(jtNo) and sum(jtYes) side by side grouped by publish state,
+  * resource or both.
+  *
+  * @author sling(threecuptea) on 2/7 - 2/8
   */
+
 object DanubeStatesAnalysis2 {
 
   def main(args: Array[String]): Unit = {

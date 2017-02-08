@@ -19,6 +19,7 @@ import org.apache.spark.sql.SparkSession
   * respectively in individual environment.  Then I group entries by PUBLISH_STATE, by resource or by both to see
   * if numbers from different environments are compatible.
   *
+  * @author sling(threecuptea) on 1/31 - 2/8
   */
 object DanubeStatesAnalysis {
 
