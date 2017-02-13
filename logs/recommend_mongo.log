@@ -32,20 +32,20 @@ Movies Snapshot= 3883
 +---+----------------------------------+--------------------------------+
 only showing top 10 rows
 
-training count=801032
-validation count=99672
-test count=99505
+training count=799817
+validation count=100478
+test count=99914
 TOTAL COUNT=1000209
 
 The baseline rmse= 1.12.
 
 The best model was trained with param = {
-	als_6e9229573951-maxIter: 20,
-	als_6e9229573951-rank: 12,
-	als_6e9229573951-regParam: 0.1
+	als_74237ac69d0e-maxIter: 20,
+	als_74237ac69d0e-rank: 12,
+	als_74237ac69d0e-regParam: 0.1
 }
 
-The RMSE of the bestModel on test set is 0.87, which is 22.53% over baseline.
+The RMSE of the bestModel on test set is 0.86, which is 22.87% over baseline.
 +--------+-------------------------------------------------------------------+------------------------+-------+----------+
 |movie_id|title                                                              |genres                  |user_id|prediction|
 +--------+-------------------------------------------------------------------+------------------------+-------+----------+
@@ -102,5 +102,5 @@ The RMSE of the bestModel on test set is 0.87, which is 22.53% over baseline.
 +--------+-------------------------------------------------------------------+------------------------+-------+----------+
 only showing top 50 rows
 
-Execution time=  91.073 seconds
-Execution time=  92.962 seconds
+Execution time=  94.737 seconds
+Execution time=  96.627 seconds

@@ -143,7 +143,7 @@ object MovieLensALSMongo {
     recommendation.show(50, false)
 
     printf("Execution time= %7.3f seconds\n", (System.currentTimeMillis() - start)/1000.00)
-    MongoSpark.save(recommendation.select($"movie_id", $"title", $"prediction".cast(DoubleType)).write.mode("overwrite"), recomWriteConfig)
+    MongoSpark.save(recommendation.select($"movie_id", $"prediction".cast(DoubleType)).write.mode("overwrite"), recomWriteConfig)
 
     printf("Execution time= %7.3f seconds\n", (System.currentTimeMillis() - start)/1000.00)
   }
