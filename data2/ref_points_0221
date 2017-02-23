@@ -1,0 +1,46 @@
+
+>= 26219934218, <= 26244684729
+fandev@ubuntu:~/Downloads/0221/prod$ zcat *.gz | grep 4559094225
+[listener-1] - PUBLISH airing 4559094225 (26219934223) - poll: 9ms get: 303ms xml: 1ms transform: 1857ms publish: 15ms confirm: 6ms [ 2191ms 2017-02-21T03:29:48.034 ] 
+[listener-7] - NOPUBLISH airing_credits 4559094225 (26219934218) - (root only) poll: 10ms get: 6ms xml: 0ms transform: 0ms publish: 0ms confirm: 2ms [ 18ms 2017-02-21T03:29:48.025 ] 
+[listener-2] - PUBLISH airing_synopses 4559094225 (26219934219) - poll: 2ms get: 14ms xml: 0ms transform: 2ms publish: 0ms confirm: 1ms [ 19ms 2017-02-21T03:29:48.035 ] 
+
+[listener-6] - PUBLISH airing 4559094347 (26219934690) - poll: 240ms get: 192ms xml: 2ms transform: 1508ms publish: 0ms confirm: 3ms [ 1945ms 2017-02-21T03:29:49.386 ] 
+[listener-0] - PUBLISH airing_synopses 4559094347 (26219934684) - poll: 2ms get: 65ms xml: 0ms transform: 8ms publish: 0ms confirm: 0ms [ 75ms 2017-02-21T03:29:49.592 ] 
+[listener-5] - PUBLISH airing_credits 4559094347 (26219934687) - poll: 4ms get: 98ms xml: 1ms transform: 14ms publish: 0ms confirm: 6ms [ 123ms 2017-02-21T03:29:49.603 ] 
+
+[listener-3] - PUBLISH airing 4559094276 (26219934833) - poll: 146ms get: 169ms xml: 1ms transform: 1172ms publish: 1ms confirm: 0ms [ 1489ms 2017-02-21T03:29:49.988 ] 
+[listener-7] - PUBLISH airing_synopses 4559094276 (26219934832) - poll: 7ms get: 21ms xml: 0ms transform: 3ms publish: 0ms confirm: 1ms [ 32ms 2017-02-21T03:29:50.120 ] 
+
+[listener-0] - PUBLISH airing 4559094378 (26219934862) - poll: 50ms get: 145ms xml: 1ms transform: 116ms publish: 0ms confirm: 9ms [ 321ms 2017-02-21T03:29:50.210 ] 
+[listener-1] - PUBLISH airing_synopses 4559094378 (26219934859) - poll: 2ms get: 33ms xml: 0ms transform: 2ms publish: 0ms confirm: 1ms [ 38ms 2017-02-21T03:29:50.250 ] 
+
+[listener-0] - PUBLISH airing 4559094191 (26219934211) - poll: 1ms get: 406ms xml: 1ms transform: 1777ms publish: 0ms confirm: 9ms [ 2194ms 2017-02-21T03:29:48.016 ] 
+[listener-3] - PUBLISH airing_synopses 4559094191 (26219934209) - poll: 13ms get: 61ms xml: 0ms transform: 410ms publish: 1ms confirm: 1ms [ 486ms 2017-02-21T03:29:48.004 ] 
+
+[listener-1] - PUBLISH airing_synopses 4562653759 (26244684727) - poll: 9ms get: 14ms xml: 0ms transform: 3ms publish: 0ms confirm: 1ms [ 27ms 2017-02-22T00:00:17.039 ] 
+[listener-3] - NOPUBLISH airing_credits 4562653759 (26244684723) - (root only) poll: 7ms get: 5ms xml: 0ms transform: 1ms publish: 0ms confirm: 1ms [ 14ms 2017-02-22T00:00:17.031 ] 
+[listener-3] - PUBLISH airing 4562653759 (26244684729) - poll: 3ms get: 51ms xml: 0ms transform: 6ms publish: 1ms confirm: 1ms [ 62ms 2017-02-22T00:00:17.045 ] 
+
+
+
+
+>= 26214654901, <= 26239493910
+trans1102.log:INFO [listener-0] - PUBLISH airing-4559094191 (26214654891) - poll: 3ms get: 50ms xml: 0ms transform: 6ms publish: 57ms confirm: 0ms [ 61ms 2017-02-21T03:29:48.011 ] 
+trans1200.log:INFO [listener-2] - NOPUBLISH airing_credits-4559094191 (26214654890) - (root only) poll: 3ms get: 29ms xml: 0ms transform: 0ms publish: 30ms confirm: 2ms [ 35ms 2017-02-21T03:29:48.010 ] 
+trans1401.log:INFO [listener-7] - PUBLISH airing_synopses-4559094191 (26214654893) - poll: 2ms get: 13ms xml: 0ms transform: 1ms publish: 14ms confirm: 1ms [ 18ms 2017-02-21T03:29:48.014 ] 
+
+trans1101.log:INFO [listener-5] - NOPUBLISH airing_credits-4559094225 (26214654901) - (root only) poll: 1ms get: 4ms xml: 0ms transform: 0ms publish: 4ms confirm: 1ms [ 7ms 2017-02-21T03:29:48.033 ] 
+trans1401.log:INFO [listener-5] - PUBLISH airing_synopses-4559094225 (26214654903) - poll: 3ms get: 14ms xml: 0ms transform: 1ms publish: 16ms confirm: 1ms [ 20ms 2017-02-21T03:29:48.034 ] 
+trans1401.log:INFO [listener-7] - PUBLISH airing-4559094225 (26214654902) - poll: 4ms get: 67ms xml: 4ms transform: 9ms publish: 81ms confirm: 1ms [ 87ms 2017-02-21T03:29:48.032 ] 
+
+
+trans1102.log:INFO [listener-6] - NOPUBLISH airing_credits-4562653759 (26239493909) - (root only) poll: 1ms get: 6ms xml: 0ms transform: 0ms publish: 6ms confirm: 1ms [ 9ms 2017-02-21T23:59:50.120 ] 
+trans1102.log:INFO [listener-4] - PUBLISH airing_synopses-4562653759 (26239493908) - poll: 2ms get: 22ms xml: 0ms transform: 3ms publish: 25ms confirm: 1ms [ 28ms 2017-02-21T23:59:50.118 ] 
+trans1102.log:INFO [listener-7] - PUBLISH airing-4562653759 (26239493910) - poll: 2ms get: 79ms xml: 0ms transform: 11ms publish: 91ms confirm: 12ms [ 105ms 2017-02-21T23:59:50.120 ] 
+
+trans1101.log:INFO [listener-5] - PUBLISH airing-4562653832 (26239493898) - poll: 18ms get: 81ms xml: 0ms transform: 19ms publish: 102ms confirm: 1ms [ 121ms 2017-02-21T23:59:50.094 ] 
+trans1102.log:INFO [listener-3] - PUBLISH airing_synopses-4562653832 (26239493896) - poll: 5ms get: 34ms xml: 0ms transform: 6ms publish: 40ms confirm: 1ms [ 47ms 2017-02-21T23:59:50.100 ] 
+trans1201.log:INFO [listener-1] - NOPUBLISH airing_credits-4562653832 (26239493900) - (root only) poll: 15ms get: 11ms xml: 0ms transform: 0ms publish: 11ms confirm: 2ms [ 28ms 2017-02-21T23:59:50.102 ] 
+
+
