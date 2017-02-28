@@ -26,7 +26,7 @@ object DanubeStatesAnalysis {
   def main(args: Array[String]): Unit = {
 
     if (args.length < 2) {
-      println("Usage: AnalyzeDanubeStates [NON-java-transform-log] [java-transform-log]")
+      println("Usage: DanubeStatesAnalysis [non-jt-log] [jt-log] [non-jt-lower] [non-jt-upper] [jt-lower] [jt-upper]")
       System.exit(-1)
     }
 
