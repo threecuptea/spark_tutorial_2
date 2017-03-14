@@ -23,8 +23,7 @@ object DanubeResolverAnalysis {
     val nonJtUpper = args(5).toLong
     val jtLower = args(6).toLong
     val jtUpper = args(7).toLong
-
-
+    
     val spark = SparkSession
       .builder()
       .appName("DanubeResolverAnalysis")
