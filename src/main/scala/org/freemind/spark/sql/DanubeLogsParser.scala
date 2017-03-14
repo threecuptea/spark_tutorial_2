@@ -28,17 +28,30 @@ case class DanubeStates (
                            jtYes: Byte
                          )
 
+case class DanubeResolverRaw (
+                          resource: String,
+                          roviId: Long,
+                          pubId: Long,
+                          state: String,
+                          jtNo: Byte,
+                          jtYes: Byte
+                        )
+
+
 class DanubeLogsParser extends Serializable {
 
   //Ignore the rest of logs. We do not care about it at this case
   val nonJtLogRegEx = "\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+) (\\d+) \\((\\d+)\\)"
-
   val jtLogRegEx    = "\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+)\\-(\\d+) \\((\\d+)\\)"
 
-
   val nonjtPattern:Pattern = Pattern.compile(nonJtLogRegEx)
-
   val jtPattern:Pattern = Pattern.compile(jtLogRegEx)
+
+  val nonJtResolverLogRegEx = "\\[listener\\-\\d{1}\\] - RESOLVE (\\w+) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+  val jtResolverLogRegEx    = "\\[listener\\-\\d{1}\\] - RESOLVE (\\w+)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+
+  val nonjtResolverPattern:Pattern = Pattern.compile(nonJtResolverLogRegEx)
+  val jtResolverPattern:Pattern = Pattern.compile(jtResolverLogRegEx)
 
 
   def parseNonJtLog(s: String): Option[DanubeNonJTState] = {
@@ -47,6 +60,23 @@ class DanubeLogsParser extends Serializable {
       Some(
         DanubeNonJTState(
           nonJtState = m.group(1),
+          resource = m.group(2),
+          roviId = m.group(3).toLong,
+          pubId = m.group(4).toLong
+        )
+      )
+    }
+    else {
+      None
+    }
+  }
+
+  def parseJtLog(s: String): Option[DanubeJTState] = {
+    val m:Matcher = jtPattern.matcher(s)
+    if (m.find) {
+      Some(
+        DanubeJTState (
+          jtState = m.group(1),
           resource = m.group(2),
           roviId = m.group(3).toLong,
           pubId = m.group(4).toLong
@@ -96,21 +126,54 @@ class DanubeLogsParser extends Serializable {
     }
   }
 
-  def parseJtLog(s: String): Option[DanubeJTState] = {
-    val m:Matcher = jtPattern.matcher(s)
+  // "\\[listener\\-\\d{1}\\] - RESOLVE (\\w+) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+  def parseNonJtResolverLog(s: String): Option[DanubeResolverRaw] = {
+    val m:Matcher = nonjtResolverPattern.matcher(s)
     if (m.find) {
-        Some(
-          DanubeJTState (
-            jtState = m.group(1),
-            resource = m.group(2),
-            roviId = m.group(3).toLong,
-            pubId = m.group(4).toLong
-          )
+
+      Some(
+        DanubeResolverRaw(
+          state =  m.group(4) match {
+            case "empty" => "new"
+            case _ => "update"
+          },
+          resource = m.group(1),
+          roviId = m.group(2).toLong,
+          pubId = m.group(3).toLong,
+          jtNo = m.group(5).toByte,
+          jtYes = 0
         )
+      )
     }
     else {
       None
     }
   }
+
+  def parseJtResolverLog(s: String): Option[DanubeResolverRaw] = {
+    val m:Matcher = jtResolverPattern.matcher(s)
+    if (m.find) {
+
+      Some(
+        DanubeResolverRaw(
+          state =  m.group(4) match {
+            case "empty" => "new"
+            case _ => "update"
+          },
+          resource = m.group(1),
+          roviId = m.group(2).toLong,
+          pubId = m.group(3).toLong,
+          jtNo = 0,
+          jtYes = m.group(5).toByte
+        )
+      )
+    }
+    else {
+      None
+    }
+  }
+
+
+
 
 }

@@ -39,7 +39,7 @@ object DanubeStatesAnalysis {
 
     val spark = SparkSession
       .builder()
-      .appName("MovieLensALS")
+      .appName("DanubeStatesAnalysis")
       .getOrCreate()
     import spark.implicits._
 

@@ -4,33 +4,27 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
 /**
-  * DanubeStatesAnalysis2 improves on top of DanubeStatesAnalysis. It parses non java-transform and java-transform
-  * into a common obeject: DanubeStates which has additional numeric fields jtNo and jtYes of value 0 or 1.
-  * In this way, I can generate report of sum(jtNo) and sum(jtYes) side by side grouped by publish state,
-  * resource or both.
-  *
-  * @author sling(threecuptea) on 2/7 - 2/8
+  * Created by fandev on 3/13/17.
   */
-
-object DanubeStatesAnalysis2 {
+object DanubeResolverAnalysis {
 
   def main(args: Array[String]): Unit = {
 
     if (args.length < 6) {
-      println("Usage: DanubeStatesAnalysis2 [non-jt-log] [jt-log] [non-jt-lower] [non-jt-upper] [jt-lower] [jt-upper]")
+      println("Usage: DanubeResolverAnalysis [non-jt-log] [jt-log] [non-jt-lower] [non-jt-upper] [jt-lower] [jt-upper]")
       System.exit(-1)
     }
 
     val nonJtLog = args(0)
     val jtLog = args(1)
     val nonJtLower = if (args.length > 2) args(2).toLong else 0L
-    val nonJtUpper = if (args.length > 2) args(3).toLong else 999999999999L
+    val nonJtUpper = if (args.length > 2) args(3).toLong else 99999999999L
     val jtLower = if (args.length > 2) args(4).toLong else 0L
-    val jtUpper = if (args.length > 2) args(5).toLong else 999999999999L
+    val jtUpper = if (args.length > 2) args(5).toLong else 99999999999L
 
     val spark = SparkSession
       .builder()
-      .appName("DanubeStatesAnalysis2")
+      .appName("DanubeResolverAnalysis")
       .getOrCreate()
     import spark.implicits._
 
@@ -54,17 +48,8 @@ object DanubeStatesAnalysis2 {
     println("Union together to generate summary")
     val combinedDS = nonJtDS.union(jtDS)
 
-    println("Count groupBy PUBLISH_STATE")
-    combinedDS.groupBy($"state").agg(sum($"jtNo"), sum($"jtYes")).show(truncate = false)
-
     println("Count groupBy RESOURCE")
-    combinedDS.groupBy($"resource").agg(sum($"jtNo"), sum($"jtYes")).sort($"resource").show(100, truncate = false)
-
-    println("Count groupBy RESOURCE and PUBLISH_STATE")
-    combinedDS.groupBy($"resource", $"state").agg(sum($"jtNo"), sum($"jtYes")).sort($"resource", $"state").show(300, truncate = false)
-
-    println("Count groupBy PUBLISH_STATE and RESOURCE")
-    combinedDS.groupBy($"state", $"resource").agg(sum($"jtNo"), sum($"jtYes")).sort($"state", $"resource").show(300, truncate = false)
+    combinedDS.groupBy($"resource").agg(sum($"jtNo"), sum($"jtYes")).sort($"resource").show(500, truncate = false)
 
   }
 
