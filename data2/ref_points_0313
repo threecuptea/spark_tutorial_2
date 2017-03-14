@@ -1,0 +1,24 @@
+For jenga message, publication_id of the beginning and ending reference points must exactly match.  For non-jenga messages like MX resources, I would find the lowest publication_id following beginning  reference point of jenha message and highest publication prior to the ending reference point of jenga message
+
+NON java-transform (fantv-prod)
+INFO [listener-14] - RESOLVE Schedule 4554157995 (10946172201 replacing 10753465678) , 3 dirty size: 2024b poll: 3114ms parse: 0ms get: 4ms compare: 0ms update: 4ms resolve: 11ms broker: 3ms unlock: 0ms confirm: 0ms [ 3136ms 2017-03-13T00:00:26.117 ] 
+
+INFO [listener-12] - RESOLVE MXNormalizedVideoWorkGrouping 4627609353 (26757872957 replacing empty) , 4 dirty size: 529b poll: 243ms parse: 0ms get: 1ms compare: 0ms update: 2ms resolve: 5ms broker: 6ms unlock: 1ms confirm: 0ms [ 258ms 2017-03-13T00:00:54.834 ] 
+
+
+INFO [listener-1] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage 4630998930 (26782792259 replacing empty) , 0 dirty size: 433b poll: 550ms parse: 0ms get: 1ms compare: 0ms update: 1ms resolve: 0ms broker: 0ms unlock: 0ms confirm: 0ms [ 552ms 2017-03-13T23:59:44.530 ] 
+
+INFO [listener-12] - RESOLVE Schedule 4630999949 (10954398943 replacing empty) , 3 dirty size: 3986b poll: 0ms parse: 0ms get: 0ms compare: 0ms update: 1ms resolve: 14ms broker: 5ms unlock: 0ms confirm: 0ms [ 21ms 2017-03-13T23:59:50.538 ] 
+
+
+
+java-transform (fantv-dev)
+INFO [listener-10] - RESOLVE Schedule-4554157995 (10946172201 replacing 10753465678) , 3 dirty size: 2024b poll: 3112ms parse: 0ms get: 6ms compare: 0ms update: 4ms resolve: 21ms broker: 2ms unlock: 1ms confirm: 0ms [ 3146ms 2017-03-13T00:00:26.155 ] 
+
+INFO [listener-9] - RESOLVE MXNormalizedVideoWorkGrouping-4627609347 (26676909277 replacing empty) , 4 dirty size: 564b poll: 291ms parse: 0ms get: 1ms compare: 0ms update: 1ms resolve: 6ms broker: 18ms unlock: 1ms confirm: 0ms [ 318ms 2017-03-13T00:00:54.841 ] 
+
+
+INFO [listener-5] - RESOLVE MXNormalizedVideoWorkRelease-4630998935 (26701739101 replacing empty) , 8 dirty size: 554b poll: 816ms parse: 0ms get: 1ms compare: 0ms update: 0ms resolve: 2ms broker: 4ms unlock: 1ms confirm: 0ms [ 824ms 2017-03-13T23:59:38.548 ] 
+
+INFO [listener-13] - RESOLVE Schedule-4630999949 (10954398943 replacing empty) , 3 dirty size: 3986b poll: 0ms parse: 0ms get: 1ms compare: 0ms update: 3ms resolve: 41ms broker: 7ms unlock: 1ms confirm: 0ms [ 54ms 2017-03-13T23:59:51.006 ] 
+

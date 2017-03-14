@@ -1,8 +1,12 @@
-pubId boundary for Jenga resources is [10946172201. 10954398943], diff, inc= 8226742.
+PubId boundary for Jenga resources is [10946172201. 10954398943], diff, incl.= 8226742.
+PubId boundary for NON-Jenga resources in NON Java-transform pubId boundary is [26757872957. 26782792259], diff, inc= 24919303.
+NON Java-transform total RESOLVED count= 7088913
+PubId boundary for NON-Jenga resources in Java-transform pubId boundary is [26676909277. 26701739101], diff, incl.= 24829825.
+Java-transform total RESOLVED count= 6925907
 
 
 Union together to generate summary
-Count groupBy RESOURCE
+RESOLVE Count groupBy RESOURCE
 +-------------------------------------------+---------+----------+
 |resource                                   |sum(jtNo)|sum(jtYes)|
 +-------------------------------------------+---------+----------+
@@ -27,6 +31,17 @@ Count groupBy RESOURCE
 |ImageLogoType                              |0        |0         |
 |ImageRegionalLabel                         |0        |0         |
 |ImageRights                                |5837     |5405      |
+|MXCreditEpisodeGuest                       |0        |0         |
+|MXCreditEpisodeRegular                     |0        |0         |
+|MXCreditMajor                              |658      |598       |
+|MXNamePersonPrimaryImage                   |603194   |761213    |
+|MXNormalizedVideoWorkGrouping              |156419   |52912     |
+|MXNormalizedVideoWorkGroupingPrimaryImage  |0        |0         |
+|MXNormalizedVideoWorkRelease               |372778   |369992    |
+|MXNormalizedVideoWorkReleasePrimaryImage   |3936     |3685      |
+|MXSourcePrimaryLogos                       |81       |81        |
+|MXVideoWorkGroupingPrimaryImage            |7920     |6310      |
+|MXVideoWorkPrimaryImage                    |97956    |99536     |
 |MassfillProgramTvsource                    |0        |0         |
 |MsoImage                                   |0        |0         |
 |NameInfo                                   |1209424  |1208834   |
@@ -37,6 +52,8 @@ Count groupBy RESOURCE
 |NamePersonRegionalLabel                    |0        |0         |
 |PersonRelative                             |24       |24        |
 |PriceOption                                |0        |0         |
+|PublishedImage                             |8455     |8457      |
+|PublishedLogo                              |3        |4         |
 |Rights                                     |0        |0         |
 |Schedule                                   |14478261 |14416511  |
 |Source                                     |100802   |100529    |

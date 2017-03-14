@@ -66,7 +66,7 @@ object MovieLensALS {
   def main(args: Array[String]): Unit = {
     //add user and movie later
     if (args.length != 3) {
-      println("Usage: MovieLensALS [movie_ratings] [ersonal_ratings] [movies]")
+      println("Usage: MovieLensALS [movie_ratings] [personal_ratings] [movies]")
       System.exit(-1)
     }
     val mrFile = args(0)
