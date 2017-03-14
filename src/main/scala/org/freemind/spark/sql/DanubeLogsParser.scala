@@ -24,8 +24,8 @@ case class DanubeStates (
                            resource: String,
                            state: String,
                            pubId: Long,
-                           jtNo: Byte,
-                           jtYes: Byte
+                           jtNo: Integer,
+                           jtYes: Integer
                          )
 
 case class DanubeResolverRaw (
@@ -33,8 +33,8 @@ case class DanubeResolverRaw (
                           roviId: Long,
                           pubId: Long,
                           state: String,
-                          jtNo: Byte,
-                          jtYes: Byte
+                          jtNo: Integer,
+                          jtYes: Integer
                         )
 
 
@@ -47,8 +47,8 @@ class DanubeLogsParser extends Serializable {
   val nonjtPattern:Pattern = Pattern.compile(nonJtLogRegEx)
   val jtPattern:Pattern = Pattern.compile(jtLogRegEx)
 
-  val nonJtResolverLogRegEx = "\\[listener\\-\\d{1}\\] - RESOLVE (\\w+) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
-  val jtResolverLogRegEx    = "\\[listener\\-\\d{1}\\] - RESOLVE (\\w+)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+  val nonJtResolverLogRegEx = "RESOLVE (\\w+) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+  val jtResolverLogRegEx    = "RESOLVE (\\w+)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
 
   val nonjtResolverPattern:Pattern = Pattern.compile(nonJtResolverLogRegEx)
   val jtResolverPattern:Pattern = Pattern.compile(jtResolverLogRegEx)
@@ -140,7 +140,7 @@ class DanubeLogsParser extends Serializable {
           resource = m.group(1),
           roviId = m.group(2).toLong,
           pubId = m.group(3).toLong,
-          jtNo = m.group(5).toByte,
+          jtNo = m.group(5).toInt,
           jtYes = 0
         )
       )
@@ -164,7 +164,7 @@ class DanubeLogsParser extends Serializable {
           roviId = m.group(2).toLong,
           pubId = m.group(3).toLong,
           jtNo = 0,
-          jtYes = m.group(5).toByte
+          jtYes = m.group(5).toInt
         )
       )
     }

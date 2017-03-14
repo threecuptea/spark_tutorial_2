@@ -10,17 +10,15 @@ object DanubeResolverAnalysis {
 
   def main(args: Array[String]): Unit = {
 
-    if (args.length < 6) {
-      println("Usage: DanubeResolverAnalysis [non-jt-log] [jt-log] [non-jt-lower] [non-jt-upper] [jt-lower] [jt-upper]")
+    if (args.length < 4) {
+      println("Usage: DanubeResolverAnalysis [non-jt-log] [jt-log] [lower] [upper]")
       System.exit(-1)
     }
 
     val nonJtLog = args(0)
     val jtLog = args(1)
-    val nonJtLower = if (args.length > 2) args(2).toLong else 0L
-    val nonJtUpper = if (args.length > 2) args(3).toLong else 99999999999L
-    val jtLower = if (args.length > 2) args(4).toLong else 0L
-    val jtUpper = if (args.length > 2) args(5).toLong else 99999999999L
+    val lower = if (args.length > 2) args(2).toLong else 0L
+    val upper = if (args.length > 2) args(3).toLong else 99999999999L
 
     val spark = SparkSession
       .builder()
@@ -34,15 +32,13 @@ object DanubeResolverAnalysis {
     val parser = new DanubeLogsParser()
     //Do the followings if I only want to include PUBLISH and UNPUBLISH state in the report
     //val statesInc = Seq("PUBLISH", "UNPUBLISH") //_* expanded to var args
-    //val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog).filter($"pubId".between(nonJtLower, nonJtUpper) && $"pubId".isin(statesInc:_*)).cache()
-    val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog2).filter($"pubId".between(nonJtLower, nonJtUpper)).cache()
-    printf("NON Java-transform pubId boundary is [%d. %d], diff, inc= %d.\n", nonJtLower, nonJtUpper, (nonJtUpper - nonJtLower + 1))
-    println(s"NON Java-transform DanubeState count= ${nonJtDS.count}")
-    println()
+    //val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog).filter($"pubId".between(nonJtLower, nonJtUpper) && $"state".isin(statesInc:_*)).cache()
+    val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtResolverLog).filter($"pubId".between(lower, upper)).cache()
 
-    val jtDS = jtRawDS.flatMap(parser.parseJtLog2).filter($"pubId".between(jtLower, jtUpper)).cache()
-    printf("Java-transform pubId boundary is [%d. %d], diff, inc= %d.\n", jtLower, jtUpper, (jtUpper - jtLower + 1))
-    println(s"Java-transform DanubeState count= ${jtDS.count}")
+    val jtDS = jtRawDS.flatMap(parser.parseJtResolverLog).filter($"pubId".between(lower, upper)).cache()
+
+    printf("pubId boundary for Jenga resources is [%d. %d], diff, inc= %d.\n", lower, upper, (upper - lower ))
+    println()
 
     println()
     println("Union together to generate summary")
