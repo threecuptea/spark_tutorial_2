@@ -56,12 +56,14 @@ object DanubeResolverAnalysis {
 
     println("RESOLVE Count groupBy RESOURCE")
     combinedDS.groupBy($"resource").agg(sum($"jtNo"), sum($"jtYes")).withColumn("discrepancy flag",
+      when($"sum(jtNo)" > 100,
       when($"sum(jtNo)" > $"sum(jtYes)", when(($"sum(jtNo)" - $"sum(jtYes)") / $"sum(jtNo)" > 0.125,
         when(($"sum(jtNo)" - $"sum(jtYes)") / $"sum(jtNo)" > 0.25, "--").otherwise("-")).otherwise(""))
         .otherwise(when(($"sum(jtYes)" - $"sum(jtNo)") / $"sum(jtNo)" > 0.125,
-          when(($"sum(jtYes)" - $"sum(jtNo)") / $"sum(jtNo)" > 0.25, "++").otherwise("+")).otherwise(""))).sort($"resource").show(500, truncate = false)
+          when(($"sum(jtYes)" - $"sum(jtNo)") / $"sum(jtNo)" > 0.25, "++").otherwise("+")).otherwise(""))).otherwise(""))
+      .sort($"resource").show(500, truncate = false)
 
-    println("     -: below 12.5%, --: below 25%; +: above 12.5%, ++: above 25%")
+    println("-: below 12.5%, --: below 25%; +: above 12.5%, ++: above 25% only for sum(jtNo) > 100")
 
   }
 
