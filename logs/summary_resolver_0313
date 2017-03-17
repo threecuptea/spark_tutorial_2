@@ -10,88 +10,88 @@ RESOLVE Dirty Counts groupBy RESOURCE
 +-------------------------------------------+---------+----------+----------+----+
 |resource                                   |sum(jtNo)|sum(jtYes)|difference|flag|
 +-------------------------------------------+---------+----------+----------+----+
-|Asset                                      |64638    |67489     |+2851     |    |
-|Award                                      |43       |56        |+13       |    |
-|AwardImage                                 |0        |0         |+0        |    |
-|AwardNomination                            |224      |223       |-1        |    |
-|AwardNominationCreativeWork                |524      |507       |-17       |    |
-|AwardNominationImage                       |0        |0         |+0        |    |
-|AwardNomineePerson                         |677      |522       |-155      |    |
-|CatchUpTvaffiliateUrl                      |0        |0         |+0        |    |
-|ChannelLineUp                              |2663     |2663      |+0        |    |
-|CluAvailability                            |0        |0         |+0        |    |
-|CreativeWork                               |2593195  |2537402   |-55793    |    |
-|CreativeWorkSource                         |0        |0         |+0        |    |
-|Credit                                     |2190570  |2181830   |-8740     |    |
-|DvbsourceClu                               |0        |0         |+0        |    |
-|FlixsterCriticSummary                      |3        |2         |-1        |    |
-|FlixsterFanSummary                         |3        |2         |-1        |    |
-|GenreImage                                 |0        |0         |+0        |    |
-|HeadEndPostalCode                          |2        |2         |+0        |    |
-|ImageLogoType                              |0        |0         |+0        |    |
-|ImageRegionalLabel                         |0        |0         |+0        |    |
-|ImageRights                                |5837     |5405      |-432      |    |
-|MXCreditEpisodeGuest                       |0        |0         |+0        |    |
-|MXCreditEpisodeRegular                     |0        |0         |+0        |    |
-|MXCreditMajor                              |658      |598       |-60       |    |
-|MXNamePersonPrimaryImage                   |603194   |761213    |+158019   |++  |
-|MXNormalizedVideoWorkGrouping              |156419   |52912     |-103507   |==  |
-|MXNormalizedVideoWorkGroupingPrimaryImage  |0        |0         |+0        |    |
-|MXNormalizedVideoWorkRelease               |372778   |369992    |-2786     |    |
-|MXNormalizedVideoWorkReleasePrimaryImage   |3936     |3685      |-251      |    |
-|MXSourcePrimaryLogos                       |81       |81        |+0        |    |
-|MXVideoWorkGroupingPrimaryImage            |7920     |6310      |-1610     |=   |
-|MXVideoWorkPrimaryImage                    |97956    |99536     |+1580     |    |
-|MassfillProgramTvsource                    |0        |0         |+0        |    |
-|MsoImage                                   |0        |0         |+0        |    |
-|NameInfo                                   |1209424  |1208834   |-590      |    |
-|NameInfoAka                                |74337    |26382     |-47955    |==  |
-|NameInfoImage                              |2159     |2159      |+0        |    |
-|NameInfoTwitter                            |6        |5         |-1        |    |
-|NameOrganizationRegionalLabel              |0        |0         |+0        |    |
-|NamePersonRegionalLabel                    |0        |0         |+0        |    |
-|PersonRelative                             |24       |24        |+0        |    |
-|PriceOption                                |0        |0         |+0        |    |
-|PublishedImage                             |8455     |8457      |+2        |    |
-|PublishedLogo                              |3        |4         |+1        |    |
-|Rights                                     |0        |0         |+0        |    |
-|Schedule                                   |14478261 |14416511  |-61750    |    |
-|Source                                     |100802   |100529    |-273      |    |
-|SourceAffiliate                            |0        |0         |+0        |    |
-|SourceChannelGroup                         |0        |0         |+0        |    |
-|SourceImage                                |349      |347       |-2        |    |
-|SportsCompetition                          |0        |0         |+0        |    |
-|SportsCompetitionImage                     |0        |0         |+0        |    |
-|SportsCompetitionParticipant               |0        |0         |+0        |    |
-|SportsCompetitionParticipantResult         |0        |0         |+0        |    |
-|SportsCompetitionResult                    |0        |0         |+0        |    |
-|SportsCompetitionToCompetition             |0        |0         |+0        |    |
-|SportsLocation                             |0        |0         |+0        |    |
-|SportsOrganizationParticipant              |0        |0         |+0        |    |
-|SportsOrganizationParticipantResult        |0        |0         |+0        |    |
-|SportsStadium                              |0        |0         |+0        |    |
-|SuperSeriesMasterMember                    |0        |0         |+0        |    |
-|TvepisodeSequence                          |0        |0         |+0        |    |
-|TvepisodeVideoClip                         |0        |0         |+0        |    |
-|TvprogramRecommendation                    |0        |0         |+0        |    |
-|TvseasonImage                              |145      |145       |+0        |    |
-|TvseriesImage                              |16209    |16281     |+72       |    |
-|VideoCreativeWorkEventRelevancy            |0        |0         |+0        |    |
-|VideoCreativeWorkNameOrganizationRelevancy |0        |0         |+0        |    |
-|VideoCreativeWorkNamePersonRelevancy       |0        |0         |+0        |    |
-|VideoCreativeWorkRegionalLabel             |543565   |515232    |-28333    |    |
-|VideoCreativeWorkTeam                      |0        |0         |+0        |    |
-|VideoCreativeWorkTitleCulture              |7059     |6750      |-309      |    |
-|VideoCreativeWorkVideoCreativeWorkRelevancy|0        |0         |+0        |    |
-|VideoCreativeWorkiGuide                    |6177     |7629      |+1452     |+   |
-|VideoWorkAssociation                       |3584     |3528      |-56       |    |
-|VideoWorkDescription                       |429918   |510894    |+80976    |+   |
-|VideoWorkGrouping                          |1848321  |1845008   |-3313     |    |
-|VideoWorkImage                             |72530    |72532     |+2        |    |
-|Vodasset                                   |0        |0         |+0        |    |
-|VodassetVodfolder                          |0        |0         |+0        |    |
-|Vodfolder                                  |0        |0         |+0        |    |
-|WebProgramAffiliateUrl                     |0        |0         |+0        |    |
+|Asset                                      |64638    |67489     |  +2,851  |    |
+|Award                                      |43       |56        |     +13  |    |
+|AwardImage                                 |0        |0         |      +0  |    |
+|AwardNomination                            |224      |223       |      -1  |    |
+|AwardNominationCreativeWork                |524      |507       |     -17  |    |
+|AwardNominationImage                       |0        |0         |      +0  |    |
+|AwardNomineePerson                         |677      |522       |    -155  |    |
+|CatchUpTvaffiliateUrl                      |0        |0         |      +0  |    |
+|ChannelLineUp                              |2663     |2663      |      +0  |    |
+|CluAvailability                            |0        |0         |      +0  |    |
+|CreativeWork                               |2593195  |2537402   | -55,793  |    |
+|CreativeWorkSource                         |0        |0         |      +0  |    |
+|Credit                                     |2190570  |2181830   |  -8,740  |    |
+|DvbsourceClu                               |0        |0         |      +0  |    |
+|FlixsterCriticSummary                      |3        |2         |      -1  |    |
+|FlixsterFanSummary                         |3        |2         |      -1  |    |
+|GenreImage                                 |0        |0         |      +0  |    |
+|HeadEndPostalCode                          |2        |2         |      +0  |    |
+|ImageLogoType                              |0        |0         |      +0  |    |
+|ImageRegionalLabel                         |0        |0         |      +0  |    |
+|ImageRights                                |5837     |5405      |    -432  |    |
+|MXCreditEpisodeGuest                       |0        |0         |      +0  |    |
+|MXCreditEpisodeRegular                     |0        |0         |      +0  |    |
+|MXCreditMajor                              |658      |598       |     -60  |    |
+|MXNamePersonPrimaryImage                   |603194   |761213    |+158,019  |++  |
+|MXNormalizedVideoWorkGrouping              |156419   |52912     |-103,507  |==  |
+|MXNormalizedVideoWorkGroupingPrimaryImage  |0        |0         |      +0  |    |
+|MXNormalizedVideoWorkRelease               |372778   |369992    |  -2,786  |    |
+|MXNormalizedVideoWorkReleasePrimaryImage   |3936     |3685      |    -251  |    |
+|MXSourcePrimaryLogos                       |81       |81        |      +0  |    |
+|MXVideoWorkGroupingPrimaryImage            |7920     |6310      |  -1,610  |=   |
+|MXVideoWorkPrimaryImage                    |97956    |99536     |  +1,580  |    |
+|MassfillProgramTvsource                    |0        |0         |      +0  |    |
+|MsoImage                                   |0        |0         |      +0  |    |
+|NameInfo                                   |1209424  |1208834   |    -590  |    |
+|NameInfoAka                                |74337    |26382     | -47,955  |==  |
+|NameInfoImage                              |2159     |2159      |      +0  |    |
+|NameInfoTwitter                            |6        |5         |      -1  |    |
+|NameOrganizationRegionalLabel              |0        |0         |      +0  |    |
+|NamePersonRegionalLabel                    |0        |0         |      +0  |    |
+|PersonRelative                             |24       |24        |      +0  |    |
+|PriceOption                                |0        |0         |      +0  |    |
+|PublishedImage                             |8455     |8457      |      +2  |    |
+|PublishedLogo                              |3        |4         |      +1  |    |
+|Rights                                     |0        |0         |      +0  |    |
+|Schedule                                   |14478261 |14416511  | -61,750  |    |
+|Source                                     |100802   |100529    |    -273  |    |
+|SourceAffiliate                            |0        |0         |      +0  |    |
+|SourceChannelGroup                         |0        |0         |      +0  |    |
+|SourceImage                                |349      |347       |      -2  |    |
+|SportsCompetition                          |0        |0         |      +0  |    |
+|SportsCompetitionImage                     |0        |0         |      +0  |    |
+|SportsCompetitionParticipant               |0        |0         |      +0  |    |
+|SportsCompetitionParticipantResult         |0        |0         |      +0  |    |
+|SportsCompetitionResult                    |0        |0         |      +0  |    |
+|SportsCompetitionToCompetition             |0        |0         |      +0  |    |
+|SportsLocation                             |0        |0         |      +0  |    |
+|SportsOrganizationParticipant              |0        |0         |      +0  |    |
+|SportsOrganizationParticipantResult        |0        |0         |      +0  |    |
+|SportsStadium                              |0        |0         |      +0  |    |
+|SuperSeriesMasterMember                    |0        |0         |      +0  |    |
+|TvepisodeSequence                          |0        |0         |      +0  |    |
+|TvepisodeVideoClip                         |0        |0         |      +0  |    |
+|TvprogramRecommendation                    |0        |0         |      +0  |    |
+|TvseasonImage                              |145      |145       |      +0  |    |
+|TvseriesImage                              |16209    |16281     |     +72  |    |
+|VideoCreativeWorkEventRelevancy            |0        |0         |      +0  |    |
+|VideoCreativeWorkNameOrganizationRelevancy |0        |0         |      +0  |    |
+|VideoCreativeWorkNamePersonRelevancy       |0        |0         |      +0  |    |
+|VideoCreativeWorkRegionalLabel             |543565   |515232    | -28,333  |    |
+|VideoCreativeWorkTeam                      |0        |0         |      +0  |    |
+|VideoCreativeWorkTitleCulture              |7059     |6750      |    -309  |    |
+|VideoCreativeWorkVideoCreativeWorkRelevancy|0        |0         |      +0  |    |
+|VideoCreativeWorkiGuide                    |6177     |7629      |  +1,452  |+   |
+|VideoWorkAssociation                       |3584     |3528      |     -56  |    |
+|VideoWorkDescription                       |429918   |510894    | +80,976  |+   |
+|VideoWorkGrouping                          |1848321  |1845008   |  -3,313  |    |
+|VideoWorkImage                             |72530    |72532     |      +2  |    |
+|Vodasset                                   |0        |0         |      +0  |    |
+|VodassetVodfolder                          |0        |0         |      +0  |    |
+|Vodfolder                                  |0        |0         |      +0  |    |
+|WebProgramAffiliateUrl                     |0        |0         |      +0  |    |
 +-------------------------------------------+---------+----------+----------+----+
 
 =: below 12.5%, ==: below 25%; +: above 12.5%, ++: above 25% only for sum(jtNo) > 1000

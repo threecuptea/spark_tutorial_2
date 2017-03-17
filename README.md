@@ -36,7 +36,7 @@
     
     4. DanubeStatesAnalysis,DanubeStatesAnalysis2
        A task for Rovi to ensure the java-transform system is compatible with Pri-java-transform system by analyzing 
-       log entries, including parsing, filter data by pubId and grouping.
+       transformer.log entries, including parsing, filter data by pubId and grouping.
        a) DanubeStatesAnalysis has separate non java-transform Dataset and java-transform Dataset and group them and 
           generate reports separately.  However, it's difficult to compare separate reports grouped by resources since
           there are too many resources.
@@ -44,5 +44,10 @@
           into a common obeject: DanubeStates which has additional numeric fields jtNo and jtYes of value 0 or 1.   
           In this way, I can generate report of sum(jtNo) and sum(jtYes) side by side grouped by publish state, 
           resource or both.
-       
-    5. SparkSessionZipsExample to be familiar with Spark 2 Dataset/ DataFrame operation.
+          
+    5. DanubeResolverAnalysis
+       A task for Rovi to ensure the java-transform system is compatible with Pri-java-transform system by analyzing 
+       resolver.log entries.
+       a) It adds "difference" display field by using format_string 
+       b) It adds "diff. flag" field by using nested when and otheriwise sql functions on numeric conditions
+    6. SparkSessionZipsExample to be familiar with Spark 2 Dataset/ DataFrame operation.

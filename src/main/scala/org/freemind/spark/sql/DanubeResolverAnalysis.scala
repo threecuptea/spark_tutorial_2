@@ -2,8 +2,15 @@ package org.freemind.spark.sql
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
+
 /**
-  * Created by fandev on 3/13/17.
+  * DanubeResolverAnalysis generate a similar crosstab report like DanubeStateAnalysis2 but based upon resolver log
+  * instead of transformer.log.
+  *
+  * It adds "difference" display field by using format_string and add "diff. flag" field by using
+  * nested when and otheriwise sql functions on numeric conditions
+  *
+  * @author sling(threecuptea) on 2/7 - 2/8
   */
 object DanubeResolverAnalysis {
 
@@ -56,10 +63,10 @@ object DanubeResolverAnalysis {
     println("RESOLVE Dirty Counts groupBy RESOURCE")
     combinedDS.groupBy($"resource").agg(sum($"jtNo"), sum($"jtYes"))
       .withColumn("diff", $"sum(jtYes)"- $"sum(jtNo)")
-      .withColumn("difference", format_string("%+d", $"diff"))
+      .withColumn("difference", format_string("%,+8d", $"diff"))
       .withColumn("flag",
       when($"sum(jtNo)" > 1000,
-      when($"difference" < 0,
+      when($"diff" < 0,
         when(abs($"diff") / $"sum(jtNo)" > 0.125,
         when(abs($"diff") / $"sum(jtNo)" > 0.25, "==")
         .otherwise("="))

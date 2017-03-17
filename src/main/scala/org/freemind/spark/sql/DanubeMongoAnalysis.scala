@@ -1,13 +1,12 @@
 package org.freemind.spark.sql
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions._
 
 /**
   * Created by fandev on 3/14/17.
   */
 
-case class DanubeMongoStats(resource: String, count: Long)
+case class DanubeMongoStats(resource: String, bytes_size: Long)
 
 object DanubeMongoAnalysis {
 
@@ -36,13 +35,13 @@ object DanubeMongoAnalysis {
       .getOrCreate()
     import spark.implicits._
 
-    val fanDevDS = spark.read.textFile(fanDevPath).map(parseMongoStats).withColumnRenamed("count", "count_fantv_dev")
-    val fanProdDS = spark.read.textFile(fanProdPath).map(parseMongoStats).withColumnRenamed("count", "count_fantv_prod")
-    val rcsProdDS = spark.read.textFile(rcsProdPath).map(parseMongoStats).withColumnRenamed("count", "count_rcs_prod")
+    val fanDevDS = spark.read.textFile(fanDevPath).map(parseMongoStats).withColumnRenamed("bytes_size", "bytes_size_fantv_dev")
+    val fanProdDS = spark.read.textFile(fanProdPath).map(parseMongoStats).withColumnRenamed("bytes_size", "bytes_size_fantv_prod")
+    val rcsProdDS = spark.read.textFile(rcsProdPath).map(parseMongoStats).withColumnRenamed("bytes_size", "bytes_size_rcs_prod")
 
     val joinedDS = fanDevDS.join(fanProdDS, Seq("resource"), "left_outer").join(rcsProdDS, Seq("resource"), "left_outer")
 
-    println("Danube Mongo stats by RESOURCE")
+    println("Danube Mongo stats(bytes size) by RESOURCE")
     joinedDS.show(500, truncate = false)
 
   }

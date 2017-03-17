@@ -28,7 +28,7 @@ case class DanubeStates (
                            jtYes: Integer
                          )
 
-case class DanubeResolverRaw (
+case class DanubeResolverTab (
                           resource: String,
                           roviId: Long,
                           pubId: Long,
@@ -37,6 +37,13 @@ case class DanubeResolverRaw (
                           jtYes: Integer
                         )
 
+case class DanubeResolverRaw (
+                               resource: String,
+                               roviId: Long,
+                               pubId: Long,
+                               old_pubId: String,
+                               dirty_size: Integer
+                             )
 
 class DanubeLogsParser extends Serializable {
 
@@ -44,14 +51,20 @@ class DanubeLogsParser extends Serializable {
   val nonJtLogRegEx = "\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+) (\\d+) \\((\\d+)\\)"
   val jtLogRegEx    = "\\[listener\\-\\d{1}\\] - (PUBLISH|NOPUBLISH|UNPUBLISH) (\\w+)\\-(\\d+) \\((\\d+)\\)"
 
-  val nonjtPattern:Pattern = Pattern.compile(nonJtLogRegEx)
-  val jtPattern:Pattern = Pattern.compile(jtLogRegEx)
+  val nonjtPattern = Pattern.compile(nonJtLogRegEx)
+  val jtPattern = Pattern.compile(jtLogRegEx)
 
   val nonJtResolverLogRegEx = "RESOLVE (\\w+) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
   val jtResolverLogRegEx    = "RESOLVE (\\w+)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
 
-  val nonjtResolverPattern:Pattern = Pattern.compile(nonJtResolverLogRegEx)
-  val jtResolverPattern:Pattern = Pattern.compile(jtResolverLogRegEx)
+  val nonjtResolverPattern = Pattern.compile(nonJtResolverLogRegEx)
+  val jtResolverPattern = Pattern.compile(jtResolverLogRegEx)
+
+  val nonJtDiscResourcesRegEx = "RESOLVE (NameInfoAka|VideoCreativeWorkiGuide|VideoWorkDescription) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+  val jtDiscResourcesRegEx    = "RESOLVE (NameInfoAka|VideoCreativeWorkiGuide|VideoWorkDescription)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+
+  val nonJtDiscResourcesPattern = Pattern.compile(nonJtDiscResourcesRegEx)
+  val jtDiscResourcesPattern = Pattern.compile(jtDiscResourcesRegEx)
 
 
   def parseNonJtLog(s: String): Option[DanubeNonJTState] = {
@@ -127,12 +140,11 @@ class DanubeLogsParser extends Serializable {
   }
 
   // "\\[listener\\-\\d{1}\\] - RESOLVE (\\w+) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
-  def parseNonJtResolverLog(s: String): Option[DanubeResolverRaw] = {
+  def parseNonJtResolverLog(s: String): Option[DanubeResolverTab] = {
     val m:Matcher = nonjtResolverPattern.matcher(s)
     if (m.find) {
-
       Some(
-        DanubeResolverRaw(
+        DanubeResolverTab(
           state =  m.group(4) match {
             case "empty" => "new"
             case _ => "update"
@@ -150,12 +162,11 @@ class DanubeLogsParser extends Serializable {
     }
   }
 
-  def parseJtResolverLog(s: String): Option[DanubeResolverRaw] = {
+  def parseJtResolverLog(s: String): Option[DanubeResolverTab] = {
     val m:Matcher = jtResolverPattern.matcher(s)
     if (m.find) {
-
       Some(
-        DanubeResolverRaw(
+        DanubeResolverTab(
           state =  m.group(4) match {
             case "empty" => "new"
             case _ => "update"
@@ -173,7 +184,22 @@ class DanubeLogsParser extends Serializable {
     }
   }
 
-
-
+  def parseResolverRaw(s: String, jt: Boolean = false): Option[DanubeResolverRaw] = {
+    val m:Matcher = if (jt) jtDiscResourcesPattern.matcher(s) else nonJtDiscResourcesPattern.matcher(s)
+    if (m.find) {
+      Some(
+        DanubeResolverRaw(
+          old_pubId =  m.group(4),
+          resource = m.group(1),
+          roviId = m.group(2).toLong,
+          pubId = m.group(3).toLong,
+          dirty_size = m.group(5).toInt
+        )
+      )
+    }
+    else {
+      None
+    }
+  }
 
 }

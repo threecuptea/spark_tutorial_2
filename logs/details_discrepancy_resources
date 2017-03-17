@@ -1,0 +1,100 @@
+PubId boundary for Jenga resources is [10946172201. 10954398943], diff, incl.= 8226742.
+
+Resolve log entries of top 25 discrepancies for NameInfoAka.
++-----------+-----------+----------+-----------+-----------------+-------------+--------+
+|pubId      |resource   |roviId    |old_pubId  |non_jt_dirty_size|jt_dirty_size|abs_diff|
++-----------+-----------+----------+-----------+-----------------+-------------+--------+
+|10951605134|NameInfoAka|1612620801|10868848156|33145            |1            |33144   |
+|10951607233|NameInfoAka|1612617901|10893547599|9865             |1            |9864    |
+|10951605130|NameInfoAka|1612617123|10936477038|2591             |1            |2590    |
+|10954035763|NameInfoAka|1612618653|10917785141|1819             |1            |1818    |
+|10951605136|NameInfoAka|3229622009|10794987057|677              |1            |676     |
+|10951585335|NameInfoAka|1612620680|10943383156|5235             |5516         |281     |
+|10951585334|NameInfoAka|1612617979|10943383154|138              |9            |129     |
+|10948228298|NameInfoAka|4628301785|empty      |1954             |1946         |8       |
+|10951605133|NameInfoAka|1612618819|10943383155|9555             |9550         |5       |
+|10953521684|NameInfoAka|4630684824|empty      |1                |0            |1       |
+|10953127653|NameInfoAka|1035214672|4070567437 |140              |139          |1       |
+|10951605124|NameInfoAka|793187604 |10944924333|0                |0            |0       |
+|10951605127|NameInfoAka|1130887730|10944924336|0                |0            |0       |
+|10952244084|NameInfoAka|4629085721|10949714525|0                |0            |0       |
+|10954035762|NameInfoAka|1219307919|10951605128|0                |0            |0       |
+|10951181099|NameInfoAka|1035253247|5419701098 |124              |124          |0       |
+|10948228304|NameInfoAka|4628301786|empty      |52               |52           |0       |
+|10954035764|NameInfoAka|1856417968|10951605135|0                |0            |0       |
+|10949403571|NameInfoAka|4628965000|empty      |75               |75           |0       |
+|10952244083|NameInfoAka|1612619741|10941214124|70               |70           |0       |
+|10951605129|NameInfoAka|1612616958|10943383152|2090             |2090         |0       |
+|10951585336|NameInfoAka|1612621266|10944895594|388              |388          |0       |
+|10954035760|NameInfoAka|1126964287|10951605126|0                |0            |0       |
+|10951605128|NameInfoAka|1219307919|10944924337|0                |0            |0       |
+|10949714525|NameInfoAka|4629085721|empty      |19               |19           |0       |
++-----------+-----------+----------+-----------+-----------------+-------------+--------+
+only showing top 25 rows
+
+
+Resolve log entries of top 25 discrepancies for VideoCreativeWorkiGuide.
++-----------+-----------------------+----------+-----------+-----------------+-------------+--------+
+|pubId      |resource               |roviId    |old_pubId  |non_jt_dirty_size|jt_dirty_size|abs_diff|
++-----------+-----------------------+----------+-----------+-----------------+-------------+--------+
+|10951450456|VideoCreativeWorkiGuide|4627641541|10946268316|0                |24           |24      |
+|10951147818|VideoCreativeWorkiGuide|4629751514|empty      |0                |23           |23      |
+|10951147816|VideoCreativeWorkiGuide|4629751513|empty      |0                |18           |18      |
+|10951400678|VideoCreativeWorkiGuide|4629883222|empty      |0                |17           |17      |
+|10952787179|VideoCreativeWorkiGuide|4630368804|empty      |0                |16           |16      |
+|10950556967|VideoCreativeWorkiGuide|4629438520|empty      |0                |15           |15      |
+|10950920712|VideoCreativeWorkiGuide|4629649342|empty      |0                |15           |15      |
+|10951393734|VideoCreativeWorkiGuide|4629878514|empty      |0                |14           |14      |
+|10950504874|VideoCreativeWorkiGuide|4629413550|empty      |0                |13           |13      |
+|10951538080|VideoCreativeWorkiGuide|4629951845|empty      |0                |13           |13      |
+|10950937436|VideoCreativeWorkiGuide|4629650887|empty      |0                |13           |13      |
+|10950149232|VideoCreativeWorkiGuide|4629292266|empty      |0                |12           |12      |
+|10951525219|VideoCreativeWorkiGuide|4629945163|empty      |0                |12           |12      |
+|10950144096|VideoCreativeWorkiGuide|4629292274|empty      |0                |11           |11      |
+|10950556960|VideoCreativeWorkiGuide|4629438514|empty      |0                |11           |11      |
+|10953172085|VideoCreativeWorkiGuide|4630532207|empty      |0                |11           |11      |
+|10951531813|VideoCreativeWorkiGuide|4629948893|empty      |0                |10           |10      |
+|10950807626|VideoCreativeWorkiGuide|4629565962|empty      |0                |10           |10      |
+|10951116882|VideoCreativeWorkiGuide|4629734082|empty      |0                |10           |10      |
+|10954332224|VideoCreativeWorkiGuide|4630949985|empty      |0                |10           |10      |
+|10951525217|VideoCreativeWorkiGuide|4629945153|empty      |0                |9            |9       |
+|10950305769|VideoCreativeWorkiGuide|4629322916|empty      |0                |9            |9       |
+|10950803944|VideoCreativeWorkiGuide|4629563073|empty      |0                |9            |9       |
+|10951116881|VideoCreativeWorkiGuide|4629734078|empty      |0                |9            |9       |
+|10950519833|VideoCreativeWorkiGuide|4629422665|empty      |0                |9            |9       |
++-----------+-----------------------+----------+-----------+-----------------+-------------+--------+
+only showing top 25 rows
+
+
+Resolve log entries of top 25 discrepancies for VideoWorkDescription.
++-----------+--------------------+----------+-----------+-----------------+-------------+--------+
+|pubId      |resource            |roviId    |old_pubId  |non_jt_dirty_size|jt_dirty_size|abs_diff|
++-----------+--------------------+----------+-----------+-----------------+-------------+--------+
+|10953815164|VideoWorkDescription|4630825062|empty      |1370             |1042         |328     |
+|10953225336|VideoWorkDescription|493506519 |10913762995|81597            |81302        |295     |
+|10951190768|VideoWorkDescription|4433962168|10466089367|0                |54           |54      |
+|10951190773|VideoWorkDescription|4489191048|10593820190|0                |54           |54      |
+|10951190778|VideoWorkDescription|4558062955|10766089331|0                |54           |54      |
+|10951190774|VideoWorkDescription|4600873432|10876304074|0                |54           |54      |
+|10951190771|VideoWorkDescription|4450397615|10507022051|0                |54           |54      |
+|10951190772|VideoWorkDescription|4519590347|10670054067|0                |54           |54      |
+|10951190777|VideoWorkDescription|4471100664|10552124807|0                |53           |53      |
+|10951190793|VideoWorkDescription|4453333464|10514122775|0                |47           |47      |
+|10951190806|VideoWorkDescription|4535003213|10705665301|0                |45           |45      |
+|10951067686|VideoWorkDescription|4629705508|empty      |0                |42           |42      |
+|10951190795|VideoWorkDescription|4438848567|10479642221|0                |40           |40      |
+|10951190804|VideoWorkDescription|4492141006|10600260670|0                |38           |38      |
+|10951190818|VideoWorkDescription|4443073478|10489134389|0                |34           |34      |
+|10951190807|VideoWorkDescription|4522626399|10677391040|0                |32           |32      |
+|10951190817|VideoWorkDescription|4456823736|10522040825|0                |29           |29      |
+|10951190813|VideoWorkDescription|4475859977|10562167283|0                |27           |27      |
+|10951171284|VideoWorkDescription|4629758290|empty      |6077             |6101         |24      |
+|10951190816|VideoWorkDescription|4509166604|10642759511|0                |24           |24      |
+|10952799207|VideoWorkDescription|4630370751|empty      |16               |39           |23      |
+|10952819315|VideoWorkDescription|4630381637|empty      |3                |24           |21      |
+|10951366943|VideoWorkDescription|4629861259|empty      |5                |22           |17      |
+|10950387860|VideoWorkDescription|4447741310|10500622934|0                |17           |17      |
+|10948239049|VideoWorkDescription|4628302235|empty      |16               |0            |16      |
++-----------+--------------------+----------+-----------+-----------------+-------------+--------+
+only showing top 25 rows
+
