@@ -42,7 +42,13 @@ object ResolverDetailsJenga {
       printf("Resolve log entries of top 25 discrepancies for %s.\n", res)
       val joinedDS = nonJtDS.filter($"resource" === res).join(jtDS.filter($"resource" === res),
         Seq("pubId","resource","roviId", "old_pubId"), "inner").cache()
-      joinedDS.withColumn("abs_diff", abs($"non_jt_dirty_size" - $"jt_dirty_size")).sort(desc("abs_diff")).show(25, truncate=false)
+
+      joinedDS.withColumn("diff", $"jt_dirty_size" - $"non_jt_dirty_size")
+        .withColumn("difference", format_string("%,+8d", $"diff"))
+          .withColumn("abs_diff", abs($"diff"))
+        .sort(desc("abs_diff"))
+          .select($"resource", $"roviId", $"pubId", $"old_pubId", $"non_jt_dirty_size", $"jt_dirty_size", $"difference")
+          .show(25, truncate=false)
 
     }
 
