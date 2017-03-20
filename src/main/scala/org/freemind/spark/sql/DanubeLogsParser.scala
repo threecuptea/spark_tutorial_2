@@ -54,14 +54,14 @@ class DanubeLogsParser extends Serializable {
   val nonjtPattern = Pattern.compile(nonJtLogRegEx)
   val jtPattern = Pattern.compile(jtLogRegEx)
 
-  val nonJtResolverLogRegEx = "RESOLVE (\\w+) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
-  val jtResolverLogRegEx    = "RESOLVE (\\w+)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+  val nonJtResolverLogRegEx = "RESOLVE (\\w+) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty"
+  val jtResolverLogRegEx    = "RESOLVE (\\w+)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty"
 
   val nonjtResolverPattern = Pattern.compile(nonJtResolverLogRegEx)
   val jtResolverPattern = Pattern.compile(jtResolverLogRegEx)
 
-  val nonJtDiscResourcesRegEx = "RESOLVE (NameInfoAka|VideoCreativeWorkiGuide|VideoWorkDescription) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
-  val jtDiscResourcesRegEx    = "RESOLVE (NameInfoAka|VideoCreativeWorkiGuide|VideoWorkDescription)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty size"
+  val nonJtDiscResourcesRegEx = "RESOLVE (NameInfoAka|VideoCreativeWorkiGuide|VideoWorkDescription) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty"
+  val jtDiscResourcesRegEx    = "RESOLVE (NameInfoAka|VideoCreativeWorkiGuide|VideoWorkDescription)\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty"
 
   val nonJtDiscResourcesPattern = Pattern.compile(nonJtDiscResourcesRegEx)
   val jtDiscResourcesPattern = Pattern.compile(jtDiscResourcesRegEx)
