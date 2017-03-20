@@ -1,0 +1,59 @@
+PubId boundary for Jenga resources is [10998951460. 11009609591], diff, incl.= 10658131.
+
+Resolve log entries of top 25 discrepancies for VideoCreativeWorkiGuide.
++-----------------------+----------+-----------+---------+-----------------+-------------+----------+
+|resource               |roviId    |pubId      |old_pubId|non_jt_dirty_size|jt_dirty_size|difference|
++-----------------------+----------+-----------+---------+-----------------+-------------+----------+
+|VideoCreativeWorkiGuide|4653939787|11009516482|empty    |2                |1137         |  +1,135  |
+|VideoCreativeWorkiGuide|4653939807|11009522188|empty    |2                |1121         |  +1,119  |
+|VideoCreativeWorkiGuide|4653939792|11009522229|empty    |2                |936          |    +934  |
+|VideoCreativeWorkiGuide|4653939795|11009522294|empty    |2                |474          |    +472  |
+|VideoCreativeWorkiGuide|4653958425|11009522352|empty    |3                |393          |    +390  |
+|VideoCreativeWorkiGuide|4653939770|11009513858|empty    |2                |385          |    +383  |
+|VideoCreativeWorkiGuide|4653939805|11009522252|empty    |2                |371          |    +369  |
+|VideoCreativeWorkiGuide|4653958424|11009522587|empty    |2                |195          |    +193  |
+|VideoCreativeWorkiGuide|4653939803|11009513626|empty    |2                |125          |    +123  |
+|VideoCreativeWorkiGuide|4653886818|11009437976|empty    |2                |93           |     +91  |
+|VideoCreativeWorkiGuide|4653733166|11009240579|empty    |2                |77           |     +75  |
+|VideoCreativeWorkiGuide|4653939785|11009521735|empty    |2                |68           |     +66  |
+|VideoCreativeWorkiGuide|4650333369|11000984136|empty    |2                |54           |     +52  |
+|VideoCreativeWorkiGuide|4653598756|11008935282|empty    |10               |35           |     +25  |
+|VideoCreativeWorkiGuide|4653733095|11009234236|empty    |2                |26           |     +24  |
+|VideoCreativeWorkiGuide|4653664970|11009169042|empty    |3                |22           |     +19  |
+|VideoCreativeWorkiGuide|4653620757|11008983682|empty    |2                |17           |     +15  |
+|VideoCreativeWorkiGuide|4653814016|11009347658|empty    |3                |17           |     +14  |
+|VideoCreativeWorkiGuide|4653939773|11009521852|empty    |2                |12           |     +10  |
+|VideoCreativeWorkiGuide|4653598755|11008927096|empty    |2                |10           |      +8  |
+|VideoCreativeWorkiGuide|4653853257|11009405001|empty    |2                |10           |      +8  |
+|VideoCreativeWorkiGuide|4653620771|11008937047|empty    |2                |9            |      +7  |
+|VideoCreativeWorkiGuide|4653771004|11009255506|empty    |2                |9            |      +7  |
+|VideoCreativeWorkiGuide|4653886826|11009437953|empty    |3                |10           |      +7  |
+|VideoCreativeWorkiGuide|4653682856|11009185051|empty    |2                |9            |      +7  |
+|VideoCreativeWorkiGuide|4653939783|11009521346|empty    |2                |8            |      +6  |
+|VideoCreativeWorkiGuide|4653664971|11009169043|empty    |2                |8            |      +6  |
+|VideoCreativeWorkiGuide|4651602158|11003904793|empty    |0                |6            |      +6  |
+|VideoCreativeWorkiGuide|4653832176|11009364019|empty    |2                |8            |      +6  |
+|VideoCreativeWorkiGuide|4650757179|11002846822|empty    |0                |5            |      +5  |
+|VideoCreativeWorkiGuide|4653939769|11009513854|empty    |2                |7            |      +5  |
+|VideoCreativeWorkiGuide|4653770999|11009260660|empty    |2                |7            |      +5  |
+|VideoCreativeWorkiGuide|4650648180|11002572830|empty    |0                |5            |      +5  |
+|VideoCreativeWorkiGuide|4650756049|11002845123|empty    |0                |5            |      +5  |
+|VideoCreativeWorkiGuide|4653939771|11009513834|empty    |2                |7            |      +5  |
+|VideoCreativeWorkiGuide|4653824274|11009356219|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4653832230|11009372853|empty    |6                |2            |      -4  |
+|VideoCreativeWorkiGuide|4650604860|11002452779|empty    |0                |4            |      +4  |
+|VideoCreativeWorkiGuide|4651603526|11003916613|empty    |0                |4            |      +4  |
+|VideoCreativeWorkiGuide|4653860511|11009408122|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4653771005|11009268797|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4650758231|11002849105|empty    |4                |0            |      -4  |
+|VideoCreativeWorkiGuide|4650564564|11002316775|empty    |0                |4            |      +4  |
+|VideoCreativeWorkiGuide|4650892832|11003187698|empty    |4                |0            |      -4  |
+|VideoCreativeWorkiGuide|4650752671|11002838560|empty    |4                |0            |      -4  |
+|VideoCreativeWorkiGuide|4653860494|11009408193|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4653860510|11009408096|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4650648173|11002572832|empty    |0                |4            |      +4  |
+|VideoCreativeWorkiGuide|4653763800|11009245091|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4653860493|11009408166|empty    |2                |6            |      +4  |
++-----------------------+----------+-----------+---------+-----------------+-------------+----------+
+only showing top 50 rows
+
