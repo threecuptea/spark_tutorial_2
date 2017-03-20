@@ -1,0 +1,45 @@
+
+
+jenga, >=10998951460, <= 11009609591, MX >=26925692766, <=26959286187
+andev@ubuntu:~/Downloads/0320/prod$ grep '10998951460' danube-resolver-prod-1100_2017-03-19T.log 
+INFO [listener-10] - RESOLVE CreativeWork 4135328300 (10998951460 replacing 10998951386) , 0 dirty size: 25277b poll: 127ms parse: 0ms get: 6ms compare: 0ms update: 1ms resolve: 0ms broker: 0ms unlock: 1ms confirm: 0ms [ 163ms 2017-03-19T00:00:17.207 ] 
+INFO [listener-14] - RESOLVE MXNamePersonPrimaryImage 20973928 (26925692766 replacing 26878686192) , 0 dirty size: 0b poll: 4529ms parse: 0ms get: 1ms compare: 0ms update: 1ms resolve: 1ms broker: 0ms unlock: 1ms confirm: 0ms [ 4533ms 2017-03-19T00:00:24.483 ] 
+
+
+INFO [listener-15] - RESOLVE MXCreditMajor 4650904129 (26959286187 replacing 26943294316) , 1 dirty size: 446b poll: 102ms parse: 0ms get: 1ms compare: 0ms update: 1ms resolve: 2ms broker: 1ms unlock: 1ms confirm: 0ms [ 108ms 2017-03-20T16:06:58.149 ] 
+
+fandev@ubuntu:~/Downloads/0320/prod$ grep -n '11009609591' danube-resolver-prod-1100_2017-03-20T.log 
+5843854:INFO [listener-2] - RESOLVE ImageRegionalLabel 4653980265 (11009609591 replacing empty) , 0 dirty size: 1353b poll: 0ms parse: 0ms get: 1ms compare: 0ms update: 1ms resolve: 16ms broker: 0ms unlock: 1ms confirm: 0ms [ 19ms 2017-03-20T16:11:05.373 ] 
+
+
+
+
+jenga, >=10998951460, <= 11009609591, MX >=26832338211, <= 26859397114, not quite accurate (big range) 
+
+fandev@ubuntu:~/Downloads/0320/dev$ grep '10998951460' danube-resolver-dev-1100_2017-03-19T.log 
+INFO [listener-11] - RESOLVE CreativeWork-4135328300 (10998951460 replacing 10998951386) , 0 dirty [ 2017-03-19T00:00:17.292 ]
+fandev@ubuntu:~/Downloads/0320/dev$ head -500 danube-resolver-dev-1100_2017-03-19T.log | grep MX
+INFO [listener-13] - RESOLVE MXNamePersonPrimaryImage-20973928 (26832338211 replacing 26791227711) , 0 dirty [ 2017-03-19T00:00:29.057 ] 
+
+
+fandev@ubuntu:~/Downloads/0320/dev$ tail -2500 danube-resolver-dev-1100_2017-03-20T.log | grep MX
+INFO [listener-6] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-916672972 (26859397039 replacing 16094090072) , 0 dirty [ 2017-03-20T19:10:10.543 ] 
+INFO [listener-1] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-914873127 (26859334193 replacing 16087659112) , 0 dirty [ 2017-03-20T19:10:14.453 ] 
+INFO [listener-1] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-916346188 (26859334923 replacing 16092937437) , 0 dirty [ 2017-03-20T19:10:14.468 ] 
+INFO [listener-1] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-915193093 (26859335362 replacing 16088815575) , 0 dirty [ 2017-03-20T19:10:14.694 ] 
+INFO [listener-8] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-915909805 (26859338435 replacing 16091393557) , 0 dirty [ 2017-03-20T19:10:21.582 ] 
+INFO [listener-0] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-915595778 (26859394682 replacing 16090276173) , 0 dirty [ 2017-03-20T19:10:24.871 ] 
+INFO [listener-8] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-916215820 (26859340585 replacing 16092478813) , 0 dirty [ 2017-03-20T19:10:25.866 ] 
+INFO [listener-0] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-916011636 (26859397114 replacing 16091756877) , 0 dirty [ 2017-03-20T19:10:26.978 ] 
+INFO [listener-15] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-914863564 (26859369239 replacing 16087624951) , 0 dirty [ 2017-03-20T19:10:34.155 ] 
+INFO [listener-15] - RESOLVE MXNormalizedVideoWorkGroupingPrimaryImage-915151471 (26859369383 replacing 16088668277) , 0 dirty [ 2017-03-20T19:10:34.281 ] 
+
+
+
+fandev@ubuntu:~/Downloads/0320/dev$ grep '11009609591' danube-resolver-dev-1100_2017-03-20T.log 
+INFO [listener-3] - RESOLVE ImageRegionalLabel-4653980265 (11009609591 replacing empty) , 0 dirty [ 2017-03-20T19:10:39.695 ] 
+
+
+ 
+
+
