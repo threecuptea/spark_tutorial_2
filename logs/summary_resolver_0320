@@ -1,6 +1,6 @@
 PubId boundary for Jenga resources is [10998951460. 11009609591], diff, incl.= 10658131.
-PubId boundary for NON-Jenga resources in NON Java-transform pubId boundary is [26925692766. 26959286187], diff, inc= 33593422.
-NON Java-transform total RESOLVED dirty count= 9183207
+PubId boundary for NON-Jenga resources in NON Java-transform pubId boundary is [26925692766. 26956755511], diff, inc= 31062746.
+NON Java-transform total RESOLVED dirty count= 9168781
 PubId boundary for NON-Jenga resources in Java-transform pubId boundary is [26832338211. 26859397114], diff, incl.= 27058904.
 Java-transform total RESOLVED dirty count= 9069835
 
@@ -30,15 +30,15 @@ RESOLVE Dirty Counts groupBy RESOURCE
 |ImageRights                                |6922     |6791      |    -131  |    |
 |MXCreditEpisodeGuest                       |0        |0         |      +0  |    |
 |MXCreditEpisodeRegular                     |0        |0         |      +0  |    |
-|MXCreditMajor                              |206      |98        |    -108  |    |
-|MXNamePersonPrimaryImage                   |408672   |215547    |-193,125  |==  |
-|MXNormalizedVideoWorkGrouping              |169972   |51471     |-118,501  |==  |
+|MXCreditMajor                              |109      |98        |     -11  |    |
+|MXNamePersonPrimaryImage                   |205616   |215547    |  +9,931  |    |
+|MXNormalizedVideoWorkGrouping              |169604   |51471     |-118,133  |==  |
 |MXNormalizedVideoWorkGroupingPrimaryImage  |0        |0         |      +0  |    |
-|MXNormalizedVideoWorkRelease               |458339   |458834    |    +495  |    |
-|MXNormalizedVideoWorkReleasePrimaryImage   |3066     |2594      |    -472  |=   |
-|MXSourcePrimaryLogos                       |93       |15        |     -78  |    |
-|MXVideoWorkGroupingPrimaryImage            |8044     |6791      |  -1,253  |=   |
-|MXVideoWorkPrimaryImage                    |30758    |22597     |  -8,161  |==  |
+|MXNormalizedVideoWorkRelease               |455850   |458834    |  +2,984  |    |
+|MXNormalizedVideoWorkReleasePrimaryImage   |2555     |2594      |     +39  |    |
+|MXSourcePrimaryLogos                       |15       |15        |      +0  |    |
+|MXVideoWorkGroupingPrimaryImage            |7184     |6791      |    -393  |    |
+|MXVideoWorkPrimaryImage                    |21820    |22597     |    +777  |    |
 |MassfillProgramTvsource                    |0        |0         |      +0  |    |
 |MsoImage                                   |0        |0         |      +0  |    |
 |NameInfo                                   |2210837  |2206360   |  -4,477  |    |
@@ -50,8 +50,8 @@ RESOLVE Dirty Counts groupBy RESOURCE
 |PersonRelative                             |3        |3         |      +0  |    |
 |PriceOption                                |0        |0         |      +0  |    |
 |Profession                                 |107      |107       |      +0  |    |
-|PublishedImage                             |1122     |4921      |  +3,799  |++  |
-|PublishedLogo                              |6        |0         |      -6  |    |
+|PublishedImage                             |315      |4921      |  +4,606  |    |
+|PublishedLogo                              |0        |0         |      +0  |    |
 |Schedule                                   |19385665 |19369172  | -16,493  |    |
 |Source                                     |9788     |9788      |      +0  |    |
 |SourceImage                                |1488     |1492      |      +4  |    |
