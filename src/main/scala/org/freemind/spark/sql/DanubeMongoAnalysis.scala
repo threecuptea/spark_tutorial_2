@@ -1,33 +1,34 @@
 package org.freemind.spark.sql
 
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
 
 /**
   * Created by fandev on 3/14/17.
   */
 
-case class DanubeMongoStats(resource: String, bytes_size: Long)
+case class DanubeMongoStats(resource: String, count: Long)
 
 object DanubeMongoAnalysis {
 
   def parseMongoStats(line: String): DanubeMongoStats = {
-    val splits = line.split(": ")
+    val splits = line.split(" - ")
     assert(splits.length == 2)
-    val splits2 = splits(0).split("\\.")
+    val splits2 = splits(1).split(" ")
     assert(splits2.length == 2)
-    DanubeMongoStats(splits2(1), splits(1).toLong)
+    DanubeMongoStats(splits(0), splits2(0).toLong)
   }
 
   def main(args: Array[String]): Unit = {
 
-    if (args.length < 3) {
-      println("Usage: DanubeMongoAnalysis [mongo-stats-fantv-dev] [mongo-stats-fantv-prod] [mongo-stats-rcs-prod]")
+    if (args.length < 2) {
+      println("Usage: DanubeMongoAnalysis [mongo-stats-fantv-prod] [mongo-stats-fantv-dev]")
       System.exit(-1)
     }
 
-    val fanDevPath = args(0)
-    val fanProdPath = args(1)
-    val rcsProdPath = args(2)
+    val fanProdPath = args(0)
+    val fanDevPath = args(1)
+
 
     val spark = SparkSession
       .builder()
@@ -35,14 +36,15 @@ object DanubeMongoAnalysis {
       .getOrCreate()
     import spark.implicits._
 
-    val fanDevDS = spark.read.textFile(fanDevPath).map(parseMongoStats).withColumnRenamed("bytes_size", "bytes_size_fantv_dev")
-    val fanProdDS = spark.read.textFile(fanProdPath).map(parseMongoStats).withColumnRenamed("bytes_size", "bytes_size_fantv_prod")
-    val rcsProdDS = spark.read.textFile(rcsProdPath).map(parseMongoStats).withColumnRenamed("bytes_size", "bytes_size_rcs_prod")
+    val fanProdDS = spark.read.textFile(fanProdPath).map(parseMongoStats).withColumnRenamed("count", "count_fantv_prod").cache()
+    val fanDevDS = spark.read.textFile(fanDevPath).map(parseMongoStats).withColumnRenamed("count", "count_fantv_dev").cache()
 
-    val joinedDS = fanDevDS.join(fanProdDS, Seq("resource"), "left_outer").join(rcsProdDS, Seq("resource"), "left_outer")
+    val joinedDS = fanProdDS.join(fanDevDS, Seq("resource"), "right_outer")
+              .withColumn("diff", when(isnull($"count_fantv_prod"), $"count_fantv_dev").otherwise($"count_fantv_dev" - $"count_fantv_prod") )
+              .withColumn("difference", format_string("%,+8d", $"diff")).sort("resource")
 
-    println("Danube Mongo stats(bytes size) by RESOURCE")
-    joinedDS.show(500, truncate = false)
+    println("Danube Mongo stats(count) by RESOURCE")
+    joinedDS.select($"resource", $"count_fantv_prod", $"count_fantv_dev", $"difference").show(500, truncate = false)
 
   }
 
