@@ -1,6 +1,7 @@
+Request resources: VideoCreativeWorkiGuide VideoCreativeWorkRegionalLabel CreativeWork NameInfo
 PubId boundary for Jenga resources is [10998951460. 11009609591], diff, incl.= 10658131.
 
-Resolve log entries of top 25 discrepancies for VideoCreativeWorkiGuide.
+Resolve log entries of top 50 discrepancies for VideoCreativeWorkiGuide.
 +-----------------------+----------+-----------+---------+-----------------+-------------+----------+
 |resource               |roviId    |pubId      |old_pubId|non_jt_dirty_size|jt_dirty_size|difference|
 +-----------------------+----------+-----------+---------+-----------------+-------------+----------+
@@ -25,35 +26,209 @@ Resolve log entries of top 25 discrepancies for VideoCreativeWorkiGuide.
 |VideoCreativeWorkiGuide|4653939773|11009521852|empty    |2                |12           |     +10  |
 |VideoCreativeWorkiGuide|4653598755|11008927096|empty    |2                |10           |      +8  |
 |VideoCreativeWorkiGuide|4653853257|11009405001|empty    |2                |10           |      +8  |
-|VideoCreativeWorkiGuide|4653620771|11008937047|empty    |2                |9            |      +7  |
 |VideoCreativeWorkiGuide|4653771004|11009255506|empty    |2                |9            |      +7  |
 |VideoCreativeWorkiGuide|4653886826|11009437953|empty    |3                |10           |      +7  |
 |VideoCreativeWorkiGuide|4653682856|11009185051|empty    |2                |9            |      +7  |
-|VideoCreativeWorkiGuide|4653939783|11009521346|empty    |2                |8            |      +6  |
+|VideoCreativeWorkiGuide|4653620771|11008937047|empty    |2                |9            |      +7  |
 |VideoCreativeWorkiGuide|4653664971|11009169043|empty    |2                |8            |      +6  |
-|VideoCreativeWorkiGuide|4651602158|11003904793|empty    |0                |6            |      +6  |
 |VideoCreativeWorkiGuide|4653832176|11009364019|empty    |2                |8            |      +6  |
+|VideoCreativeWorkiGuide|4651602158|11003904793|empty    |0                |6            |      +6  |
+|VideoCreativeWorkiGuide|4653939783|11009521346|empty    |2                |8            |      +6  |
 |VideoCreativeWorkiGuide|4650757179|11002846822|empty    |0                |5            |      +5  |
-|VideoCreativeWorkiGuide|4653939769|11009513854|empty    |2                |7            |      +5  |
-|VideoCreativeWorkiGuide|4653770999|11009260660|empty    |2                |7            |      +5  |
-|VideoCreativeWorkiGuide|4650648180|11002572830|empty    |0                |5            |      +5  |
 |VideoCreativeWorkiGuide|4650756049|11002845123|empty    |0                |5            |      +5  |
+|VideoCreativeWorkiGuide|4653770999|11009260660|empty    |2                |7            |      +5  |
 |VideoCreativeWorkiGuide|4653939771|11009513834|empty    |2                |7            |      +5  |
-|VideoCreativeWorkiGuide|4653824274|11009356219|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4650648180|11002572830|empty    |0                |5            |      +5  |
+|VideoCreativeWorkiGuide|4653939769|11009513854|empty    |2                |7            |      +5  |
 |VideoCreativeWorkiGuide|4653832230|11009372853|empty    |6                |2            |      -4  |
-|VideoCreativeWorkiGuide|4650604860|11002452779|empty    |0                |4            |      +4  |
 |VideoCreativeWorkiGuide|4651603526|11003916613|empty    |0                |4            |      +4  |
-|VideoCreativeWorkiGuide|4653860511|11009408122|empty    |2                |6            |      +4  |
-|VideoCreativeWorkiGuide|4653771005|11009268797|empty    |2                |6            |      +4  |
-|VideoCreativeWorkiGuide|4650758231|11002849105|empty    |4                |0            |      -4  |
-|VideoCreativeWorkiGuide|4650564564|11002316775|empty    |0                |4            |      +4  |
 |VideoCreativeWorkiGuide|4650892832|11003187698|empty    |4                |0            |      -4  |
-|VideoCreativeWorkiGuide|4650752671|11002838560|empty    |4                |0            |      -4  |
-|VideoCreativeWorkiGuide|4653860494|11009408193|empty    |2                |6            |      +4  |
-|VideoCreativeWorkiGuide|4653860510|11009408096|empty    |2                |6            |      +4  |
-|VideoCreativeWorkiGuide|4650648173|11002572832|empty    |0                |4            |      +4  |
+|VideoCreativeWorkiGuide|4650758231|11002849105|empty    |4                |0            |      -4  |
 |VideoCreativeWorkiGuide|4653763800|11009245091|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4653771005|11009268797|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4653860494|11009408193|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4650648173|11002572832|empty    |0                |4            |      +4  |
+|VideoCreativeWorkiGuide|4650604860|11002452779|empty    |0                |4            |      +4  |
+|VideoCreativeWorkiGuide|4653860511|11009408122|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4650752671|11002838560|empty    |4                |0            |      -4  |
+|VideoCreativeWorkiGuide|4650564564|11002316775|empty    |0                |4            |      +4  |
 |VideoCreativeWorkiGuide|4653860493|11009408166|empty    |2                |6            |      +4  |
+|VideoCreativeWorkiGuide|4650644566|11002551185|empty    |0                |4            |      +4  |
+|VideoCreativeWorkiGuide|4653860510|11009408096|empty    |2                |6            |      +4  |
 +-----------------------+----------+-----------+---------+-----------------+-------------+----------+
+only showing top 50 rows
+
+
+Resolve log entries of top 50 discrepancies for VideoCreativeWorkRegionalLabel.
++------------------------------+----------+-----------+---------+-----------------+-------------+----------+
+|resource                      |roviId    |pubId      |old_pubId|non_jt_dirty_size|jt_dirty_size|difference|
++------------------------------+----------+-----------+---------+-----------------+-------------+----------+
+|VideoCreativeWorkRegionalLabel|4653977920|11009602095|empty    |1115             |258          |    -857  |
+|VideoCreativeWorkRegionalLabel|4653977921|11009602092|empty    |1143             |606          |    -537  |
+|VideoCreativeWorkRegionalLabel|4653911905|11009486082|empty    |1161             |678          |    -483  |
+|VideoCreativeWorkRegionalLabel|4653902771|11009476668|empty    |952              |492          |    -460  |
+|VideoCreativeWorkRegionalLabel|4653977917|11009602096|empty    |1209             |898          |    -311  |
+|VideoCreativeWorkRegionalLabel|4653902763|11009476650|empty    |986              |686          |    -300  |
+|VideoCreativeWorkRegionalLabel|4653977916|11009602089|empty    |1205             |985          |    -220  |
+|VideoCreativeWorkRegionalLabel|4653911904|11009486084|empty    |1185             |980          |    -205  |
+|VideoCreativeWorkRegionalLabel|4653977915|11009602090|empty    |1204             |1025         |    -179  |
+|VideoCreativeWorkRegionalLabel|4653977919|11009602094|empty    |1206             |1099         |    -107  |
+|VideoCreativeWorkRegionalLabel|4653574504|11008839713|empty    |226              |129          |     -97  |
+|VideoCreativeWorkRegionalLabel|4653545659|11008602194|empty    |226              |129          |     -97  |
+|VideoCreativeWorkRegionalLabel|4653545674|11008602198|empty    |198              |101          |     -97  |
+|VideoCreativeWorkRegionalLabel|4653574506|11008839599|empty    |198              |101          |     -97  |
+|VideoCreativeWorkRegionalLabel|4653574515|11008839737|empty    |198              |101          |     -97  |
+|VideoCreativeWorkRegionalLabel|4653545662|11008602108|empty    |198              |101          |     -97  |
+|VideoCreativeWorkRegionalLabel|4653977918|11009602093|empty    |1206             |1138         |     -68  |
+|VideoCreativeWorkRegionalLabel|4653545660|11008602230|empty    |294              |227          |     -67  |
+|VideoCreativeWorkRegionalLabel|4653574505|11008839740|empty    |294              |227          |     -67  |
+|VideoCreativeWorkRegionalLabel|4650341449|11001107691|empty    |156              |92           |     -64  |
+|VideoCreativeWorkRegionalLabel|4653545661|11008602252|empty    |126              |80           |     -46  |
+|VideoCreativeWorkRegionalLabel|4652065848|11004729277|empty    |396              |442          |     +46  |
+|VideoCreativeWorkRegionalLabel|4652065920|11004729418|empty    |396              |439          |     +43  |
+|VideoCreativeWorkRegionalLabel|4653545663|11008602152|empty    |297              |260          |     -37  |
+|VideoCreativeWorkRegionalLabel|4653574507|11008839632|empty    |297              |260          |     -37  |
+|VideoCreativeWorkRegionalLabel|4653902632|11009476521|empty    |47               |13           |     -34  |
+|VideoCreativeWorkRegionalLabel|4653609634|11008937457|empty    |1314             |1281         |     -33  |
+|VideoCreativeWorkRegionalLabel|4653912346|11009488135|empty    |47               |15           |     -32  |
+|VideoCreativeWorkRegionalLabel|4653574514|11008839697|empty    |138              |110          |     -28  |
+|VideoCreativeWorkRegionalLabel|4653596881|11008887978|empty    |138              |110          |     -28  |
+|VideoCreativeWorkRegionalLabel|4653677352|11009175424|empty    |54               |27           |     -27  |
+|VideoCreativeWorkRegionalLabel|4653783436|11009308428|empty    |82               |55           |     -27  |
+|VideoCreativeWorkRegionalLabel|4650800968|11002949823|empty    |100              |75           |     -25  |
+|VideoCreativeWorkRegionalLabel|4650801311|11002953069|empty    |100              |75           |     -25  |
+|VideoCreativeWorkRegionalLabel|4653596882|11008888009|empty    |220              |196          |     -24  |
+|VideoCreativeWorkRegionalLabel|4653794469|11009326933|empty    |4                |27           |     +23  |
+|VideoCreativeWorkRegionalLabel|4653596883|11008888072|empty    |166              |144          |     -22  |
+|VideoCreativeWorkRegionalLabel|4650794421|11002930348|empty    |62               |43           |     -19  |
+|VideoCreativeWorkRegionalLabel|4650797082|11002940586|empty    |62               |43           |     -19  |
+|VideoCreativeWorkRegionalLabel|4653444022|11007529557|empty    |72               |53           |     -19  |
+|VideoCreativeWorkRegionalLabel|4653902645|11009476491|empty    |34               |15           |     -19  |
+|VideoCreativeWorkRegionalLabel|4653664807|11009167138|empty    |34               |16           |     -18  |
+|VideoCreativeWorkRegionalLabel|4653783428|11009288429|empty    |6                |24           |     +18  |
+|VideoCreativeWorkRegionalLabel|4653794460|11009326848|empty    |82               |64           |     -18  |
+|VideoCreativeWorkRegionalLabel|4653783426|11009288430|empty    |6                |24           |     +18  |
+|VideoCreativeWorkRegionalLabel|4653902590|11009476522|empty    |47               |29           |     -18  |
+|VideoCreativeWorkRegionalLabel|4653794447|11009326846|empty    |6                |24           |     +18  |
+|VideoCreativeWorkRegionalLabel|4653439404|11006858638|empty    |70               |53           |     -17  |
+|VideoCreativeWorkRegionalLabel|4651602581|11003909503|empty    |16               |0            |     -16  |
+|VideoCreativeWorkRegionalLabel|4653664633|11009164837|empty    |510              |526          |     +16  |
++------------------------------+----------+-----------+---------+-----------------+-------------+----------+
+only showing top 50 rows
+
+
+Resolve log entries of top 50 discrepancies for CreativeWork.
++------------+----------+-----------+-----------+-----------------+-------------+----------+
+|resource    |roviId    |pubId      |old_pubId  |non_jt_dirty_size|jt_dirty_size|difference|
++------------+----------+-----------+-----------+-----------------+-------------+----------+
+|CreativeWork|4479179250|11000209806|10982131366|12514            |12159        |    -355  |
+|CreativeWork|4651591820|11003882097|empty      |130              |449          |    +319  |
+|CreativeWork|4647224055|11009543533|11004811677|342              |153          |    -189  |
+|CreativeWork|429721    |11002553776|11002157719|1296             |1152         |    -144  |
+|CreativeWork|4647851658|11003929670|10998919937|43               |125          |     +82  |
+|CreativeWork|4650216736|11000153035|empty      |158              |83           |     -75  |
+|CreativeWork|12000753  |11003041524|11002661158|964              |892          |     -72  |
+|CreativeWork|12000753  |11002564218|11001870075|964              |892          |     -72  |
+|CreativeWork|2146860   |11000196549|10998784914|558              |486          |     -72  |
+|CreativeWork|4642714926|11009418374|11002717663|125              |53           |     -72  |
+|CreativeWork|1488321   |11003802922|11002667112|1121             |1052         |     -69  |
+|CreativeWork|12508420  |11001827296|11001827181|138              |73           |     -65  |
+|CreativeWork|4627499649|11002607935|11002601782|108              |51           |     -57  |
+|CreativeWork|4653223517|11007152590|empty      |58               |2            |     -56  |
+|CreativeWork|12325919  |11009606955|11009327926|169              |115          |     -54  |
+|CreativeWork|3248318929|11009327912|10990861312|119              |65           |     -54  |
+|CreativeWork|4642652672|11009387053|10983784932|118              |64           |     -54  |
+|CreativeWork|1009571154|11009327829|10990861274|116              |62           |     -54  |
+|CreativeWork|1870426   |11009327883|10990861151|119              |65           |     -54  |
+|CreativeWork|3475747304|11009604525|11009327771|119              |65           |     -54  |
+|CreativeWork|19064676  |11009327914|10990861106|119              |65           |     -54  |
+|CreativeWork|3475747304|11009327771|10990861177|119              |65           |     -54  |
+|CreativeWork|19059905  |11009604975|11009327902|115              |61           |     -54  |
+|CreativeWork|19064508  |11009604708|11009327775|115              |61           |     -54  |
+|CreativeWork|17379418  |11009327773|10990861130|115              |61           |     -54  |
+|CreativeWork|1323540   |11009606889|11009327768|453              |399          |     -54  |
+|CreativeWork|18068317  |11009606934|11009332469|169              |115          |     -54  |
+|CreativeWork|725655829 |11009341505|10990861124|116              |62           |     -54  |
+|CreativeWork|725655829 |11009607035|11009341505|173              |119          |     -54  |
+|CreativeWork|18068347  |11009341504|10990861268|115              |61           |     -54  |
+|CreativeWork|12325919  |11009327926|10990861123|115              |61           |     -54  |
+|CreativeWork|18068317  |11009332469|10990861114|115              |61           |     -54  |
+|CreativeWork|3248318929|11009604601|11009327912|122              |68           |     -54  |
+|CreativeWork|67268866  |11009604583|11009327772|121              |67           |     -54  |
+|CreativeWork|670296696 |11009327922|10990861110|116              |62           |     -54  |
+|CreativeWork|67268866  |11009327772|10990861116|119              |65           |     -54  |
+|CreativeWork|1508351   |11009327776|10990861276|115              |61           |     -54  |
+|CreativeWork|4642655147|11009541115|11009394993|185              |131          |     -54  |
+|CreativeWork|2480185   |11009606882|11009327900|173              |119          |     -54  |
+|CreativeWork|1299783099|11009332400|10990861251|119              |65           |     -54  |
+|CreativeWork|4472780312|11009341629|10990861266|115              |61           |     -54  |
+|CreativeWork|4642652672|11009595216|11009387053|113              |59           |     -54  |
+|CreativeWork|1552257817|11009332361|10990861146|116              |62           |     -54  |
+|CreativeWork|2480185   |11009327900|10990861117|115              |61           |     -54  |
+|CreativeWork|4642655147|11009394993|10990861330|109              |55           |     -54  |
+|CreativeWork|1954555   |11009327907|10990861112|115              |61           |     -54  |
+|CreativeWork|19059905  |11009327902|10990861140|115              |61           |     -54  |
+|CreativeWork|19061069  |11009604595|11009327878|115              |61           |     -54  |
+|CreativeWork|670289214 |11009604384|11009327874|119              |65           |     -54  |
+|CreativeWork|4472780312|11009604689|11009341629|134              |80           |     -54  |
++------------+----------+-----------+-----------+-----------------+-------------+----------+
+only showing top 50 rows
+
+
+Resolve log entries of top 50 discrepancies for NameInfo.
++--------+----------+-----------+-----------+-----------------+-------------+----------+
+|resource|roviId    |pubId      |old_pubId  |non_jt_dirty_size|jt_dirty_size|difference|
++--------+----------+-----------+-----------+-----------------+-------------+----------+
+|NameInfo|21006840  |10999883104|10998575901|134816           |134557       |    -259  |
+|NameInfo|15794525  |11009152531|10811939102|194999           |194744       |    -255  |
+|NameInfo|68727757  |11002690137|10910800855|297              |126          |    -171  |
+|NameInfo|20388760  |11002418473|11002412795|16874            |16717        |    -157  |
+|NameInfo|20388760  |11002412795|11002391700|16874            |16717        |    -157  |
+|NameInfo|20388760  |11003027275|11002870898|16883            |16726        |    -157  |
+|NameInfo|20388760  |11002193633|11000878659|16873            |16716        |    -157  |
+|NameInfo|20388760  |11002421237|11002418473|16874            |16717        |    -157  |
+|NameInfo|20388760  |10999120799|10999120783|16891            |16734        |    -157  |
+|NameInfo|20388760  |10999107691|10998950210|16891            |16734        |    -157  |
+|NameInfo|20388760  |10999120190|10999117600|16891            |16734        |    -157  |
+|NameInfo|20388760  |11002321593|11002193633|16873            |16716        |    -157  |
+|NameInfo|20388760  |10999120783|10999120190|16891            |16734        |    -157  |
+|NameInfo|20388760  |11000878659|11000539493|16886            |16729        |    -157  |
+|NameInfo|20388760  |11009350935|11004524012|16879            |16722        |    -157  |
+|NameInfo|20388760  |11002386933|11002321593|16874            |16717        |    -157  |
+|NameInfo|20388760  |11002870898|11002452222|16883            |16726        |    -157  |
+|NameInfo|20388760  |11002452222|11002421237|16881            |16724        |    -157  |
+|NameInfo|20388760  |10999117600|10999107691|16891            |16734        |    -157  |
+|NameInfo|20388760  |10999120838|10999120799|16891            |16734        |    -157  |
+|NameInfo|20388760  |10999448269|10999139379|16891            |16734        |    -157  |
+|NameInfo|20388760  |11002391700|11002386933|16874            |16717        |    -157  |
+|NameInfo|20388760  |11000539493|10999876554|16891            |16734        |    -157  |
+|NameInfo|20388760  |11004524012|11003027275|16883            |16726        |    -157  |
+|NameInfo|20388760  |10999139379|10999120838|16891            |16734        |    -157  |
+|NameInfo|20388760  |10999876554|10999448269|16892            |16735        |    -157  |
+|NameInfo|21095585  |11002982236|10995674232|76292            |76204        |     -88  |
+|NameInfo|21095585  |11003195774|11002982236|76292            |76204        |     -88  |
+|NameInfo|4653596878|11008926033|empty      |8                |36           |     +28  |
+|NameInfo|15407351  |11007850922|9400516372 |7590             |7606         |     +16  |
+|NameInfo|15367633  |10999106580|10987749446|2928             |2915         |     -13  |
+|NameInfo|15367633  |10999196408|10999106580|2928             |2915         |     -13  |
+|NameInfo|4652445932|11008120074|empty      |8                |19           |     +11  |
+|NameInfo|4653979107|11009606980|empty      |8                |14           |      +6  |
+|NameInfo|20386209  |11003090282|10998013256|39135            |39131        |      -4  |
+|NameInfo|20943761  |10999120206|10999107329|9788             |9785         |      -3  |
+|NameInfo|20943761  |10999107329|10998673326|9457             |9454         |      -3  |
+|NameInfo|20261560  |11004957818|10998677633|148270           |148272       |      +2  |
+|NameInfo|16201969  |10999131132|10998323700|442              |440          |      -2  |
+|NameInfo|16201969  |11001774674|10999942563|440              |438          |      -2  |
+|NameInfo|16201969  |11002173198|11001774674|442              |440          |      -2  |
+|NameInfo|16201969  |11004953180|11002173198|447              |445          |      -2  |
+|NameInfo|16052707  |11003950519|11003038748|2548             |2550         |      +2  |
+|NameInfo|16201969  |10999883080|10999131132|442              |440          |      -2  |
+|NameInfo|16052707  |11003038748|10996144638|2548             |2550         |      +2  |
+|NameInfo|16201969  |10999942563|10999883080|442              |440          |      -2  |
+|NameInfo|20409519  |11004374673|11001825824|1994             |1996         |      +2  |
+|NameInfo|20409519  |11001825824|10998145322|2002             |2004         |      +2  |
+|NameInfo|20365045  |11003046763|10999120939|382              |380          |      -2  |
+|NameInfo|16201969  |11004953365|11004953180|447              |445          |      -2  |
++--------+----------+-----------+-----------+-----------------+-------------+----------+
 only showing top 50 rows
 

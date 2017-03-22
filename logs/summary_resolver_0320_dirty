@@ -6,7 +6,7 @@ Java-transform total RESOLVED dirty count= 9069835
 
 
 Union together to generate summary
-RESOLVE Dirty Counts groupBy RESOURCE
+RESOLVE dirty size groupBy RESOURCE
 +-------------------------------------------+---------+----------+----------+----+
 |resource                                   |sum(jtNo)|sum(jtYes)|difference|flag|
 +-------------------------------------------+---------+----------+----------+----+

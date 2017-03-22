@@ -1,0 +1,91 @@
+PubId boundary for Jenga resources is [10998951460. 11009609591], diff, incl.= 10658131.
+PubId boundary for NON-Jenga resources in NON Java-transform pubId boundary is [26925692766. 26956755511], diff, inc= 31062746.
+NON Java-transform total RESOLVED dirty count= 9168781
+PubId boundary for NON-Jenga resources in Java-transform pubId boundary is [26832338211. 26859397114], diff, incl.= 27058904.
+Java-transform total RESOLVED dirty count= 9069835
+
+
+Union together to generate summary
+RESOLVE line count groupBy RESOURCE
++-------------------------------------------+---------+----------+----------+----+
+|resource                                   |sum(jtNo)|sum(jtYes)|difference|flag|
++-------------------------------------------+---------+----------+----------+----+
+|Asset                                      |27632    |27618     |     -14  |    |
+|AwardImage                                 |2762     |2762      |      +0  |    |
+|AwardNominationCreativeWork                |11       |11        |      +0  |    |
+|AwardNominationImage                       |2763     |2763      |      +0  |    |
+|AwardNomineePerson                         |325      |325       |      +0  |    |
+|CatchUpTvaffiliateUrl                      |3690     |3690      |      +0  |    |
+|ChannelLineUp                              |24454    |24454     |      +0  |    |
+|CluAvailability                            |433      |433       |      +0  |    |
+|CreativeWork                               |394897   |393726    |  -1,171  |    |
+|CreativeWorkSource                         |32141    |32141     |      +0  |    |
+|Credit                                     |64727    |64721     |      -6  |    |
+|DvbsourceClu                               |57       |57        |      +0  |    |
+|GenreImage                                 |12057    |12057     |      +0  |    |
+|HeadEndPostalCode                          |2        |2         |      +0  |    |
+|Headend                                    |1        |1         |      +0  |    |
+|ImageLogoType                              |77       |77        |      +0  |    |
+|ImageRegionalLabel                         |54384    |54328     |     -56  |    |
+|ImageRights                                |8154     |8145      |      -9  |    |
+|MXCreditEpisodeGuest                       |17584    |22373     |  +4,789  |++  |
+|MXCreditEpisodeRegular                     |26143    |60436     | +34,293  |++  |
+|MXCreditMajor                              |17309    |8518      |  -8,791  |==  |
+|MXNamePersonPrimaryImage                   |790      |807       |     +17  |    |
+|MXNormalizedVideoWorkGrouping              |51382    |16369     | -35,013  |==  |
+|MXNormalizedVideoWorkGroupingPrimaryImage  |64788    |32967     | -31,821  |==  |
+|MXNormalizedVideoWorkRelease               |42010    |42565     |    +555  |    |
+|MXNormalizedVideoWorkReleasePrimaryImage   |33970    |8863      | -25,107  |==  |
+|MXSourcePrimaryLogos                       |4        |5         |      +1  |    |
+|MXVideoWorkGroupingPrimaryImage            |44350    |8875      | -35,475  |==  |
+|MXVideoWorkPrimaryImage                    |35095    |34910     |    -185  |    |
+|MassfillProgramTvsource                    |12       |12        |      +0  |    |
+|MsoImage                                   |2763     |2763      |      +0  |    |
+|NameInfo                                   |10596    |9880      |    -716  |    |
+|NameInfoAka                                |86       |84        |      -2  |    |
+|NameInfoImage                              |4052     |4051      |      -1  |    |
+|NameInfoTwitter                            |9        |9         |      +0  |    |
+|NameOrganizationRegionalLabel              |2        |2         |      +0  |    |
+|NamePersonRegionalLabel                    |49       |49        |      +0  |    |
+|PersonRelative                             |3        |3         |      +0  |    |
+|PriceOption                                |1177     |1177      |      +0  |    |
+|Profession                                 |107      |107       |      +0  |    |
+|PublishedImage                             |603      |884       |    +281  |    |
+|PublishedLogo                              |5        |5         |      +0  |    |
+|Schedule                                   |6787196  |6786882   |    -314  |    |
+|Source                                     |166      |166       |      +0  |    |
+|SourceImage                                |2983     |2983      |      +0  |    |
+|SportsCompetition                          |668      |660       |      -8  |    |
+|SportsCompetitionImage                     |2763     |2763      |      +0  |    |
+|SportsCompetitionParticipant               |123506   |123506    |      +0  |    |
+|SportsCompetitionParticipantResult         |10301    |10301     |      +0  |    |
+|SportsCompetitionResult                    |465      |465       |      +0  |    |
+|SportsCompetitionToCompetition             |249      |249       |      +0  |    |
+|SportsOrganizationParticipant              |217      |217       |      +0  |    |
+|SportsOrganizationParticipantResult        |1717     |1717      |      +0  |    |
+|SportsStadium                              |6        |6         |      +0  |    |
+|TelevisionSourceGroup                      |1        |1         |      +0  |    |
+|TvepisodeSequence                          |1588     |1569      |     -19  |    |
+|TvepisodeVideoClip                         |29886    |29886     |      +0  |    |
+|TvprogramRecommendation                    |166      |166       |      +0  |    |
+|TvseasonImage                              |2855     |2855      |      +0  |    |
+|TvseriesImage                              |6964     |7001      |     +37  |    |
+|VideoCreativeWorkEventRelevancy            |6        |6         |      +0  |    |
+|VideoCreativeWorkNameOrganizationRelevancy |6        |6         |      +0  |    |
+|VideoCreativeWorkNamePersonRelevancy       |6        |6         |      +0  |    |
+|VideoCreativeWorkRegionalLabel             |23609    |23609     |      +0  |    |
+|VideoCreativeWorkTeam                      |115      |115       |      +0  |    |
+|VideoCreativeWorkTitleCulture              |1554     |1554      |      +0  |    |
+|VideoCreativeWorkVideoCreativeWorkRelevancy|6        |6         |      +0  |    |
+|VideoCreativeWorkiGuide                    |43972    |43971     |      -1  |    |
+|VideoWorkAssociation                       |7608     |7608      |      +0  |    |
+|VideoWorkDescription                       |147015   |146795    |    -220  |    |
+|VideoWorkGrouping                          |68714    |68715     |      +1  |    |
+|VideoWorkImage                             |275718   |275727    |      +9  |    |
+|Vodasset                                   |138938   |138938    |      +0  |    |
+|VodassetVodfolder                          |507596   |507596    |      +0  |    |
+|Vodfolder                                  |760      |760       |      +0  |    |
+|WebProgramAffiliateUrl                     |5        |5         |      +0  |    |
++-------------------------------------------+---------+----------+----------+----+
+
+=: below 12.5%, ==: below 25%; +: above 12.5%, ++: above 25% only for sum(jtNo) > 1000

@@ -10,7 +10,7 @@ import org.apache.spark.sql.functions._
   * It adds "difference" display field by using format_string and add "diff. flag" field by using
   * nested when and otheriwise sql functions on numeric conditions
   *
-  * @author sling(threecuptea) on 2/7 - 2/8
+  * @author sling(threecuptea) on 3/13 -
   */
 object DanubeResolverAnalysis {
 
@@ -29,6 +29,7 @@ object DanubeResolverAnalysis {
     val nonJtUpper = args(5).toLong
     val jtLower = args(6).toLong
     val jtUpper = args(7).toLong
+    val countOnly = if (args.length > 8) args(8).toBoolean else false
     
     val spark = SparkSession
       .builder()
@@ -43,9 +44,9 @@ object DanubeResolverAnalysis {
     //Do the followings if I only want to include PUBLISH and UNPUBLISH state in the report
     //val statesInc = Seq("PUBLISH", "UNPUBLISH") //_* expanded to var args
     //val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog).filter($"pubId".between(nonJtLower, nonJtUpper) && $"state".isin(statesInc:_*)).cache()
-    val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtResolverLog).filter($"pubId".between(lower, upper) ||
+    val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtResolverLog(_, countOnly)).filter($"pubId".between(lower, upper) ||
       $"pubId".between(nonJtLower, nonJtUpper)).cache()
-    val jtDS = jtRawDS.flatMap(parser.parseJtResolverLog).filter($"pubId".between(lower, upper) ||
+    val jtDS = jtRawDS.flatMap(parser.parseJtResolverLog(_, countOnly)).filter($"pubId".between(lower, upper) ||
       $"pubId".between(jtLower, jtUpper)).cache()
 
     printf("PubId boundary for Jenga resources is [%d. %d], diff, incl.= %d.\n", lower, upper, (upper - lower ))
@@ -59,8 +60,11 @@ object DanubeResolverAnalysis {
     println()
     println("Union together to generate summary")
     val combinedDS = nonJtDS.union(jtDS)
-
-    println("RESOLVE Dirty Counts groupBy RESOURCE")
+    if (countOnly) {
+      println("RESOLVE line count groupBy RESOURCE")
+    } else {
+      println("RESOLVE dirty size groupBy RESOURCE")
+    }
     combinedDS.groupBy($"resource").agg(sum($"jtNo"), sum($"jtYes"))
       .withColumn("diff", $"sum(jtYes)"- $"sum(jtNo)")
       .withColumn("difference", format_string("%,+8d", $"diff"))
