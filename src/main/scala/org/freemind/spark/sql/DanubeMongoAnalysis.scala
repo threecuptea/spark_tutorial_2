@@ -42,7 +42,10 @@ object DanubeMongoAnalysis {
     val countProd = fanProdDS.filter(!$"resource".startsWith("MX") && !$"resource".startsWith("Published")).groupBy().sum("count_fantv_prod").first().getLong(0)
     val countDev = fanDevDS.filter(!$"resource".startsWith("MX") && !$"resource".startsWith("Published")).groupBy().sum("count_fantv_dev").first().getLong(0)
 
+    println("===============================================================================================================")
     println(s"Total Jenga resource count in PROD vs DEV and (DEV - PROD): ${countProd}, ${countDev}, ${countDev - countProd}")
+    println("===============================================================================================================")
+    println()
 
     val joinedDS = fanProdDS.join(fanDevDS, Seq("resource"), "right_outer")
               .withColumn("diff", when(isnull($"count_fantv_prod"), $"count_fantv_dev").otherwise($"count_fantv_dev" - $"count_fantv_prod") )
