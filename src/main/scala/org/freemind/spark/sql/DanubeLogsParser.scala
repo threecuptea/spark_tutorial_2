@@ -42,6 +42,7 @@ case class DanubeResolverRaw (
                                roviId: Long,
                                pubId: Long,
                                old_pubId: String,
+                               state: String,
                                dirty_size: Integer
                              )
 
@@ -199,6 +200,10 @@ class DanubeLogsParser(a: Option[Array[String]] = None) extends Serializable {
     if (m.find) {
       Some(
         DanubeResolverRaw(
+          state =  m.group(4) match {
+            case "empty" => "new"
+            case _ => "update"
+          },
           old_pubId =  m.group(4),
           resource = m.group(1),
           roviId = m.group(2).toLong,

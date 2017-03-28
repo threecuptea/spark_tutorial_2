@@ -54,12 +54,5 @@ object ResolverDetailsJenga {
 
     }
 
-
-
-
-
-
-
-
   }
 }
