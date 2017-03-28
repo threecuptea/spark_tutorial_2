@@ -1,0 +1,13 @@
+Danube Mongo stats(count) by RESOURCE
++-------------------------------+----------------+---------------+----------+
+|resource                       |count_fantv_prod|count_fantv_dev|difference|
++-------------------------------+----------------+---------------+----------+
+|MXCreditMajor                  |6100979         |6101967        |    +988  |
+|MXNamePersonPrimaryImage       |2260081         |2260126        |     +45  |
+|MXNormalizedVideoWorkGrouping  |9585056         |9592212        |  +7,156  |
+|MXNormalizedVideoWorkRelease   |10259030        |10259444       |    +414  |
+|MXSourcePrimaryLogos           |75597           |75597          |      +0  |
+|MXVideoWorkGroupingPrimaryImage|1172579         |1172802        |    +223  |
+|MXVideoWorkPrimaryImage        |2970408         |2970449        |     +41  |
++-------------------------------+----------------+---------------+----------+
+
