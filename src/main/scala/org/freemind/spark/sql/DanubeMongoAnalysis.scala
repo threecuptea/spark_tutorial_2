@@ -19,14 +19,15 @@ object DanubeMongoAnalysis {
 
   def main(args: Array[String]): Unit = {
 
-    if (args.length < 2) {
+    if (args.length < 3) {
       println("Usage: DanubeMongoAnalysis [mongo-stats-fantv-prod] [mongo-stats-fantv-dev] [include-jenga-total-count]")
       System.exit(-1)
     }
 
     val fanProdPath = args(0)
     val fanDevPath = args(1)
-    val includeJengaTotal = if (args.length > 2) args(2).toBoolean else false
+    val mongoDatabase = args(2)
+    val includeJengaTotal = if (args.length > 3) args(3).toBoolean else false
 
 
     val spark = SparkSession
@@ -52,7 +53,7 @@ object DanubeMongoAnalysis {
               .withColumn("diff", when(isnull($"count_fantv_prod"), $"count_fantv_dev").otherwise($"count_fantv_dev" - $"count_fantv_prod") )
               .withColumn("difference", format_string("%,+8d", $"diff")).sort("resource")
 
-    println("Danube Mongo stats(count) by RESOURCE")
+    println("${mongoDatabase} Mongo stats(count) by RESOURCE")
     joinedDS.select($"resource", $"count_fantv_prod", $"count_fantv_dev", $"difference").show(500, truncate = false)
 
   }
