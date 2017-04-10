@@ -20,7 +20,7 @@ object DanubeMongoAnalysis {
   def main(args: Array[String]): Unit = {
 
     if (args.length < 3) {
-      println("Usage: DanubeMongoAnalysis [mongo-stats-fantv-prod] [mongo-stats-fantv-dev] [include-jenga-total-count]")
+      println("Usage: DanubeMongoAnalysis [mongo-stats-fantv-prod] [mongo-stats-fantv-dev] [mongo-database]")
       System.exit(-1)
     }
 
@@ -53,7 +53,7 @@ object DanubeMongoAnalysis {
               .withColumn("diff", when(isnull($"count_fantv_prod"), $"count_fantv_dev").otherwise($"count_fantv_dev" - $"count_fantv_prod") )
               .withColumn("difference", format_string("%,+8d", $"diff")).sort("resource")
 
-    println("${mongoDatabase} Mongo stats(count) by RESOURCE")
+    println(s"${mongoDatabase} Mongo stats(count) by RESOURCE")
     joinedDS.select($"resource", $"count_fantv_prod", $"count_fantv_dev", $"difference").show(500, truncate = false)
 
   }
