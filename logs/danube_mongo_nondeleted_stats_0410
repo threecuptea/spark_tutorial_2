@@ -1,0 +1,12 @@
+Danube Mongo non_deleted stats(count) by RESOURCE
++-------------------------------------------+----------------+---------------+----------+
+|resource                                   |count_fantv_prod|count_fantv_dev|difference|
++-------------------------------------------+----------------+---------------+----------+
+|MXNamePersonPrimaryImage_jt                |2265022         |2265046        |     +24  |
+|MXNormalizedVideoWorkGrouping_jt           |9633133         |9635008        |  +1,875  |
+|MXNormalizedVideoWorkReleasePrimaryImage_jt|8350720         |8350673        |     -47  |
+|MXNormalizedVideoWorkRelease_jt            |10317709        |10318131       |    +422  |
+|MXVideoWorkGroupingPrimaryImage_jt         |1183480         |1183536        |     +56  |
+|MXVideoWorkPrimaryImage_jt                 |2986538         |2986587        |     +49  |
++-------------------------------------------+----------------+---------------+----------+
+
