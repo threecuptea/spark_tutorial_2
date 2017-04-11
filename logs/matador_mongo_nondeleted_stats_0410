@@ -1,8 +1,8 @@
-Matador Mongo non_deleted stats(count) by RESOURCE
+${mongoDatabase} non_deleted Mongo stats(count) by RESOURCE
 +-------------------+----------------+---------------+----------+
 |resource           |count_fantv_prod|count_fantv_dev|difference|
 +-------------------+----------------+---------------+----------+
-|airing_jt          |51856218        |51747514       |-108,704  |
+|airing_jt          |49800987        |49841519       | +40,532  |
 |content_jt         |10427881        |10428300       |    +419  |
 |episode_releases_jt|5959357         |5959965        |    +608  |
 |movie_jt           |931354          |931367         |     +13  |
