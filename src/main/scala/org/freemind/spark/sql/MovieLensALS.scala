@@ -88,15 +88,13 @@ object MovieLensALS {
     movieDS.value.show(10, false)
 
     val Array(trainDS, valDS, testDS) = mrDS.randomSplit(Array(0.8,0.1,0.1)) //Follow the instruction of EDX class, use the model evaluated based upon validationSet on test
-    println(s"training count=${trainDS.count}")
-    println(s"validation count=${valDS.count}")
-    println(s"test count=${testDS.count}")
-    val total = trainDS.count() + valDS.count() + testDS.count()
-    println(s"TOTAL COUNT=$total")
-    println()
-
+    trainDS.cache()
     valDS.cache()
     testDS.cache()
+    val total = trainDS.count() + valDS.count() + testDS.count()
+    println(s"TOTAL SUM of splits= $total")
+    println()
+
     val trainPlusDS = trainDS.union(prDS).cache() //used to fit
     val allDS = mrDS.union(prDS).cache()
 
@@ -148,7 +146,6 @@ object MovieLensALS {
         bestParam = Some(paramMap)
       }
     }
-
 
     bestModel match {
       case None =>

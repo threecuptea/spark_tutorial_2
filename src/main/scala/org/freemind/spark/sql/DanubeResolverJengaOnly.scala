@@ -60,13 +60,14 @@ object DanubeResolverJengaOnly {
           when($"diff" < 0,
             when(abs($"diff") / $"sum(jtNo)" > 0.125,
               when(abs($"diff") / $"sum(jtNo)" > 0.25, "==")
-                .otherwise("="))
-              .otherwise(""))
-            .otherwise(when($"diff" / $"sum(jtNo)" > 0.125,
+              .otherwise("="))
+            .otherwise(""))
+          .otherwise(
+            when($"diff" / $"sum(jtNo)" > 0.125,
               when($"diff" / $"sum(jtNo)" > 0.25, "++")
-                .otherwise("+"))
-              .otherwise("")))
-          .otherwise(""))
+              .otherwise("+"))
+            .otherwise("")))
+        .otherwise(""))
       .sort($"resource")
       .select($"resource", $"sum(jtNo)", $"sum(jtYes)", $"difference", $"flag")
       .show(500, truncate = false)

@@ -62,7 +62,7 @@ class DanubeLogsParser(a: Option[Array[String]] = None) extends Serializable {
   val jtResolverPattern = Pattern.compile(jtResolverLogRegEx)
 
 
-  def resourcesConcat = a.mkString("|")
+  def resourcesConcat = a.get.mkString("|")
 
   def nonJtDiscResourcesPattern(): java.util.regex.Pattern = {
     val nonJtDiscResourcesRegEx = s"RESOLVE (${resourcesConcat}) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty"
@@ -195,7 +195,9 @@ class DanubeLogsParser(a: Option[Array[String]] = None) extends Serializable {
   }
 
   def parseResolverRaw(s: String, jt: Boolean = false): Option[DanubeResolverRaw] = {
-
+    //jtDiscResourcesPattern cannot vbe al because resources: Array[String] are dynamically passed indirectly from
+    // command line to form resourcesConcat, jtDiscResourcesPattern and nonJtDiscResourcesPattern are all def.
+    //they won't be resolved until excution time which is what we need.
     val m:Matcher = if (jt) jtDiscResourcesPattern.matcher(s) else nonJtDiscResourcesPattern.matcher(s)
     if (m.find) {
       Some(

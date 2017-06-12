@@ -13,7 +13,7 @@ import org.apache.spark.sql.types.DoubleType
 
 
 /**
-  * http://cdn2.hubspot.net/hubfs/438089/notebooks/MongoDB_guest_blog/Using_MongoDB_Connector_for_Spark.html
+  * Inspired by http://cdn2.hubspot.net/hubfs/438089/notebooks/MongoDB_guest_blog/Using_MongoDB_Connector_for_Spark.html
   *
   * Using convert_csv.py to convert "::" delimiter to "," then
   * mongoimport -d movielens -c movie_ratings --type csv -f user_id,movie_id,rating,timestamp data/ratings.csv
@@ -45,6 +45,7 @@ object MovieLensALSMongo {
     //MongoSpark.toDS route does not work
     //val mrDS = MongoSpark.load(spark, mrReadConfig, classOf[MongoRating]) //Will get error 'Cannot infer type for class org.freemind.spark.sql.MongoRating because it is not bean-compliant'
     //I have to use old route toDF then as to DS.  MongoSpark.load(spark, mrReadConfig) return DataFrame then map to type
+    // MongoSpark.load(spark, mrReadConfig) return RDD
     val mrDS = MongoSpark.load(spark, mrReadConfig).map(r => MongoRating(r.getAs[Int]("user_id"), r.getAs[Int]("movie_id"), r.getAs[Int]("rating"))).cache()
     val prDS = MongoSpark.load(spark, prReadConfig).map(r => MongoRating(r.getAs[Int]("user_id"), r.getAs[Int]("movie_id"), r.getAs[Int]("rating"))).cache()
     val movieDS = MongoSpark.load(spark, movieReadConfig).map(r => MongoMovie(r.getAs[Int]("id"), r.getAs[String]("title"), r.getAs[String]("genre_concat").split("\\|"))).cache()

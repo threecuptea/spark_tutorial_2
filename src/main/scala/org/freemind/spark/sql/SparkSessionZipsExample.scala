@@ -53,7 +53,7 @@ object SparkSessionZipsExample {
     zipDS.select($"state", $"pop").groupBy($"state").sum("pop").orderBy(desc("sum(pop)")).show(10, false)
 
     println("California cities in order of population, count zip and sum pop")
-    zipDS.filter(_.state == "CA").groupBy($"city").agg(count($"zip"), sum($"pop"))
+    zipDS.filter($"state" === "CA").groupBy($"city").agg(count($"zip"), sum($"pop"))
       .withColumnRenamed("count(zip)", "num_zips").withColumnRenamed("sum(pop)", "population")
       .orderBy(desc("population")).show(10, false)
 
@@ -65,7 +65,7 @@ object SparkSessionZipsExample {
       */
     spark.sql("DROP TABLE IF EXISTS hive_zips_table")
     zipDS.write.saveAsTable("hive_zips_table")
-    spark.catalog.cacheTable("hive_zips_table") //cache teh table in memory
+    spark.catalog.cacheTable("hive_zips_table") //cache the table in memory
 
     println("zipToInt UDF")
     //The udf is used in sql

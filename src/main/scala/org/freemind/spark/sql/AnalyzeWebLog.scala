@@ -111,10 +111,18 @@ object AnalyzeWebLog {
     // like Wed, 4 Jul 2001 12:08:56 -0700, HH is 24-hr, hh is 12-hour, Z  is RFC 822 time zone
     val parts = rawDate.split(' ')
     val sdf = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss")
-    val offset = parts(1).toInt
+    //Offset is always positive
+    val offset = if (parts(1).startsWith("-")) -(parts(1).toInt) else parts(1).toInt
+    val neg = if (parts(1).startsWith("-")) true else false
+
+    // -730 should be equals -27000, but (-8 x 100 + (+70)) converting to second is not correct way
     //hours * 60 * 60, min * 60
     val offsetInSec = offset / 100 * 60 * 60 + (offset % 100) * 60
-
-    sdf.parse(parts(0)).getTime / 1000 + offsetInSec
+    if (neg) {
+      sdf.parse(parts(0)).getTime / 1000 - offsetInSec
+    }
+    else {
+      sdf.parse(parts(0)).getTime / 1000 + offsetInSec
+    }
   }
 }
