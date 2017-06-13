@@ -59,7 +59,7 @@
     https://www.cloudera.com/documentation/spark2/latest/topics/spark2_installing.html to install them.
        
     To get Apache Spark 2.x work with Apache Hadoop in pseud-distributed mode, we need to install compatible version of
-    hadoop (spark-2.1.1-bin-hadoop2.7 only work with hadoop 2.7) Follow the instruction 
+    hadoop (spark-2.1.1-bin-hadoop2.7 only works with hadoop 2.7). Follow the instruction 
     http://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html    
     
         1. I previously already set JAVA_HOME and verified. start-dfs.sh still did not render Java path correctly. 
@@ -70,17 +70,17 @@
            	dfs.data.dir=${hadoop.tmp.dir}/dfs/data
            	fs.checkpoint.dir=${hadoop.tmp.dir}/dfs/namesecondary         _
            	
-           	are all controlled by hadoop.tmp.dir.  Hadoop use hadoop.tmp.dir as local tmp directory and also in hdfs.
-           	Its default value /tmp/hadoop-${user.name}.  HDFS formatwould be gone after the box was rebooted.
-           	Suggest that override it in the core-site.xml.
+           	are all controlled by hadoop.tmp.dir.  Hadoop use hadoop.tmp.dir as local tmp directory and also in HDFS.
+           	The default value is /tmp/hadoop-${user.name}.  HDFS format would be gone after the box was rebooted.
+           	Suggest to override it in the core-site.xml.
            	
         3. It's not enough to just specify --master yarn to signal spark to run in yarn. 
            Need to set (export) HADDOP_CONF_DIR too, $HADOOP_HOME/etc/hadoop in this case.
              	
         4. I failed to run --master yarn in the beginning and got error something 
            like "Container .. is running beyond virtual memory limits..." There is a check placed at Yarn level for 
-           Vertual and Physical memory usage ratio. Issue is not only that VM doesn't have sufficient pysical memory. 
-           But it is because Virtual memory usage is more than expected for given physical memory.  Fix by adding             
+           virtual and physical memory usage ratio. Issue is not only that VM doesn't have sufficient physical memory. 
+           But it is because virtual memory usage is more than expected for given physical memory.  Fix by adding             
                <property>
                   <name>yarn.nodemanager.vmem-check-enabled</name>
                    <value>false</value>
@@ -109,17 +109,17 @@
            the input and output of the application is attached to the console.
            
         7. Each NodeManager would have its processing logged to the location defined in 
-           yarn.nodemanager.remote-app-log-dir. To view it aggregatively, I have to have
+           yarn.nodemanager.remote-app-log-dir. To view it aggregately, I have to have
             <property>
                    <name>yarn.log-aggregation-enable</name>
                    <value>true</value>
                </property>
 
-            in yarn-site.xml.  I am able to use "yarn logs -applicationId <app ID>" to get consolidated application 
-            processing log  
+           in yarn-site.xml.  In this way, I am able to use "yarn logs -applicationId <app ID>" to get 
+           consolidated application logs from all nodes.  
                 	
-        8.  To be able to access application logs even after the application is done, we need to configure hadoop
-            job history server and add 
+        8. To be able to access application logs even after the application is done, we need to configure hadoop
+           job history server and add 
              <property>
                  <name>mapreduce.jobhistory.address</name>
                  <value>ubuntu:10020</value>
@@ -129,62 +129,65 @@
                  <value>ubuntu:19888</value>
                </property>
             
-            to 	mapred-site.xml and start job-history server.
+           to mapred-site.xml and start job-history server.
             
-            Also add 
+           Also add 
               <property>
                  <name>yarn.log.server.url</name>
                  <value>http://ubuntu:19888/jobhistory/logs</value>
                </property>
-            to yarn-site.xml so that resource-manager web site can re-direct to job-history web site when we click the
-            application link after the application finish running.
+           to yarn-site.xml so that resource-manager web site can re-direct to job-history web site when we click the
+           application link after the application finish running.
             
-        9.  The above is application log which is general to Hadoop.  There is event log which records Spark 
-            job/stage/task, storage and executor metrics and job DAG (Directed acyclic) which is specific to Spark.  
-             We have to configure Spark history-server to specify the location of event log files by adding ex.
-             SPARK_HISTORY_OPTS="-Dspark.history.fs.logDirectory='hdfs://ubuntu:9000/var/log/spark'" to spark-env.sh.
-             Then start Spark history-server.
+        9. The above is application log which is general to any Hadoop application.  There is event log which records 
+           Spark job/stage/task, storage, executor metrics and job DAG (Directed acyclic graph) which is specific to 
+           Spark.  
+           We have to configure Spark history-server to specify the location of event log files by adding ex.
+             SPARK_HISTORY_OPTS="-Dspark.history.fs.logDirectory='hdfs://ubuntu:9000/var/log/spark'"
+           to spark-env.sh. Then start Spark history-server.
              
-             On the other side, applications submited must add
+           On the other side, applications submited must add
              --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark
-             to enable recording event and log the the location expected by Spark history server
+           to enable recording event and log tthem to he the location expected by Spark history server
              
-             There will be stdout and stderr links for each executor under Executor tab of Spark application in 
-             Spark history server site (default to port 18080).  In the case of deploy-mode: cluster,  there would be
-             stdout and stderr on the driver row since stdout and stderr will in cluster (instead of console in the 
-             case of client deploy-mode).   Those links would be re-directed to Hadoop job-history server to retrieve
-             application logs.   
+           There will be stdout and stderr links for each executor under Executor tab of Spark application in 
+           Spark history server site (default to port 18080).  In the case of deploy-mode: cluster,  there would be
+           stdout and stderr on the driver row since stdout and stderr will be in cluster (contrast to console in the 
+           case of client deploy-mode).   Those links would be re-directed to Hadoop job-history server to retrieve
+           the application log.   
              
-        10.  Normally, Spark would even out workloads among executors.   When Spark run in yarn-cluster and it would 
-             use one executor to run driver tasks.  Therefore, you might see one executor having more tasks.
-             than others.  In the case of MovieLensALS, job ran in cluster mode performs better than the job ran in 
-             client mode.  It is possibly due to MovieLensALS having a lot of println and show .   In the case of
-             client mode, they have to output to console. 
+        10. Normally, Spark would even out workloads among executors.   When Spark run in yarn-cluster and it would 
+            use one core of one executor to run the driver tasks.  Therefore, you might see one executor having 
+            more tasks than others.  In the case of MovieLensALS, job ran in cluster mode performs better than 
+            the job ran in client mode.  It is possibly due to MovieLensALS having a lot of println and show .  
+            In the case of client mode, they have to output to console. 
               
-        11.  Spark job boundadry is actions like count, show and collect.  Ex, the job 0 and 1 are
-             println(s"Rating Snapshot= ${mrDS.count}, ${prDS.count}")
+        11. Spark jobs are broken by actions like count, show and collect.  Ex, the job 0 and 1 are
+              println(s"Rating Snapshot= ${mrDS.count}, ${prDS.count}")
              
-             and one kind of Spark stage boundadry is any 'transform' requiring shuffle.   That's 'map' 
-             val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
-             in the job 0.  The stage prior to the boundary will will do shuffle write and the stage following 
-             the boundary will do shuffle read.
+            and Spark stages might be broken down by transformations requiring shuffle, like map or flatMap   
+            val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
+            the map transformation in the job 0 is an example.  The stage prior to the boundary will will do 
+            shuffle write and the stage following the boundary will do shuffle read.
              
-             and tasks are brokn down by number of partitions.
+            and tasks are brokn down by number of partitions.
                
-        12.  After analyzing DAG, I found out I did not cache trainDS (I cached trainPlusDS instead).  Therefore, 
-             Spark always go back to 
-             val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
-             then repeat split one more time to get trainDS to calculate baselineRmse.  
-             Cache trainDS and broadcast baselineRmse.
-             
-             I also found setting checkpoint will increase number of jobs too.
+        12. After analyzing DAG,
+            I know roughly the corresponding line of codes with Spark job.  The best way to cut down time is to 
+            reduce loops of param grid and reduce max_iter of ALS param.  Unfortunately, that would reduce the
+            quality of recommendation.  I improve performance a little by broadcasting movieDS and baselineRmse.
               
-        13.  Here is my command 
-             $SPARK_HOME/bin/spark-submit --master yarn --deploy-mode cluster -executor-cores 4 \ 
-             --conf spark.sql.shuffle.partitions=8 --conf spark.executor.extraJavaOptions='-XX:ThreadStackSize=2048' 
-             --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark \ 
+        13.  Spark would create a zip with all jar files under $SPARK_HOME/jars folder and upload to each node in the
+             cluster if neither spark.yarn.jars nor spark.yarn.archive is set.  Therefore, I created a spark-jars.zip
+             and put in hdfs /var/lib/hadoop-fandev folder.
+             
+        14.  Here is my command 
+             $SPARK_HOME/bin/spark-submit --master yarn --deploy-mode cluster --executor-cores 4 \ 
+             --conf spark.sql.shuffle.partitions=8 --conf spark.executor.extraJavaOptions='-XX:ThreadStackSize=2048' \
+             --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark \
+             --conf spark.yarn.archive=hdfs://ubuntu:9000/var/lib/hadoop-fandev/spark-jars.zip \
              --class org.freemind.spark.sql.MovieLensALS target/scala-2.11/spark_tutorial_2_2.11-1.0.jar \ 
-             input_movielen/ratings.dat.gz input_movielen/personalRatings.txt input_movielen/movies.dat      
+             input_movielen/ratings.dat.gz input_movielen/personalRatings.txt input_movielen/movies.dat  
         
         
                               

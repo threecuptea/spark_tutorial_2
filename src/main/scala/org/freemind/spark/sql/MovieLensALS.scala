@@ -100,8 +100,8 @@ object MovieLensALS {
 
     val evaluator = new RegressionEvaluator().setMetricName("rmse").setLabelCol("rating").setPredictionCol("prediction")
     val avgRating = trainDS.select(mean($"rating")).first().getDouble(0) //directly select mean($"rating") => DF => first() row, get the first field
-    val baselineRmse = evaluator.evaluate(testDS.withColumn("prediction", lit(avgRating)))
-    printf("The baseline rmse= %3.2f.\n", baselineRmse)
+    val baselineRmse = spark.sparkContext.broadcast(evaluator.evaluate(testDS.withColumn("prediction", lit(avgRating))))
+    printf("The baseline rmse= %3.2f.\n", baselineRmse.value)
     println()
 
     /**
@@ -155,7 +155,7 @@ object MovieLensALS {
         //We still need to filter out NaN
         val testPrediction = goodModel.transform(testDS).filter(!$"prediction".isNaN)
         val testRmse = evaluator.evaluate(testPrediction)
-        val improvement = (baselineRmse - testRmse) / baselineRmse * 100
+        val improvement = (baselineRmse.value - testRmse) / baselineRmse.value * 100
         println(s"The best model was trained with param = ${bestParam.get}")
         println()
         printf("The RMSE of the bestModel on test set is %3.2f, which is %3.2f%% over baseline.\n", testRmse, improvement) //use %% to print %
