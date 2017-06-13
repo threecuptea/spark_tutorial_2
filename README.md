@@ -1,4 +1,4 @@
-### spark-tutorial_2 collects small projects that I worked on using spark scala 2 Dataset/ DataFrame.  Those were first inpired by open source articles from DataBrick community, LinkedIn 'Apache Spark' User Group.  I instilled my idea while rewriting. 
+### spark-tutorial_2 collects small projects that I worked on using spark scala 2 Dataset/ DataFrame.  Those were first inpired by open source articles from Databricks community, LinkedIn 'Apache Spark' User Group.  I instilled my idea while rewriting. 
 #### The topics include:
     1. A complete movie recommendation System using Spark-ML ALS (Alternating Least Square) algorithm 
        a) Use original format of MovieLens 1M Dataset (https://grouplens.org/datasets/movielens/1m/)
@@ -50,4 +50,150 @@
        resolver.log entries.
        a) It adds "difference" display field by using format_string 
        b) It adds "diff. flag" field by using nested when and otheriwise sql functions on numeric conditions
+       
     6. SparkSessionZipsExample to be familiar with Spark 2 Dataset/ DataFrame operation.
+    
+#### Notes regrading to Spark integrated with Hadoop
+    Cloudera latest CDH 5.11.x only works with Spark 1.6.0.  Cloudera Distribution of Apache Spark 2 only works with
+    Cloudera Manager and is distributed as two files: a CSD file and a parcel. Follow the instruction on 
+    https://www.cloudera.com/documentation/spark2/latest/topics/spark2_installing.html to install them.
+       
+    To get Apache Spark 2.x work with Apache Hadoop in pseud-distributed mode, we need to install compatible version of
+    hadoop (spark-2.1.1-bin-hadoop2.7 only work with hadoop 2.7) Follow the instruction 
+    http://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html    
+    
+        1. I previously already set JAVA_HOME and verified. start-dfs.sh still did not render Java path correctly. 
+           I have to set JAVA_HOME in hadoop-env.sh.  To prepare for integration, I also set HADOOP_HOME, 
+           HADOOP_CONF_DIR, SPARK_HOME and add $HADOOP_HOME/bin to path so I can use hadoop, hdfs, yarn command. 
+        2.
+            dfs.name.dir= ${hadoop.tmp.dir}/dfs/name      
+           	dfs.data.dir=${hadoop.tmp.dir}/dfs/data
+           	fs.checkpoint.dir=${hadoop.tmp.dir}/dfs/namesecondary         _
+           	
+           	are all controlled by hadoop.tmp.dir.  Hadoop use hadoop.tmp.dir as local tmp directory and also in hdfs.
+           	Its default value /tmp/hadoop-${user.name}.  HDFS formatwould be gone after the box was rebooted.
+           	Suggest that override it in the core-site.xml.
+           	
+        3. It's not enough to just specify --master yarn to signal spark to run in yarn. 
+           Need to set (export) HADDOP_CONF_DIR too, $HADOOP_HOME/etc/hadoop in this case.
+             	
+        4. I failed to run --master yarn in the beginning and got error something 
+           like "Container .. is running beyond virtual memory limits..." There is a check placed at Yarn level for 
+           Vertual and Physical memory usage ratio. Issue is not only that VM doesn't have sufficient pysical memory. 
+           But it is because Virtual memory usage is more than expected for given physical memory.  Fix by adding             
+               <property>
+                  <name>yarn.nodemanager.vmem-check-enabled</name>
+                   <value>false</value>
+                   <description>Whether virtual memory limits will be enforced for containers</description>
+                 </property>
+                <property>
+                  <name>yarn.nodemanager.vmem-pmem-ratio</name>
+                   <value>4</value>
+                   <description>Ratio between virtual memory to physical memory when setting memory limits for containers</description>
+                 </property>
+           
+           to yarn-site.xml.
+               	
+        5. The default of spark.sql.shuffle.partitions is 200 which is too high in test environment.   I set it to
+           num-executors(2) * executor-cores(4) = 8.  My VM has 2 processors and 6 cores per processor.  I added
+           spark.executor.extraJavaOptions='-XX:ThreadStackSize=2048' to avoid stackOverflow too.
+           Other common tuned up parameters are driver-memory and executor-memory.
+              	
+        6. There is difference between yarn client and cluster deploy-mode. (the default is client if not specify.
+           Set --deploy-mode cluster to override).  In c' *
+           lient deploy-mode, the driver will be running on the machine 
+           you started the job.  In cluster mode, the driver is running as a thread of the yarn application master
+           If there is big network overhead between the machine that the job started and the cluster 
+           (ex, your laptop), use cluster mode. if you submit plication from a gateway machine that is physically
+           co-located with your worker machines, client mode is client mode is appropriate. In client mode, 
+           the input and output of the application is attached to the console.
+           
+        7. Each NodeManager would have its processing logged to the location defined in 
+           yarn.nodemanager.remote-app-log-dir. To view it aggregatively, I have to have
+            <property>
+                   <name>yarn.log-aggregation-enable</name>
+                   <value>true</value>
+               </property>
+
+            in yarn-site.xml.  I am able to use "yarn logs -applicationId <app ID>" to get consolidated application 
+            processing log  
+                	
+        8.  To be able to access application logs even after the application is done, we need to configure hadoop
+            job history server and add 
+             <property>
+                 <name>mapreduce.jobhistory.address</name>
+                 <value>ubuntu:10020</value>
+               </property>
+               <property>
+                 <name>mapreduce.jobhistory.webapp.address</name>
+                 <value>ubuntu:19888</value>
+               </property>
+            
+            to 	mapred-site.xml and start job-history server.
+            
+            Also add 
+              <property>
+                 <name>yarn.log.server.url</name>
+                 <value>http://ubuntu:19888/jobhistory/logs</value>
+               </property>
+            to yarn-site.xml so that resource-manager web site can re-direct to job-history web site when we click the
+            application link after the application finish running.
+            
+        9.  The above is application log which is general to Hadoop.  There is event log which records Spark 
+            job/stage/task, storage and executor metrics and job DAG (Directed acyclic) which is specific to Spark.  
+             We have to configure Spark history-server to specify the location of event log files by adding ex.
+             SPARK_HISTORY_OPTS="-Dspark.history.fs.logDirectory='hdfs://ubuntu:9000/var/log/spark'" to spark-env.sh.
+             Then start Spark history-server.
+             
+             On the other side, applications submited must add
+             --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark
+             to enable recording event and log the the location expected by Spark history server
+             
+             There will be stdout and stderr links for each executor under Executor tab of Spark application in 
+             Spark history server site (default to port 18080).  In the case of deploy-mode: cluster,  there would be
+             stdout and stderr on the driver row since stdout and stderr will in cluster (instead of console in the 
+             case of client deploy-mode).   Those links would be re-directed to Hadoop job-history server to retrieve
+             application logs.   
+             
+        10.  Normally, Spark would even out workloads among executors.   When Spark run in yarn-cluster and it would 
+             use one executor to run driver tasks.  Therefore, you might see one executor having more tasks.
+             than others.  In the case of MovieLensALS, job ran in cluster mode performs better than the job ran in 
+             client mode.  It is possibly due to MovieLensALS having a lot of println and show .   In the case of
+             client mode, they have to output to console. 
+              
+        11.  Spark job boundadry is actions like count, show and collect.  Ex, the job 0 and 1 are
+             println(s"Rating Snapshot= ${mrDS.count}, ${prDS.count}")
+             
+             and one kind of Spark stage boundadry is any 'transform' requiring shuffle.   That's 'map' 
+             val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
+             in the job 0.  The stage prior to the boundary will will do shuffle write and the stage following 
+             the boundary will do shuffle read.
+             
+             and tasks are brokn down by number of partitions.
+               
+        12.  After analyzing DAG, I found out I did not cache trainDS (I cached trainPlusDS instead).  Therefore, 
+             Spark always go back to 
+             val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
+             then repeat split one more time to get trainDS to calculate baselineRmse.  
+             Cache trainDS and broadcast baselineRmse.
+             
+             I also found setting checkpoint will increase number of jobs too.
+              
+        13.  Here is my command 
+             $SPARK_HOME/bin/spark-submit --master yarn --deploy-mode cluster -executor-cores 4 \ 
+             --conf spark.sql.shuffle.partitions=8 --conf spark.executor.extraJavaOptions='-XX:ThreadStackSize=2048' 
+             --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark \ 
+             --class org.freemind.spark.sql.MovieLensALS target/scala-2.11/spark_tutorial_2_2.11-1.0.jar \ 
+             input_movielen/ratings.dat.gz input_movielen/personalRatings.txt input_movielen/movies.dat      
+        
+        
+                              
+                              
+       
+              
+             
+
+             
+               
+            
+             
