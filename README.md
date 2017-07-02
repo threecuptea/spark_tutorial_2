@@ -58,7 +58,7 @@
     Cloudera Manager and is distributed as two files: a CSD file and a parcel. Follow the instruction on 
     https://www.cloudera.com/documentation/spark2/latest/topics/spark2_installing.html to install them.
        
-    To get Apache Spark 2.x work with Apache Hadoop in pseud-distributed mode, we need to install compatible version of
+    To get Apache Spark 2.x work with Apache Hadoop in pseudo-distributed mode, we need to install compatible version of
     hadoop (spark-2.1.1-bin-hadoop2.7 only works with hadoop 2.7). Follow the instruction 
     http://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html    
     
@@ -97,16 +97,24 @@
         5. The default of spark.sql.shuffle.partitions is 200 which is too high in test environment.   I set it to
            num-executors(2) * executor-cores(4) = 8.  My VM has 2 processors and 6 cores per processor.  I added
            spark.executor.extraJavaOptions='-XX:ThreadStackSize=2048' to avoid stackOverflow too.
-           Other common tuned up parameters are driver-memory and executor-memory.
+           Other common tuned up parameters are driver-memory and executor-memory.  Another option is to set
+           spark.dynamicAllocation.enabled to true.  Running executors with too much memory often results in excessive 
+           garbage collection delays. 64GB is a rough guess at a good upper limit for a single executor.
+           HDFS client has trouble with tons of concurrent threads. A rough guess is that at most five tasks 
+           per executor can achieve full write throughput. 
+           
+           See http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/ for the guideline
               	
         6. There is difference between yarn client and cluster deploy-mode. (the default is client if not specify.
-           Set --deploy-mode cluster to override).  In c' *
-           lient deploy-mode, the driver will be running on the machine 
+           Set --deploy-mode cluster to override).  In client deploy-mode, the driver will be running on the machine 
            you started the job.  In cluster mode, the driver is running as a thread of the yarn application master
            If there is big network overhead between the machine that the job started and the cluster 
-           (ex, your laptop), use cluster mode. if you submit plication from a gateway machine that is physically
+           (ex, your laptop), use cluster mode. if you submit application from a gateway machine that is physically
            co-located with your worker machines, client mode is client mode is appropriate. In client mode, 
            the input and output of the application is attached to the console.
+           
+           In yarn-cluster mode, the application master runs the driver, so it’s often useful to bolster its resources
+           with the --driver-memory and --driver-cores properties.
            
         7. Each NodeManager would have its processing logged to the location defined in 
            yarn.nodemanager.remote-app-log-dir. To view it aggregately, I have to have
@@ -148,7 +156,7 @@
              
            On the other side, applications submited must add
              --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark
-           to enable recording event and log tthem to he the location expected by Spark history server
+           to enable recording event and log them to the location expected by Spark history server
              
            There will be stdout and stderr links for each executor under Executor tab of Spark application in 
            Spark history server site (default to port 18080).  In the case of deploy-mode: cluster,  there would be
