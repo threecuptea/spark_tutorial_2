@@ -28,7 +28,10 @@ object FlightSample {
     rawDF.printSchema()
     rawDF.show(5)
 
-    val flightDS = rawDF.filter($"year" >= 1990).select($"quarter", $"origin", $"dest", $"depdelay", $"cancelled").cache()
+    val partitions = rawDF.rdd.getNumPartitions
+    var adjPartition: Int = partitions - partitions / 3 //expect 1/3 < 2000
+
+    val flightDS = rawDF.filter($"year" >= 1990).select($"quarter", $"origin", $"dest", $"depdelay", $"cancelled").coalesce(adjPartition)
 
     /** top departure by origin */
     flightDS.groupBy($"origin").count().withColumnRenamed("count", "total_departures")

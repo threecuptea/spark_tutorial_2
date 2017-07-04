@@ -54,7 +54,7 @@
     6. SparkSessionZipsExample to be familiar with Spark 2 Dataset/ DataFrame operation.
     
     7. FlghtSample is inspired by https://aws.amazon.com/blogs/aws/new-apache-spark-on-amazon-emr/.  I used small 
-       sample to get the taste of schema and validate before move to EMR to dorun it in full-fledge. 
+       sample to get the taste of schema & data and validate before move to I do a full-fledge run in EMR. 
     
 #### Notes regrading to Spark integrated with Hadoop
     Cloudera latest CDH 5.11.x only works with Spark 1.6.0.  Cloudera Distribution of Apache Spark 2 only works with
