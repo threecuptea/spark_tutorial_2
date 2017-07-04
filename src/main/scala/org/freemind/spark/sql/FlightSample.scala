@@ -56,6 +56,7 @@ object FlightSample {
     flightDS.groupBy($"origin", $"dest").count().withColumnRenamed("count", "total_flights")
       .sort(desc("total_flights")).limit(10).show()
 
+    spark.stop()
   }
 
 }
