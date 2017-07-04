@@ -1,0 +1,204 @@
+root
+ |-- year: integer (nullable = true)
+ |-- quarter: integer (nullable = true)
+ |-- month: integer (nullable = true)
+ |-- dayofmonth: integer (nullable = true)
+ |-- dayofweek: integer (nullable = true)
+ |-- flightdate: string (nullable = true)
+ |-- uniquecarrier: string (nullable = true)
+ |-- airlineid: integer (nullable = true)
+ |-- carrier: string (nullable = true)
+ |-- tailnum: string (nullable = true)
+ |-- flightnum: integer (nullable = true)
+ |-- originairportid: integer (nullable = true)
+ |-- originairportseqid: integer (nullable = true)
+ |-- origincitymarketid: integer (nullable = true)
+ |-- origin: string (nullable = true)
+ |-- origincityname: string (nullable = true)
+ |-- originstate: string (nullable = true)
+ |-- originstatefips: integer (nullable = true)
+ |-- originstatename: string (nullable = true)
+ |-- originwac: integer (nullable = true)
+ |-- destairportid: integer (nullable = true)
+ |-- destairportseqid: integer (nullable = true)
+ |-- destcitymarketid: integer (nullable = true)
+ |-- dest: string (nullable = true)
+ |-- destcityname: string (nullable = true)
+ |-- deststate: string (nullable = true)
+ |-- deststatefips: integer (nullable = true)
+ |-- deststatename: string (nullable = true)
+ |-- destwac: integer (nullable = true)
+ |-- crsdeptime: integer (nullable = true)
+ |-- deptime: integer (nullable = true)
+ |-- depdelay: integer (nullable = true)
+ |-- depdelayminutes: integer (nullable = true)
+ |-- depdel15: integer (nullable = true)
+ |-- departuredelaygroups: integer (nullable = true)
+ |-- deptimeblk: integer (nullable = true)
+ |-- taxiout: integer (nullable = true)
+ |-- wheelsoff: integer (nullable = true)
+ |-- wheelson: integer (nullable = true)
+ |-- taxiin: integer (nullable = true)
+ |-- crsarrtime: integer (nullable = true)
+ |-- arrtime: integer (nullable = true)
+ |-- arrdelay: integer (nullable = true)
+ |-- arrdelayminutes: integer (nullable = true)
+ |-- arrdel15: integer (nullable = true)
+ |-- arrivaldelaygroups: integer (nullable = true)
+ |-- arrtimeblk: string (nullable = true)
+ |-- cancelled: integer (nullable = true)
+ |-- cancellationcode: integer (nullable = true)
+ |-- diverted: integer (nullable = true)
+ |-- crselapsedtime: integer (nullable = true)
+ |-- actualelapsedtime: integer (nullable = true)
+ |-- airtime: integer (nullable = true)
+ |-- flights: integer (nullable = true)
+ |-- distance: integer (nullable = true)
+ |-- distancegroup: integer (nullable = true)
+ |-- carrierdelay: integer (nullable = true)
+ |-- weatherdelay: integer (nullable = true)
+ |-- nasdelay: integer (nullable = true)
+ |-- securitydelay: integer (nullable = true)
+ |-- lateaircraftdelay: integer (nullable = true)
+ |-- firstdeptime: integer (nullable = true)
+ |-- totaladdgtime: integer (nullable = true)
+ |-- longestaddgtime: integer (nullable = true)
+ |-- divairportlandings: integer (nullable = true)
+ |-- divreacheddest: integer (nullable = true)
+ |-- divactualelapsedtime: integer (nullable = true)
+ |-- divarrdelay: integer (nullable = true)
+ |-- divdistance: integer (nullable = true)
+ |-- div1airport: integer (nullable = true)
+ |-- div1airportid: integer (nullable = true)
+ |-- div1airportseqid: integer (nullable = true)
+ |-- div1wheelson: integer (nullable = true)
+ |-- div1totalgtime: integer (nullable = true)
+ |-- div1longestgtime: integer (nullable = true)
+ |-- div1wheelsoff: integer (nullable = true)
+ |-- div1tailnum: integer (nullable = true)
+ |-- div2airport: integer (nullable = true)
+ |-- div2airportid: integer (nullable = true)
+ |-- div2airportseqid: integer (nullable = true)
+ |-- div2wheelson: integer (nullable = true)
+ |-- div2totalgtime: integer (nullable = true)
+ |-- div2longestgtime: integer (nullable = true)
+ |-- div2wheelsoff: integer (nullable = true)
+ |-- div2tailnum: integer (nullable = true)
+ |-- div3airport: integer (nullable = true)
+ |-- div3airportid: integer (nullable = true)
+ |-- div3airportseqid: integer (nullable = true)
+ |-- div3wheelson: integer (nullable = true)
+ |-- div3totalgtime: integer (nullable = true)
+ |-- div3longestgtime: integer (nullable = true)
+ |-- div3wheelsoff: integer (nullable = true)
+ |-- div3tailnum: integer (nullable = true)
+ |-- div4airport: integer (nullable = true)
+ |-- div4airportid: integer (nullable = true)
+ |-- div4airportseqid: integer (nullable = true)
+ |-- div4wheelson: integer (nullable = true)
+ |-- div4totalgtime: integer (nullable = true)
+ |-- div4longestgtime: integer (nullable = true)
+ |-- div4wheelsoff: integer (nullable = true)
+ |-- div4tailnum: integer (nullable = true)
+ |-- div5airport: integer (nullable = true)
+ |-- div5airportid: integer (nullable = true)
+ |-- div5airportseqid: integer (nullable = true)
+ |-- div5wheelson: integer (nullable = true)
+ |-- div5totalgtime: integer (nullable = true)
+ |-- div5longestgtime: integer (nullable = true)
+ |-- div5wheelsoff: integer (nullable = true)
+ |-- div5tailnum: integer (nullable = true)
+
++----+-------+-----+----------+---------+----------+-------------+---------+-------+-------+---------+---------------+------------------+------------------+------+--------------+-----------+---------------+---------------+---------+-------------+----------------+----------------+----+---------------+---------+-------------+-------------+-------+----------+-------+--------+---------------+--------+--------------------+----------+-------+---------+--------+------+----------+-------+--------+---------------+--------+------------------+----------+---------+----------------+--------+--------------+-----------------+-------+-------+--------+-------------+------------+------------+--------+-------------+-----------------+------------+-------------+---------------+------------------+--------------+--------------------+-----------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+
+|year|quarter|month|dayofmonth|dayofweek|flightdate|uniquecarrier|airlineid|carrier|tailnum|flightnum|originairportid|originairportseqid|origincitymarketid|origin|origincityname|originstate|originstatefips|originstatename|originwac|destairportid|destairportseqid|destcitymarketid|dest|   destcityname|deststate|deststatefips|deststatename|destwac|crsdeptime|deptime|depdelay|depdelayminutes|depdel15|departuredelaygroups|deptimeblk|taxiout|wheelsoff|wheelson|taxiin|crsarrtime|arrtime|arrdelay|arrdelayminutes|arrdel15|arrivaldelaygroups|arrtimeblk|cancelled|cancellationcode|diverted|crselapsedtime|actualelapsedtime|airtime|flights|distance|distancegroup|carrierdelay|weatherdelay|nasdelay|securitydelay|lateaircraftdelay|firstdeptime|totaladdgtime|longestaddgtime|divairportlandings|divreacheddest|divactualelapsedtime|divarrdelay|divdistance|div1airport|div1airportid|div1airportseqid|div1wheelson|div1totalgtime|div1longestgtime|div1wheelsoff|div1tailnum|div2airport|div2airportid|div2airportseqid|div2wheelson|div2totalgtime|div2longestgtime|div2wheelsoff|div2tailnum|div3airport|div3airportid|div3airportseqid|div3wheelson|div3totalgtime|div3longestgtime|div3wheelsoff|div3tailnum|div4airport|div4airportid|div4airportseqid|div4wheelson|div4totalgtime|div4longestgtime|div4wheelsoff|div4tailnum|div5airport|div5airportid|div5airportseqid|div5wheelson|div5totalgtime|div5longestgtime|div5wheelsoff|div5tailnum|
++----+-------+-----+----------+---------+----------+-------------+---------+-------+-------+---------+---------------+------------------+------------------+------+--------------+-----------+---------------+---------------+---------+-------------+----------------+----------------+----+---------------+---------+-------------+-------------+-------+----------+-------+--------+---------------+--------+--------------------+----------+-------+---------+--------+------+----------+-------+--------+---------------+--------+------------------+----------+---------+----------------+--------+--------------+-----------------+-------+-------+--------+-------------+------------+------------+--------+-------------+-----------------+------------+-------------+---------------+------------------+--------------+--------------------+-----------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+
+|1991|      4|   11|         2|        6|1991-11-02|           AA|    19805|     AA|       |        1|          12478|           1247801|             31703|   JFK|  New York, NY|         NY|             36|       New York|       22|        12892|         1289201|           32575| LAX|Los Angeles, CA|       CA|            6|   California|     91|       900|    901|       1|              1|       0|                   0|      null|   null|     null|    null|  null|      1139|   1135|      -4|              0|       0|                -1| 1100-1159|        0|            null|       0|           339|              334|   null|      1|    2475|           10|        null|        null|    null|         null|             null|        null|         null|           null|              null|          null|                null|       null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|
+|1991|      4|   11|         3|        7|1991-11-03|           AA|    19805|     AA|       |        1|          12478|           1247801|             31703|   JFK|  New York, NY|         NY|             36|       New York|       22|        12892|         1289201|           32575| LAX|Los Angeles, CA|       CA|            6|   California|     91|       900|    917|      17|             17|       1|                   1|      null|   null|     null|    null|  null|      1139|   1156|      17|             17|       1|                 1| 1100-1159|        0|            null|       0|           339|              339|   null|      1|    2475|           10|        null|        null|    null|         null|             null|        null|         null|           null|              null|          null|                null|       null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|
+|1991|      4|   11|         4|        1|1991-11-04|           AA|    19805|     AA|       |        1|          12478|           1247801|             31703|   JFK|  New York, NY|         NY|             36|       New York|       22|        12892|         1289201|           32575| LAX|Los Angeles, CA|       CA|            6|   California|     91|       900|    900|       0|              0|       0|                   0|      null|   null|     null|    null|  null|      1139|   1132|      -7|              0|       0|                -1| 1100-1159|        0|            null|       0|           339|              332|   null|      1|    2475|           10|        null|        null|    null|         null|             null|        null|         null|           null|              null|          null|                null|       null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|
+|1991|      4|   11|         5|        2|1991-11-05|           AA|    19805|     AA|       |        1|          12478|           1247801|             31703|   JFK|  New York, NY|         NY|             36|       New York|       22|        12892|         1289201|           32575| LAX|Los Angeles, CA|       CA|            6|   California|     91|       900|    903|       3|              3|       0|                   0|      null|   null|     null|    null|  null|      1139|   1143|       4|              4|       0|                 0| 1100-1159|        0|            null|       0|           339|              340|   null|      1|    2475|           10|        null|        null|    null|         null|             null|        null|         null|           null|              null|          null|                null|       null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|
+|1991|      4|   11|         6|        3|1991-11-06|           AA|    19805|     AA|       |        1|          12478|           1247801|             31703|   JFK|  New York, NY|         NY|             36|       New York|       22|        12892|         1289201|           32575| LAX|Los Angeles, CA|       CA|            6|   California|     91|       900|    915|      15|             15|       1|                   1|      null|   null|     null|    null|  null|      1139|   1146|       7|              7|       0|                 0| 1100-1159|        0|            null|       0|           339|              331|   null|      1|    2475|           10|        null|        null|    null|         null|             null|        null|         null|           null|              null|          null|                null|       null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|       null|         null|            null|        null|          null|            null|         null|       null|
++----+-------+-----+----------+---------+----------+-------------+---------+-------+-------+---------+---------------+------------------+------------------+------+--------------+-----------+---------------+---------------+---------+-------------+----------------+----------------+----+---------------+---------+-------------+-------------+-------+----------+-------+--------+---------------+--------+--------------------+----------+-------+---------+--------+------+----------+-------+--------+---------------+--------+------------------+----------+---------+----------------+--------+--------------+-----------------+-------+-------+--------+-------------+------------+------------+--------+-------------+-----------------+------------+-------------+---------------+------------------+--------------+--------------------+-----------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+-----------+-------------+----------------+------------+--------------+----------------+-------------+-----------+
+only showing top 5 rows
+
++------+----------------+
+|origin|total_departures|
++------+----------------+
+|   ORD|           62016|
+|   DFW|           58120|
+|   ATL|           44816|
+|   LAX|           36430|
+|   DEN|           32857|
+|   PHX|           32602|
+|   CLT|           29325|
+|   PIT|           28751|
+|   SFO|           28492|
+|   STL|           28033|
++------+----------------+
+
++------+------------------+
+|origin|total_delays(>=15)|
++------+------------------+
+|   ORD|              9071|
+|   LAX|              6242|
+|   DFW|              5074|
+|   ATL|              5063|
+|   SFO|              4693|
+|   PHX|              4681|
+|   DEN|              4409|
+|   PIT|              4060|
+|   STL|              3717|
+|   EWR|              3705|
++------+------------------+
+
++------+------------------+
+|origin|total_delays(>=60)|
++------+------------------+
+|   ORD|              1810|
+|   LAX|              1316|
+|   SFO|              1072|
+|   MSP|              1024|
+|   DEN|               906|
+|   DTW|               758|
+|   STL|               752|
+|   PHX|               730|
+|   EWR|               660|
+|   ATL|               624|
++------+------------------+
+
++------+-------------------+
+|origin|total_cancellations|
++------+-------------------+
+|   ORD|               1166|
+|   LAX|                715|
+|   MSP|                527|
+|   SFO|                487|
+|   STL|                482|
+|   MDW|                467|
+|   DTW|                359|
+|   LGA|                320|
+|   SEA|                318|
+|   EWR|                293|
++------+-------------------+
+
++-------+-------------------+
+|quarter|total_cancellations|
++-------+-------------------+
+|      1|               9326|
+|      4|               3691|
++-------+-------------------+
+
++------+----+-------------+
+|origin|dest|total_flights|
++------+----+-------------+
+|   SFO| LAX|         5283|
+|   LAX| SFO|         5229|
+|   LAX| PHX|         2986|
+|   PHX| LAX|         2947|
+|   LAX| LAS|         2595|
+|   ORD| MSP|         2571|
+|   PHX| LAS|         2561|
+|   HOU| DAL|         2542|
+|   MSP| ORD|         2518|
+|   LAS| LAX|         2509|
++------+----+-------------+
+
