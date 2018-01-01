@@ -113,7 +113,7 @@
            you started the job.  In cluster mode, the driver is running as a thread of the yarn application master
            If there is big network overhead between the machine that the job started and the cluster 
            (ex, your laptop), use cluster mode. if you submit application from a gateway machine that is physically
-           co-located with your worker machines, client mode is client mode is appropriate. In client mode, 
+           co-located with your worker machines, client mode is appropriate. In client mode, 
            the input and output of the application is attached to the console.
            
            In yarn-cluster mode, the application master runs the driver, so it’s often useful to bolster its resources
@@ -178,7 +178,7 @@
              
             and Spark stages might be broken down by transformations requiring shuffle, like map or flatMap   
             val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
-            the map transformation in the job 0 is an example.  The stage prior to the boundary will will do 
+            the map transformation in the job 0 is an example.  The stage prior to the boundary will do 
             shuffle write and the stage following the boundary will do shuffle read.
              
             and tasks are brokn down by number of partitions.
