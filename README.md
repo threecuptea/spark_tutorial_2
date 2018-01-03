@@ -213,11 +213,11 @@
                 
              b. num of paramMap decides no. loops of repeated ALS fit and RegressionEvaluator evaluate jobs.  Each loop 
                 accounts for 6 jobs in MovieLensALS.  No. of jobs was increased 24 if I added one more maxIter param.  
-                That definitely increases processing time significantly.   Some jobs are 100%/% correlated with 
+                That definitely increases processing time significantly.   Some jobs are 100% correlated with 
                 maxIter param like 'count at ALS.scala:944', increasing no. of stages from 22 to 42 when I increase 
-                maxIter from 10 to 20.  There is  trade-off of performance vs. rmse value of maxIter
+                maxIter from 10 to 20.  There is trade-off of performance vs. rmse in terms of value of maxIter.
                 
-             c. I adjusted spark.sql.shuffle.partitions to 8 becuase the default is 200 whcih is way too high in test
+             c. I adjusted spark.sql.shuffle.partitions to 8 because the default is 200 which is way too high in test
                 environment.  That only affects Spark-SQL operations and does not affect operations involved RDD 
                 partitions.
                 
