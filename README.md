@@ -192,16 +192,52 @@
              cluster if neither spark.yarn.jars nor spark.yarn.archive is set.  Therefore, I created a spark-jars.zip
              and put in hdfs /var/lib/hadoop-fandev folder.
              
-        14.  Here is my command 
-             $SPARK_HOME/bin/spark-submit --master yarn --deploy-mode cluster --executor-cores 4 \ 
+        14.  Here is my final command after a couple of tune ups
+             $SPARK_HOME/bin/spark-submit --master yarn --deploy-mode cluster --executor-cores 5 \ 
              --conf spark.sql.shuffle.partitions=8 --conf spark.executor.extraJavaOptions='-XX:ThreadStackSize=2048' \
              --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark \
              --conf spark.yarn.archive=hdfs://ubuntu:9000/var/lib/hadoop-fandev/spark-jars.zip \
              --class org.freemind.spark.sql.MovieLensALS target/scala-2.11/spark_tutorial_2_2.11-1.0.jar \ 
              input_movielen/ratings.dat.gz input_movielen/personalRatings.txt input_movielen/movies.dat  
         
-        
-                              
+             I achieved total running duration 1 min and 46 sec. from the time that I started ALS modeling.  My VM was 
+             8 processors (1 core per processor).  Spark default without any tuning are --num-executors 2 
+             --executor-cores 1 --executor-memory 1g --driver-cores 1 --driver-memory 1g.  Here are some of observations:
+             
+             a. executor-cores affects most.  Performance almost double when I increased it from 3 (1.6 min) to 5 
+                (1 min) for 20 ALS maxIter.  For some job/ stage works backed by RDD, including the majority of ALS 
+                works, which decides number of partitions/ tasks based upon input format (block size), in this case 
+                10 partitions, able to load balancing those tasks definitely improves the throughput. I took advice 
+                from Sandy Ryza's article that "HDFS client has trouble with tons of concurrent threads. 
+                A rough guess is that at most five tasks per executor can achieve full write throughput".
+                
+             b. num of paramMap decides no. loops of repeated ALS fit and RegressionEvaluator evaluate jobs.  Each loop 
+                accounts for 6 jobs in MovieLensALS.  No. of jobs was increased 24 if I added one more maxIter param.  
+                That definitely increases processing time significantly.   Some jobs are 100%/% correlated with 
+                maxIter param like 'count at ALS.scala:944', increasing no. of stages from 22 to 42 when I increase 
+                maxIter from 10 to 20.  There is  trade-off of performance vs. rmse value of maxIter
+                
+             c. I adjusted spark.sql.shuffle.partitions to 8 becuase the default is 200 whcih is way too high in test
+                environment.  That only affects Spark-SQL operations and does not affect operations involved RDD 
+                partitions.
+                
+             d. I also tried org.apache.spark.serializer.KryoSerializer which does not help in the psedu-distributed 
+                environment (It might help in real network environment).  I also tried dynamicAllocation following 
+                appropriate yarn shuffle instructions and configures with --conf spark.shuffle.service.enabled=true 
+                --conf spark.dynamicAllocation.enabled=true.  It keeps using 
+                --conf spark.dynamicAllocation.minExecutors=1 setting and did not bounce up # executors.             
+                                    
+                
+            
+                
+                 
+                
+             
+             
+             
+             
+             
+                                
                               
        
               
