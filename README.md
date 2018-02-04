@@ -198,7 +198,7 @@
              --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark \
              --conf spark.yarn.archive=hdfs://ubuntu:9000/var/lib/hadoop-fandev/spark-jars.zip \
              --class org.freemind.spark.sql.MovieLensALS target/scala-2.11/spark_tutorial_2_2.11-1.0.jar \ 
-             input_movielen/ratings.dat.gz input_movielen/personalRatings.txt input_movielen/movies.dat  
+             data/ml-1m/ratings.dat.gz data/ml-1m/personalRatings.txt data/ml-1m/movies.dat  
         
              I achieved total running duration 1 min and 46 sec. from the time that I started ALS modeling.  My VM was 
              8 processors (1 core per processor).  Spark default without any tuning are --num-executors 2 

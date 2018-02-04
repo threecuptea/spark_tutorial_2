@@ -177,6 +177,8 @@ object MovieLensALS {
     recommendation.show(50, false)
 
     printf("Execution time= %7.3f seconds\n", (System.currentTimeMillis() - start)/1000.00)
+
+    spark.stop()
   }
 
 }
