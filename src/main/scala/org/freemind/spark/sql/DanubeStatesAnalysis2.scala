@@ -41,6 +41,7 @@ object DanubeStatesAnalysis2 {
     //Do the followings if I only want to include PUBLISH and UNPUBLISH state in the report
     //val statesInc = Seq("PUBLISH", "UNPUBLISH") //_* expanded to var args
     //val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog).filter($"pubId".between(nonJtLower, nonJtUpper) && $"pubId".isin(statesInc:_*)).cache()
+    //flatMap to exclude None
     val nonJtDS = nonJtRawDS.flatMap(parser.parseNonJtLog2).filter($"pubId".between(nonJtLower, nonJtUpper)).cache()
     printf("NON Java-transform pubId boundary is [%d. %d], diff, inc= %d.\n", nonJtLower, nonJtUpper, (nonJtUpper - nonJtLower + 1))
     println(s"NON Java-transform DanubeState count= ${nonJtDS.count}")

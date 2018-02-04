@@ -20,7 +20,7 @@ object ResolverDetailMX {
     val lower = args(2).toLong
     val upper = if (args(3).toLong == -1L) 99999999999L else args(3).toLong
     val state = args(4)
-    val resources = args.slice(5, args.length)
+    val resources = args.slice(5, args.length) //Take the rest args for interested resources.
 
     println(s"Request resources: ${resources.deep.mkString(" ")}")
     val spark = SparkSession
@@ -43,9 +43,12 @@ object ResolverDetailMX {
     for (res <- resources) {
       println()
       printf("Resolve log entries of top 500 discrepancies for %s.\n", res)
+      //Use outer join
       val joinedDS = nonJtDS.filter($"resource" === res).join(jtDS.filter($"resource" === res),
         Seq("resource","roviId", "state"), "outer").cache()
-
+      //Find those resourceIds do not appear in one or the other.  Try to find those MX resource that look back in
+      // one environment but not in another environment. Emphasize on missing Jt one,
+      // jt_dirty_size.isNull flag 0 will be sorted on the top.
       joinedDS.filter($"non_jt_dirty_size".isNull || $"jt_dirty_size".isNull)
         .withColumn("flag", when($"jt_dirty_size".isNull, 0).otherwise(1))
         .sort($"flag", $"non_jt_pubId")

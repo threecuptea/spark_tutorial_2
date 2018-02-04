@@ -64,14 +64,17 @@ class DanubeLogsParser(a: Option[Array[String]] = None) extends Serializable {
 
   def resourcesConcat = a.get.mkString("|")
 
+  //Use def, it will be executed only when it is called.  When it is called, it will execute def resourceConact as well.
+  //It would only be called by DanubeLogsParser(Some).  I cannot put them as val otherwise they will be resolved at compile time
+  //which will cause None error for DanubeLogsParser(Some) case
   def nonJtDiscResourcesPattern(): java.util.regex.Pattern = {
     val nonJtDiscResourcesRegEx = s"RESOLVE (${resourcesConcat}) (\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty"
-    Pattern.compile(nonJtResolverLogRegEx)
+    Pattern.compile(nonJtDiscResourcesRegEx)
 
   }
   def jtDiscResourcesPattern(): java.util.regex.Pattern = {
     val jtDiscResourcesRegEx    = s"RESOLVE (${resourcesConcat})\\-(\\d+) \\((\\d+) replacing (\\w+)\\) , (\\d+) dirty"
-    Pattern.compile(jtResolverLogRegEx)
+    Pattern.compile(jtDiscResourcesRegEx)
 
   }
 

@@ -42,9 +42,10 @@ object ResolverDetailsJenga {
     for (res <- resources) {
       println()
       printf("Resolve log entries of top 50 discrepancies for %s.\n", res)
+      //Use outer join
       val joinedDS = nonJtDS.filter($"resource" === res).join(jtDS.filter($"resource" === res),
         Seq("pubId","resource","roviId", "old_pubId"), "inner").cache()
-
+      //Find the discrepancies for those resources appear in both sort by discrepancy in descending order
       joinedDS.withColumn("diff", $"jt_dirty_size" - $"non_jt_dirty_size")
         .withColumn("difference", format_string("%,+8d", $"diff"))
           .withColumn("abs_diff", abs($"diff"))
