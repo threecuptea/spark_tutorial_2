@@ -76,13 +76,16 @@ object MovieLensALSColdStart {
 
     val bestParmsFromALS = getBestParmMapFromALS(als, paramGrids, evaluator, mrDS, prDS)
     println(s"The best model from ALS was trained with param = ${bestParmsFromALS}")
+
     val augModelFromALS = als.fit(allDS, bestParmsFromALS)  //Refit.  Is it necessary
 
     val cv = new CrossValidator()
-      .setEstimator(als).setEvaluator(evaluator).setNumFolds(10)  // percentage close to 0.8, 0.1, 0.1
-    val bestModelFromCv = getBestCrossValidatorModel(cv, paramGrids, evaluator, mrDS, prDS)
-    val augModelFromCV = cv.fit(allDS, bestModelFromCv.extractParamMap())
-    */
+      .setEstimator(als).setEvaluator(evaluator).setEstimatorParamMaps(paramGrids).setNumFolds(10)  // percentage close to 0.8, 0.1, 0.1
+    //val bestParmsFromCR = getBestParmMapFromCV(cv, paramGrids, evaluator, mrDS, prDS)
+    //println(s"The best model from CrossValidator was trained with param = ${bestParmsFromCR}")
+    val bestModelFromCR = getBestCrossValidatorModel(cv, evaluator, mrDS, prDS)
+    //I cannot augment
+
     //manual way
     val pMovieId = prDS.map(_.movieId).collect()
     val pUserId = 0
@@ -91,15 +94,15 @@ object MovieLensALSColdStart {
     //Using ALS manual
     println("The recommendation on unratedMovie for user 0 from ALS model")
     augModelFromALS.transform(unRatedDS).sort(desc("prediction")).show(25, false)
-    /*
+
     println("The recommendation on unratedMovie for user 0 from CrossValidator with ALS as estimator")
-    augModelFromCV.transform(unRatedDS).sort(desc("prediction")).show(25, false)
+    bestModelFromCR.transform(unRatedDS).sort(desc("prediction")).show(25, false)
 
     println("The top recommendation on AllUsers filter with  user 0 from ALS model")
     augModelFromALS.recommendForAllUsers(25).filter($"userId" === 0).show(false)
     println("The top recommendation on AllUsers filter with  user 0 from  CrossValidator with ALS as estimator")
-    augModelFromCV.bestModel.asInstanceOf[ALSModel].recommendForAllUsers(25).filter($"userId" === 0).show(false)
-    */
+    bestModelFromCR.bestModel.asInstanceOf[ALSModel].recommendForAllUsers(25).filter($"userId" === 0).show(false)
+
   }
 
   def getBestParmMapFromALS(als: ALS, paramGrids: Array[ParamMap], evaluator: RegressionEvaluator,
@@ -141,23 +144,23 @@ object MovieLensALSColdStart {
     }
   }
 
-
-  def getBestCrossValidatorModel(cv: CrossValidator, paramGrids: Array[ParamMap], evaluator: RegressionEvaluator,
-                      mrDS: Dataset[Rating], prDS: Dataset[Rating]): CrossValidatorModel = {
+  def getBestCrossValidatorModel(cv: CrossValidator, evaluator: RegressionEvaluator,
+                                 mrDS: Dataset[Rating], prDS: Dataset[Rating]): CrossValidatorModel = {
 
     val Array(cvTrainValDS, cvTestDS) = mrDS.randomSplit(Array(0.9, 0.1))
     val cvTrainValPlusDS = cvTrainValDS.union(prDS).cache()
-
-
 
     val cvModel = cv.fit(cvTrainValPlusDS)
     val bestRmse = evaluator.evaluate(cvModel.transform(cvTrainValPlusDS))
     val cvPrediction = cvModel.transform(cvTestDS)
     val cvRmse = evaluator.evaluate(cvPrediction)
-    println(s"The best model from CrossValidator was trained with param = ${cvModel.extractParamMap}")
-    printf("The RMSE of the bestModel from CrossValidator on validation set is %3.2f\n", bestRmse)
-    printf("The RMSE of the bestModel from CrossValidator on test set is %3.2f\n", cvRmse)
+    val paramMap = cvModel.bestModel.asInstanceOf[ALSModel].extractParamMap()
+    println(s"The best model from CrossValidator was trained with param = ${paramMap}")
+    printf("The RMSE of the bestModel from CrossValidator on validation set is %3.4f\n", bestRmse)
+    printf("The RMSE of the bestModel from CrossValidator on test set is %3.4f\n", cvRmse)
     println()
     cvModel
   }
+
+
 }
