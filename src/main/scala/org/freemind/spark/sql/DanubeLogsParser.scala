@@ -3,7 +3,7 @@ package org.freemind.spark.sql
 import java.util.regex.{Matcher, Pattern}
 
 /**
-  * Created by fandev on 1/30/17.
+  * @author sling/threecuptea on 1/30/17. enhanced on 3/16
   */
 
 case class DanubeNonJTState (

@@ -1,5 +1,6 @@
 package org.freemind.spark.sql
 
+import org.apache.spark.ml.Estimator
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.recommendation.{ALS, ALSModel}
@@ -7,22 +8,27 @@ import org.apache.spark.ml.tuning.{CrossValidator, CrossValidatorModel, ParamGri
 import org.apache.spark.sql.{Dataset, SparkSession}
 import org.apache.spark.sql.functions._
 
-case class Rating(userId: Int, movieId: Int, rating: Float)
-case class Movie(id: Int, title: String, genres: Array[String])
 
+/**
+  *  ALS model.transform will generate entries with prediction of NaN.  That cause any evaluation metrics,
+  *  including rmse, returning NaN. which make final recommendation having all predictions 0.0
+  *
+  *  Spark starts to add coldStartStrategy to ALS.  It will drop those entries with NaN if I specify
+  *  coldStartStrategy = "drop".  Therefore, I don't need manually filter(!$"prediction".isNaN)
+  *
+  *  In this version,  I tried
+  *  the combination of
+  *  1. Use ALS (coldStartStrateg= "drop") directly to fit and transform
+  *      or
+  *  2. Use CrossValidator 10-fold with ALS (coldStartStrateg= "drop") as the estimator
+  *   and
+  *  1. Recommendation comes from manual creating unratedMovie set for userId = 0 then transform on it
+  *  2. Recommendation comes from {@link ALSModel#recommendForAllUsers} filter userId === 0
+  *
+  * @author sling/ threecuptea on 2/4/2018
+  *
+  */
 object MovieLensALSColdStart {
-
-  def parseRating(line: String): Rating = {
-    val splits = line.split("::")
-    assert( splits.length == 4)
-    Rating(splits(0).toInt, splits(1).toInt, splits(2).toFloat)
-  }
-
-  def parseMovie(line: String): Movie = {
-    val splits = line.split("::")
-    assert( splits.length == 3)
-    Movie(splits(0).toInt, splits(1), splits(2).split("|"))
-  }
 
   def main(args: Array[String]): Unit = {
     if (args.length < 3) {
@@ -37,9 +43,10 @@ object MovieLensALSColdStart {
     val prFile = args(1)
     val movieFile = args(2)
 
-    val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
-    val prDS = spark.read.textFile(prFile).map(parseRating).cache()
-    val movieDS = spark.read.textFile(movieFile).map(parseMovie).cache()
+    val mlParser = new MovieLensParser()
+    val mrDS = spark.read.textFile(mrFile).map(mlParser.parseRating).cache()
+    val prDS = spark.read.textFile(prFile).map(mlParser.parseRating).cache()
+    val movieDS = spark.read.textFile(movieFile).map(mlParser.parseMovie).cache()
 
     mrDS.show(10, false)
     println(s"Rating Counts: movie - ${mrDS.count}, personal - ${prDS.count}")
@@ -67,14 +74,15 @@ object MovieLensALSColdStart {
       .addGrid(als.rank, ranks)
       .build()
 
-    val bestModelFromALS = getBestALSModel(als, paramGrids, evaluator, mrDS, prDS)
-    val augModelFromALS = als.fit(allDS, bestModelFromALS.extractParamMap())  //Refit.  Is it necessary
+    val bestParmsFromALS = getBestParmMapFromALS(als, paramGrids, evaluator, mrDS, prDS)
+    println(s"The best model from ALS was trained with param = ${bestParmsFromALS}")
+    val augModelFromALS = als.fit(allDS, bestParmsFromALS)  //Refit.  Is it necessary
 
     val cv = new CrossValidator()
-      .setEstimator(als).setEvaluator(evaluator).setEstimatorParamMaps(paramGrids).setNumFolds(10)  // percentage close to 0.8, 0.1, 0.1
+      .setEstimator(als).setEvaluator(evaluator).setNumFolds(10)  // percentage close to 0.8, 0.1, 0.1
     val bestModelFromCv = getBestCrossValidatorModel(cv, paramGrids, evaluator, mrDS, prDS)
     val augModelFromCV = cv.fit(allDS, bestModelFromCv.extractParamMap())
-
+    */
     //manual way
     val pMovieId = prDS.map(_.movieId).collect()
     val pUserId = 0
@@ -83,6 +91,7 @@ object MovieLensALSColdStart {
     //Using ALS manual
     println("The recommendation on unratedMovie for user 0 from ALS model")
     augModelFromALS.transform(unRatedDS).sort(desc("prediction")).show(25, false)
+    /*
     println("The recommendation on unratedMovie for user 0 from CrossValidator with ALS as estimator")
     augModelFromCV.transform(unRatedDS).sort(desc("prediction")).show(25, false)
 
@@ -90,11 +99,11 @@ object MovieLensALSColdStart {
     augModelFromALS.recommendForAllUsers(25).filter($"userId" === 0).show(false)
     println("The top recommendation on AllUsers filter with  user 0 from  CrossValidator with ALS as estimator")
     augModelFromCV.bestModel.asInstanceOf[ALSModel].recommendForAllUsers(25).filter($"userId" === 0).show(false)
-
+    */
   }
 
-  def getBestALSModel(als: ALS, paramGrids: Array[ParamMap], evaluator: RegressionEvaluator,
-                      mrDS: Dataset[Rating], prDS: Dataset[Rating]): ALSModel = {
+  def getBestParmMapFromALS(als: ALS, paramGrids: Array[ParamMap], evaluator: RegressionEvaluator,
+                      mrDS: Dataset[Rating], prDS: Dataset[Rating]): ParamMap = {
     val Array(trainDS, valDS, testDS) = mrDS.randomSplit(Array(0.8, 0.1, 0.1))
     trainDS.cache()
     valDS.cache()
@@ -103,14 +112,16 @@ object MovieLensALSColdStart {
 
     var bestModel: Option[ALSModel] = None
     var bestRmse = Double.MaxValue
+    var bestParam: Option[ParamMap] = None
 
-    val models: Seq[ALSModel] = als.fit(trainPlusDS, paramGrids)
-    for (model <- models) {
+    for (paramMap <- paramGrids) {
+      val model = als.fit(trainPlusDS, paramMap)
       val prediction = model.transform(valDS)
       val rmse = evaluator.evaluate(prediction)
       if (rmse < bestRmse) {
         bestRmse = rmse
         bestModel = Some(model)
+        bestParam = Some(paramMap)
       }
     }
 
@@ -121,19 +132,23 @@ object MovieLensALSColdStart {
       case Some(model) =>
         val prediction = model.transform(testDS)
         val rmse = evaluator.evaluate(prediction)
-        println(s"The best model from ALS was trained with param = ${model.extractParamMap}")
-        printf("The RMSE of the bestModel from ALS on validation set is %3.2f\n", bestRmse)
-        printf("The RMSE of the bestModel from ALS on test set is %3.2f\n", rmse)
+        //xtractParamMap only has default without additional
+        //println(s"The best model from ALS was trained with param = ${model.extractParamMap}")
+        printf("The RMSE of the bestModel from ALS on validation set is %3.4f\n", bestRmse)
+        printf("The RMSE of the bestModel from ALS on test set is %3.4f\n", rmse)
         println()
-        model
+        bestParam.get
     }
   }
+
 
   def getBestCrossValidatorModel(cv: CrossValidator, paramGrids: Array[ParamMap], evaluator: RegressionEvaluator,
                       mrDS: Dataset[Rating], prDS: Dataset[Rating]): CrossValidatorModel = {
 
     val Array(cvTrainValDS, cvTestDS) = mrDS.randomSplit(Array(0.9, 0.1))
     val cvTrainValPlusDS = cvTrainValDS.union(prDS).cache()
+
+
 
     val cvModel = cv.fit(cvTrainValPlusDS)
     val bestRmse = evaluator.evaluate(cvModel.transform(cvTrainValPlusDS))

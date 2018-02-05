@@ -4,7 +4,7 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
 /**
-  * Created by fandev on 3/25/17.
+  * @author sling/threecuptea on 3/25/17.
   */
 object ResolverDetailMX {
 

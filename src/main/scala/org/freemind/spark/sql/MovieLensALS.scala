@@ -46,22 +46,7 @@ import org.apache.spark.sql.functions._
   * @author sling(threecuptea) re-wrote on 12/29/16 - 02/04/17
   */
 
-case class Rating(userId: Int, movieId: Int, rating: Float)
-case class Movie(id: Int, title: String, genres: Array[String])
-
 object MovieLensALS {
-
-  def parseRating(line: String): Rating = {
-    val splits = line.split("::")
-    assert(splits.length == 4)
-    Rating(splits(0).toInt, splits(1).toInt, splits(2).toFloat)
-  }
-
-  def parseMovie(line: String): Movie = {
-    val splits = line.split("::")
-    assert(splits.length == 3)
-    Movie(splits(0).toInt, splits(1), splits(2).split('|'))
-  }
 
   def main(args: Array[String]): Unit = {
     //add user and movie later
@@ -79,9 +64,10 @@ object MovieLensALS {
       .getOrCreate()
     import spark.implicits._
 
-    val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
-    val prDS = spark.read.textFile(prFile).map(parseRating).cache()
-    val movieDS = spark.sparkContext.broadcast(spark.read.textFile(movieFile).map(parseMovie).cache())
+    val mlParser = new MovieLensParser()
+    val mrDS = spark.read.textFile(mrFile).map(mlParser.parseRating).cache()
+    val prDS = spark.read.textFile(prFile).map(mlParser.parseRating).cache()
+    val movieDS = spark.sparkContext.broadcast(spark.read.textFile(movieFile).map(mlParser.parseMovie).cache())
     println(s"Rating Snapshot= ${mrDS.count}, ${prDS.count}")
     mrDS.show(10, false)
     println(s"Movies Snapshot= ${movieDS.value.count}")
