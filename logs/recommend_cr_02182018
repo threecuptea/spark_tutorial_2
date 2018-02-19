@@ -1,0 +1,54 @@
+Log Type: stdout
+
+Log Upload Time: Sun Feb 18 20:10:38 -0800 2018
+
+Log Length: 2284
+
++------+-------+------+
+|userId|movieId|rating|
++------+-------+------+
+|1     |1193   |5.0   |
+|1     |661    |3.0   |
+|1     |914    |3.0   |
+|1     |3408   |4.0   |
+|1     |2355   |5.0   |
+|1     |1197   |3.0   |
+|1     |1287   |5.0   |
+|1     |2804   |5.0   |
+|1     |594    |4.0   |
+|1     |919    |4.0   |
++------+-------+------+
+only showing top 10 rows
+
+Rating Counts: movie - 1000209, personal - 24
++---+----------------------------------+--------------------------------+
+|id |title                             |genres                          |
++---+----------------------------------+--------------------------------+
+|1  |Toy Story (1995)                  |[Animation, Children's, Comedy] |
+|2  |Jumanji (1995)                    |[Adventure, Children's, Fantasy]|
+|3  |Grumpier Old Men (1995)           |[Comedy, Romance]               |
+|4  |Waiting to Exhale (1995)          |[Comedy, Drama]                 |
+|5  |Father of the Bride Part II (1995)|[Comedy]                        |
+|6  |Heat (1995)                       |[Action, Crime, Thriller]       |
+|7  |Sabrina (1995)                    |[Comedy, Romance]               |
+|8  |Tom and Huck (1995)               |[Adventure, Children's]         |
+|9  |Sudden Death (1995)               |[Action]                        |
+|10 |GoldenEye (1995)                  |[Action, Adventure, Thriller]   |
++---+----------------------------------+--------------------------------+
+only showing top 10 rows
+
+Movie Count: 3883
+The best model from CrossValidator was trained with param = {
+	als_8153a0c297cd-coldStartStrategy: drop,
+	als_8153a0c297cd-itemCol: movieId,
+	als_8153a0c297cd-predictionCol: prediction,
+	als_8153a0c297cd-userCol: userId
+}
+The RMSE of the bestModel from CrossValidator on validation set is 0.8111
+The RMSE of the bestModel from CrossValidator on test set is 0.8623
+
+estimator: estimator for selection (current: als_8153a0c297cd)
+estimatorParamMaps: param maps for the estimator (current: [Lorg.apache.spark.ml.param.ParamMap;@42ae4bc7)
+evaluator: evaluator used to select hyper-parameters that maximize the validated metric (current: regEval_b6974a8941dc)
+numFolds: number of folds for cross validation (>= 2) (default: 3, current: 10)
+seed: random seed (default: 880116102, current: -1191137437)

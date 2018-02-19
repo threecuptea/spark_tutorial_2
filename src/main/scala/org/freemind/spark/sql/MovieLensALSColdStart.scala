@@ -1,10 +1,9 @@
 package org.freemind.spark.sql
 
-import org.apache.spark.ml.Estimator
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.recommendation.{ALS, ALSModel}
-import org.apache.spark.ml.tuning.{CrossValidator, CrossValidatorModel, ParamGridBuilder}
+import org.apache.spark.ml.tuning.{ParamGridBuilder}
 import org.apache.spark.sql.{Dataset, SparkSession}
 import org.apache.spark.sql.functions._
 
@@ -13,19 +12,22 @@ import org.apache.spark.sql.functions._
   *  ALS model.transform will generate entries with prediction of NaN.  That cause any evaluation metrics,
   *  including rmse, returning NaN. which make final recommendation having all predictions 0.0
   *
-  *  Spark starts to add coldStartStrategy to ALS.  It will drop those entries with NaN if I specify
+  *  Spark starts to add coldStartStrategy to ALS at version 2.2.  It will drop those entries with NaN if I specify
   *  coldStartStrategy = "drop".  Therefore, I don't need manually filter(!$"prediction".isNaN)
   *
   *  In this version,  I tried
   *  the combination of
   *  1. Use ALS (coldStartStrateg= "drop") directly to fit and transform
-  *      or
-  *  2. Use CrossValidator 10-fold with ALS (coldStartStrateg= "drop") as the estimator
-  *   and
-  *  1. Recommendation comes from manual creating unratedMovie set for userId = 0 then transform on it
-  *  2. Recommendation comes from {@link ALSModel#recommendForAllUsers} filter userId === 0
   *
-  * @author sling/ threecuptea on 2/4/2018
+  *  1. Recommendation comes from manual creating unratedMovie set for userId = X then transform on it
+  *     The advantage is small set of data (only for one user).  It's only for one user.  However, I have to repeat the
+  *     same for others.
+  *  2. Recommendation comes from {@link ALSModel#recommendForAllUsers} which
+  *     return Rows of (userId: int, recommendations: array&lt;struct&lt;movieId:int,rating:float&gt;&gt;])
+  *     then explode recommendations field to flatten it then retrieve individual fields of type struct.
+  *     The advantage of this method is that the result can be cached and be used for multiple users.
+  *
+  * @author sling/ threecuptea on 2/4/2018, refined on 2/17/2018
   *
   */
 object MovieLensALSColdStart {
@@ -75,33 +77,40 @@ object MovieLensALSColdStart {
       .build()
 
     val bestParmsFromALS = getBestParmMapFromALS(als, paramGrids, evaluator, mrDS, prDS)
+    //I I can get bestParams because I manually go through paramGrids to calculate and find the best params
+    //I cannot do that for CrossValidator
     println(s"The best model from ALS was trained with param = ${bestParmsFromALS}")
 
-    val augModelFromALS = als.fit(allDS, bestParmsFromALS)  //Refit.  Is it necessary
+    val augModelFromALS = als.fit(allDS, bestParmsFromALS)  //Refit.  It is more accurate
 
-    val cv = new CrossValidator()
-      .setEstimator(als).setEvaluator(evaluator).setEstimatorParamMaps(paramGrids).setNumFolds(10)  // percentage close to 0.8, 0.1, 0.1
-    //val bestParmsFromCR = getBestParmMapFromCV(cv, paramGrids, evaluator, mrDS, prDS)
-    //println(s"The best model from CrossValidator was trained with param = ${bestParmsFromCR}")
-    val bestModelFromCR = getBestCrossValidatorModel(cv, evaluator, mrDS, prDS)
-    //I cannot augment
-
-    //manual way
-    val pMovieId = prDS.map(_.movieId).collect()
+    //manual way, it is much light-weighted for one user if you have so many users
+    val pMovieIds = prDS.map(_.movieId).collect()
     val pUserId = 0
     //So that I can match ALS column name and also have movie title
-    val unRatedDS = movieDS.filter(mv => !pMovieId.contains(mv.id)).withColumnRenamed("id", "movieId").withColumn("userId", lit(pUserId))
+    val pUnratedDS = movieDS.filter(mv => !pMovieIds.contains(mv.id)).withColumnRenamed("id", "movieId").withColumn("userId", lit(pUserId))
     //Using ALS manual
-    println("The recommendation on unratedMovie for user 0 from ALS model")
-    augModelFromALS.transform(unRatedDS).sort(desc("prediction")).show(25, false)
+    println(s"The recommendation on unratedMovie for user ${pUserId} from ALS model")
+    augModelFromALS.transform(pUnratedDS).sort(desc("prediction")).show(10, false)
 
-    println("The recommendation on unratedMovie for user 0 from CrossValidator with ALS as estimator")
-    bestModelFromCR.transform(unRatedDS).sort(desc("prediction")).show(25, false)
+    //recommendation: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] = [userId: int, recommendations: array<struct<movieId:int,rating:float>>]
+    //We explode to flat array then retrieve field from a struct
+    val recommendDS = augModelFromALS.recommendForAllUsers(10).
+      select($"userId", explode($"recommendations").as("struct")).
+      select($"userId", $"struct".getField("movieId").as("movieId"), $"struct".getField("rating").as("rating")).cache()
 
-    println("The top recommendation on AllUsers filter with  user 0 from ALS model")
-    augModelFromALS.recommendForAllUsers(25).filter($"userId" === 0).show(false)
-    println("The top recommendation on AllUsers filter with  user 0 from  CrossValidator with ALS as estimator")
-    bestModelFromCR.bestModel.asInstanceOf[ALSModel].recommendForAllUsers(25).filter($"userId" === 0).show(false)
+    println(s"The top recommendation on AllUsers filter with  user ${pUserId} from ALS model")
+    recommendDS.filter($"userId" === pUserId).
+      join(movieDS, recommendDS("movieId") === movieDS("id")).select($"movieId", $"title", $"genres", $"userId", $"rating").show(false)
+
+    val sUserId = 6001
+    val sMovieIds = mrDS.filter($"userId" === sUserId).map(_.movieId).collect();
+    val sUnratedDS = movieDS.filter(mv => !sMovieIds.contains(mv.id)).withColumnRenamed("id", "movieId").withColumn("userId", lit(sUserId))
+    println($"The recommendation on unratedMovie for user ${sUserId} from ALS model")
+    augModelFromALS.transform(sUnratedDS).sort(desc("prediction")).show(10, false)
+
+    println(s"The top recommendation on AllUsers filter with  user ${sUserId} from ALS model")
+    recommendDS.filter($"userId" === sUserId).
+      join(movieDS, recommendDS("movieId") === movieDS("id")).select($"movieId", $"title", $"genres", $"userId", $"rating").show(false)
 
   }
 
@@ -143,24 +152,5 @@ object MovieLensALSColdStart {
         bestParam.get
     }
   }
-
-  def getBestCrossValidatorModel(cv: CrossValidator, evaluator: RegressionEvaluator,
-                                 mrDS: Dataset[Rating], prDS: Dataset[Rating]): CrossValidatorModel = {
-
-    val Array(cvTrainValDS, cvTestDS) = mrDS.randomSplit(Array(0.9, 0.1))
-    val cvTrainValPlusDS = cvTrainValDS.union(prDS).cache()
-
-    val cvModel = cv.fit(cvTrainValPlusDS)
-    val bestRmse = evaluator.evaluate(cvModel.transform(cvTrainValPlusDS))
-    val cvPrediction = cvModel.transform(cvTestDS)
-    val cvRmse = evaluator.evaluate(cvPrediction)
-    val paramMap = cvModel.bestModel.asInstanceOf[ALSModel].extractParamMap()
-    println(s"The best model from CrossValidator was trained with param = ${paramMap}")
-    printf("The RMSE of the bestModel from CrossValidator on validation set is %3.4f\n", bestRmse)
-    printf("The RMSE of the bestModel from CrossValidator on test set is %3.4f\n", cvRmse)
-    println()
-    cvModel
-  }
-
 
 }

@@ -1,6 +1,6 @@
 ### spark-tutorial_2 collects small projects that I worked on using spark scala 2 Dataset/ DataFrame.  Those were first inpired by open source articles from Databricks community, LinkedIn 'Apache Spark' User Group.  I instilled my idea while rewriting. 
 #### The topics include:
-    1. A complete movie recommendation System using Spark-ML ALS (Alternating Least Square) algorithm 
+    1. A complete movie recommendation System using Spark-ML ALS (Alternating Least Square) algorithm -MovieLensALS
        a) Use original format of MovieLens 1M Dataset (https://grouplens.org/datasets/movielens/1m/)
        b) Write python scripts to generate my PersonalRating data
        c) Parse data into Rating and Movie case classes
@@ -21,7 +21,7 @@
        j) The remaining issue: accented characters in title of movies like è in La Vita è bella is lost in Spark 
           DataFrame operation. Research on org.apache.spark.sql.Encoder might be needed.
  
-    2. Similar movie recommendation system but the source is data in MongoDB
+    2. Similar movie recommendation system but the source is data in MongoDB - MovieLensALSMongo
        a) Write simple convert.py to covert the delimiter from '::' to ',' so that I can use mongoimport to import 
           Ratings and Movies data
        b) Use MongoSpark and ReadConfig of mongo-spark-connector 2.0 to load Mongodb data
@@ -56,13 +56,33 @@
     7. FlghtSample is inspired by https://aws.amazon.com/blogs/aws/new-apache-spark-on-amazon-emr/.  I used small 
        sample to get the taste of schema & data and validate before move to I do a full-fledge run in EMR. 
     
+    8. MovieLensALSColdStart
+       I mentioned the pitfall of NaN when items used to transform are outside of items used to fit.  Spark starts to 
+       add coldStartStrategy to ALS since 2.2.  It will drop those entries with NaN if I specify 
+       coldStartStrategy = "drop".  Therefore, I refined codes accordingly.   Also I explore 
+       ALSModel.recommendForAllUsers(numItems) that introduced in 2.2 too which return Rows of 
+       (userId: int, recommendations: array<struct<movieId:int,rating:float>>]).  That requires transformation to
+       human reader form.  The result from manual unratedMovies and from recommendForAllUsers are very much the same
+       except for one discrepancy.   Using recommendForAllUsers(numItems) pays the unfront cost for all users, additional 
+       operation of filtering by userId and join with movies are minimal.  It is worthwhile if it is required to
+       provide recommendation for lots of users.
+    
+    9. MovieLensALSColdStartCv (CrossValidator)
+       Apply coldStartStrategy = "drop" too.  However, I use CrossValidator (10 folds, one of 10 set in terms was chosen
+       as validation set and the rest as training set).  Let CrossValidator to find the best model.  CrossValidator
+       has one drawback in addition to time consuming: the best params used in the best model is unknown.  Therefore,
+       I cannot refit the best param with the whole population.  The rmse on validation set is very good 0.8111.  
+       However, the rmse on test set is not better off than ALS alone does (0.8623 vs. 0.8567).  It seems to 
+       a little overfitting.   
+                                                                                              
+    
 #### Notes regrading to Spark integrated with Hadoop
-    Cloudera latest CDH 5.11.x only works with Spark 1.6.0.  Cloudera Distribution of Apache Spark 2 only works with
+    Cloudera latest CDH 5.14.x only works with Spark 1.6.0.  Cloudera Distribution of Apache Spark 2 only works with
     Cloudera Manager and is distributed as two files: a CSD file and a parcel. Follow the instruction on 
     https://www.cloudera.com/documentation/spark2/latest/topics/spark2_installing.html to install them.
        
     To get Apache Spark 2.x work with Apache Hadoop in pseudo-distributed mode, we need to install compatible version of
-    hadoop (spark-2.1.1-bin-hadoop2.7 only works with hadoop 2.7). Follow the instruction 
+    hadoop (spark-2.2.1-bin-hadoop2.7 only works with hadoop 2.7). Follow the instruction 
     http://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html    
     
         1. I previously already set JAVA_HOME and verified. start-dfs.sh still did not render Java path correctly. 
@@ -82,8 +102,8 @@
              	
         4. I failed to run --master yarn in the beginning and got error something 
            like "Container .. is running beyond virtual memory limits..." There is a check placed at Yarn level for 
-           virtual and physical memory usage ratio. Issue is not only that VM doesn't have sufficient physical memory. 
-           But it is because virtual memory usage is more than expected for given physical memory.  Fix by adding             
+           virtual and physical memory usage ratio. Issue is not that VM doesn't have sufficient physical memory 
+           but it is because virtual memory usage is more than expected for given physical memory.  Fix by adding             
                <property>
                   <name>yarn.nodemanager.vmem-check-enabled</name>
                    <value>false</value>
@@ -98,23 +118,44 @@
            to yarn-site.xml.
                	
         5. The default of spark.sql.shuffle.partitions is 200 which is too high in test environment.   I set it to
-           num-executors(2) * executor-cores(4) = 8.  My VM has 2 processors and 6 cores per processor.  I added
-           spark.executor.extraJavaOptions='-XX:ThreadStackSize=2048' to avoid stackOverflow too.
-           Other common tuned up parameters are driver-memory and executor-memory.  Another option is to set
-           spark.dynamicAllocation.enabled to true.  Running executors with too much memory often results in excessive 
-           garbage collection delays. 64GB is a rough guess at a good upper limit for a single executor.
-           HDFS client has trouble with tons of concurrent threads. A rough guess is that at most five tasks 
-           per executor can achieve full write throughput. 
+           num-executors(2) * executor-cores(4) = 8.  I added spark.executor.extraJavaOptions='-XX:ThreadStackSize=2048' 
+           to avoid stackOverflow too. Other common tuned up parameters are driver-memory and executor-memory.  
+           Another option is to set spark.dynamicAllocation.enabled to true.  
+           Running executors with too much memory often results in excessive garbage collection delays. 
+           64GB is a rough guess at a good upper limit for a single executor. HDFS client has trouble with tons of 
+           concurrent threads. A rough guess is that at most five tasks per executor can achieve full write throughput. 
+           Running tiny executors with with a single core throws away the benefits running multiple tasks in a single 
+           JVM.
            
+           Node manager hierarchy is as the followings:
+           'yarn.nodemanager.resource.memory-mb' can have multiple executor container and each executor container 
+           have two parts: 'executor.memory' and 'spark.yarn.executor.memoryOverhead' which is the maximum of (384 or 
+           0.07 * executor memory).
+           
+           One node can host multiple executors ( no one-to-one requirement) and one executor can have multiple 
+           executor-core.   
+           
+           A Yarn cluster with 6 nodes, each equipped with 16 cores and 64GB of memory is best configured with 
+           --num-executor 17 --executor-core 5 --executor-memory 19GB instead of
+           --num-executor 6 --executor-core 15 --executor-memory 63GB taking consideration of 
+           'spark.yarn.executor.memoryOverhead' and AM (Appliocation Master must run in one core
+           
+           The hierarchy of Spark execution: job, stage and tasks. The boundary of job is an action and the boundary of
+           stage is transformation like *ByKey and re-partition, join, cogroup etc. which are involved shuffled read-write
+           The boundary of tasks are decided by number of partitions of RDD that the stage is working on. The very 
+           root of data via textFile or hadoopFile are decided by inputFormat, ie HDFS block size (default = 64MB)
+           groupByKey write whole object into memory buffer and reduceByKey only write aggregated value into memory
+           The former requires more memory.
+                          
            See http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/ for the guideline
               	
         6. There is difference between yarn client and cluster deploy-mode. (the default is client if not specify.
            Set --deploy-mode cluster to override).  In client deploy-mode, the driver will be running on the machine 
-           you started the job.  In cluster mode, the driver is running as a thread of the yarn application master
-           If there is big network overhead between the machine that the job started and the cluster 
+           you run spark-submit.  In cluster mode, the driver is running on a core(as a thread) of the yarn 
+           application master If there is big network overhead between the machine that the job started and the cluster 
            (ex, your laptop), use cluster mode. if you submit application from a gateway machine that is physically
            co-located with your worker machines, client mode is appropriate. In client mode, 
-           the input and output of the application is attached to the console.
+           the input and output of the application is attached to the console. In cluster mode, the output is in stadout.
            
            In yarn-cluster mode, the application master runs the driver, so it’s often useful to bolster its resources
            with the --driver-memory and --driver-cores properties.
@@ -153,9 +194,8 @@
         9. The above is application log which is general to any Hadoop application.  There is event log which records 
            Spark job/stage/task, storage, executor metrics and job DAG (Directed acyclic graph) which is specific to 
            Spark.  
-           We have to configure Spark history-server to specify the location of event log files by adding ex.
-             SPARK_HISTORY_OPTS="-Dspark.history.fs.logDirectory='hdfs://ubuntu:9000/var/log/spark'"
-           to spark-env.sh. Then start Spark history-server.
+           We have to start Spark history-server to specify the location it expects that applications write logs to like
+           $SPARK_HOME/sbin/start-history-server.sh hdfs://ubuntu:9000/var/log/spark
              
            On the other side, applications submited must add
              --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark
@@ -163,12 +203,12 @@
              
            There will be stdout and stderr links for each executor under Executor tab of Spark application in 
            Spark history server site (default to port 18080).  In the case of deploy-mode: cluster,  there would be
-           stdout and stderr on the driver row since stdout and stderr will be in cluster (contrast to console in the 
+           stdout and stderr links on the driver row since stdout and stderr will be in cluster (contrast to console in the 
            case of client deploy-mode).   Those links would be re-directed to Hadoop job-history server to retrieve
            the application log.   
              
         10. Normally, Spark would even out workloads among executors.   When Spark run in yarn-cluster and it would 
-            use one core of one executor to run the driver tasks.  Therefore, you might see one executor having 
+            use one core to run the driver tasks.  Therefore, you might see one executor having 
             more tasks than others.  In the case of MovieLensALS, job ran in cluster mode performs better than 
             the job ran in client mode.  It is possibly due to MovieLensALS having a lot of println and show .  
             In the case of client mode, they have to output to console. 
@@ -212,20 +252,25 @@
                 A rough guess is that at most five tasks per executor can achieve full write throughput".
                 
              b. num of paramMap decides no. loops of repeated ALS fit and RegressionEvaluator evaluate jobs.  Each loop 
-                accounts for 6 jobs in MovieLensALS.  No. of jobs was increased 24 if I added one more maxIter param.  
-                That definitely increases processing time significantly.   Some jobs are 100% correlated with 
-                maxIter param like 'count at ALS.scala:944', increasing no. of stages from 22 to 42 when I increase 
-                maxIter from 10 to 20.  There is trade-off of performance vs. rmse in terms of value of maxIter.
+                accounts for 6 jobs in MovieLensALS.  Some jobs are 100% correlated with maxIter param like 'count at ALS.scala:944', increasing no. of 
+                stages from 22 to 42 when I increase maxIter from 10 to 20.  There is trade-off of performance vs. 
+                rmse in terms of value of maxIter.
                 
-             c. I adjusted spark.sql.shuffle.partitions to 8 because the default is 200 which is way too high in test
+             c. CrossValidator is very time consuming because the above time have to times No. of folds.  In this 
+                case, it is 10.  Also it requires lots of memory.  I couldn't adjust --core-memory to 2g.  2 * 2g +
+                1g (driver) will execeeds available memory.  
+                
+             d. It takes 7 -11 sec. to run recommendForAllUsers(numItems). Yes, we pays the unfront cost for all users.       
+                
+             e. I adjusted spark.sql.shuffle.partitions to 8 because the default is 200 which is way too high in test
                 environment.  That only affects Spark-SQL operations and does not affect operations involved RDD 
                 partitions.
                 
-             d. I also tried org.apache.spark.serializer.KryoSerializer which does not help in the psedu-distributed 
+             f. I also tried org.apache.spark.serializer.KryoSerializer which does not help in the psedu-distributed 
                 environment (It might help in real network environment).  I also tried dynamicAllocation following 
                 appropriate yarn shuffle instructions and configures with --conf spark.shuffle.service.enabled=true 
                 --conf spark.dynamicAllocation.enabled=true.  It keeps using 
-                --conf spark.dynamicAllocation.minExecutors=1 setting and did not bounce up # executors.             
+                --conf spark.dynamicAllocation.minExecutors=1 setting and did not bounce up # executors.  
                                     
                 
             

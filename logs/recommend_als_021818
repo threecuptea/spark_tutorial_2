@@ -1,0 +1,173 @@
+Log Type: stdout
+
+Log Upload Time: Sun Feb 18 09:59:49 -0800 2018
+
+Log Length: 15218
+
++------+-------+------+
+|userId|movieId|rating|
++------+-------+------+
+|1     |1193   |5.0   |
+|1     |661    |3.0   |
+|1     |914    |3.0   |
+|1     |3408   |4.0   |
+|1     |2355   |5.0   |
+|1     |1197   |3.0   |
+|1     |1287   |5.0   |
+|1     |2804   |5.0   |
+|1     |594    |4.0   |
+|1     |919    |4.0   |
++------+-------+------+
+only showing top 10 rows
+
+Rating Counts: movie - 1000209, personal - 24
++---+----------------------------------+--------------------------------+
+|id |title                             |genres                          |
++---+----------------------------------+--------------------------------+
+|1  |Toy Story (1995)                  |[Animation, Children's, Comedy] |
+|2  |Jumanji (1995)                    |[Adventure, Children's, Fantasy]|
+|3  |Grumpier Old Men (1995)           |[Comedy, Romance]               |
+|4  |Waiting to Exhale (1995)          |[Comedy, Drama]                 |
+|5  |Father of the Bride Part II (1995)|[Comedy]                        |
+|6  |Heat (1995)                       |[Action, Crime, Thriller]       |
+|7  |Sabrina (1995)                    |[Comedy, Romance]               |
+|8  |Tom and Huck (1995)               |[Adventure, Children's]         |
+|9  |Sudden Death (1995)               |[Action]                        |
+|10 |GoldenEye (1995)                  |[Action, Adventure, Thriller]   |
++---+----------------------------------+--------------------------------+
+only showing top 10 rows
+
+Movie Count: 3883
+The RMSE of the bestModel from ALS on validation set is 0.8627
+The RMSE of the bestModel from ALS on test set is 0.8567
+
+The best model from ALS was trained with param = {
+	als_cbdacdbb5811-rank: 12,
+	als_cbdacdbb5811-regParam: 0.1
+}
+The recommendation on unratedMovie for user 0 from ALS model
++-------+-------------------------------------------------+----------------------+------+----------+
+|movieId|title                                            |genres                |userId|prediction|
++-------+-------------------------------------------------+----------------------+------+----------+
+|572    |Foreign Student (1994)                           |[Drama]               |0     |5.846446  |
+|3233   |Smashing Time (1967)                             |[Comedy]              |0     |5.329516  |
+|3245   |I Am Cuba (Soy Cuba/Ya Kuba) (1964)              |[Drama]               |0     |4.9890447 |
+|318    |Shawshank Redemption, The (1994)                 |[Drama]               |0     |4.974785  |
+|53     |Lamerica (1994)                                  |[Drama]               |0     |4.895218  |
+|1741   |Midaq Alley (Callej�n de los milagros, El) (1995)|[Drama]               |0     |4.8848286 |
+|953    |It's a Wonderful Life (1946)                     |[Drama]               |0     |4.884011  |
+|3517   |Bells, The (1926)                                |[Crime, Drama]        |0     |4.879026  |
+|2324   |Life Is Beautiful (La Vita � bella) (1997)       |[Comedy, Drama]       |0     |4.8732615 |
+|1949   |Man for All Seasons, A (1966)                    |[Drama]               |0     |4.8420196 |
+|1207   |To Kill a Mockingbird (1962)                     |[Drama]               |0     |4.83848   |
+|128    |Jupiter's Wife (1994)                            |[Documentary]         |0     |4.8182845 |
+|904    |Rear Window (1954)                               |[Mystery, Thriller]   |0     |4.7963657 |
+|1851   |Leather Jacket Love Story (1997)                 |[Drama, Romance]      |0     |4.7897983 |
+|1250   |Bridge on the River Kwai, The (1957)             |[Drama, War]          |0     |4.7883086 |
+|1204   |Lawrence of Arabia (1962)                        |[Adventure, War]      |0     |4.779291  |
+|3350   |Raisin in the Sun, A (1961)                      |[Drama]               |0     |4.7716703 |
+|3469   |Inherit the Wind (1960)                          |[Drama]               |0     |4.762243  |
+|1193   |One Flew Over the Cuckoo's Nest (1975)           |[Drama]               |0     |4.761278  |
+|2762   |Sixth Sense, The (1999)                          |[Thriller]            |0     |4.7541265 |
+|678    |Some Folks Call It a Sling Blade (1993)          |[Drama, Thriller]     |0     |4.752659  |
+|2067   |Doctor Zhivago (1965)                            |[Drama, Romance, War] |0     |4.75112   |
+|912    |Casablanca (1942)                                |[Drama, Romance, War] |0     |4.748723  |
+|858    |Godfather, The (1972)                            |[Action, Crime, Drama]|0     |4.739728  |
+|2609   |King of Masks, The (Bian Lian) (1996)            |[Drama]               |0     |4.7348742 |
++-------+-------------------------------------------------+----------------------+------+----------+
+only showing top 25 rows
+
+The top recommendation on AllUsers filter with  user 0 from ALS model
++-------+-------------------------------------------------+----------------------+------+---------+
+|movieId|title                                            |genres                |userId|rating   |
++-------+-------------------------------------------------+----------------------+------+---------+
+|572    |Foreign Student (1994)                           |[Drama]               |0     |5.846446 |
+|3233   |Smashing Time (1967)                             |[Comedy]              |0     |5.329516 |
+|527    |Schindler's List (1993)                          |[Drama, War]          |0     |5.137587 |
+|3245   |I Am Cuba (Soy Cuba/Ya Kuba) (1964)              |[Drama]               |0     |4.9890447|
+|318    |Shawshank Redemption, The (1994)                 |[Drama]               |0     |4.974785 |
+|53     |Lamerica (1994)                                  |[Drama]               |0     |4.895218 |
+|1741   |Midaq Alley (Callej�n de los milagros, El) (1995)|[Drama]               |0     |4.8848286|
+|953    |It's a Wonderful Life (1946)                     |[Drama]               |0     |4.884011 |
+|3517   |Bells, The (1926)                                |[Crime, Drama]        |0     |4.879026 |
+|2324   |Life Is Beautiful (La Vita � bella) (1997)       |[Comedy, Drama]       |0     |4.8732615|
+|1949   |Man for All Seasons, A (1966)                    |[Drama]               |0     |4.8420196|
+|1207   |To Kill a Mockingbird (1962)                     |[Drama]               |0     |4.83848  |
+|128    |Jupiter's Wife (1994)                            |[Documentary]         |0     |4.8182845|
+|904    |Rear Window (1954)                               |[Mystery, Thriller]   |0     |4.7963657|
+|1851   |Leather Jacket Love Story (1997)                 |[Drama, Romance]      |0     |4.7897983|
+|1250   |Bridge on the River Kwai, The (1957)             |[Drama, War]          |0     |4.7883086|
+|1204   |Lawrence of Arabia (1962)                        |[Adventure, War]      |0     |4.779291 |
+|3350   |Raisin in the Sun, A (1961)                      |[Drama]               |0     |4.7716703|
+|3469   |Inherit the Wind (1960)                          |[Drama]               |0     |4.762243 |
+|1193   |One Flew Over the Cuckoo's Nest (1975)           |[Drama]               |0     |4.761278 |
+|2762   |Sixth Sense, The (1999)                          |[Thriller]            |0     |4.7541265|
+|678    |Some Folks Call It a Sling Blade (1993)          |[Drama, Thriller]     |0     |4.752659 |
+|2067   |Doctor Zhivago (1965)                            |[Drama, Romance, War] |0     |4.75112  |
+|912    |Casablanca (1942)                                |[Drama, Romance, War] |0     |4.748723 |
+|858    |Godfather, The (1972)                            |[Action, Crime, Drama]|0     |4.739728 |
++-------+-------------------------------------------------+----------------------+------+---------+
+
+The recommendation on unratedMovie for user 6001 from ALS model
++-------+---------------------------------------------------------------------------+----------------------+------+----------+
+|movieId|title                                                                      |genres                |userId|prediction|
++-------+---------------------------------------------------------------------------+----------------------+------+----------+
+|572    |Foreign Student (1994)                                                     |[Drama]               |6001  |4.754742  |
+|53     |Lamerica (1994)                                                            |[Drama]               |6001  |4.6788116 |
+|3338   |For All Mankind (1989)                                                     |[Documentary]         |6001  |4.513925  |
+|787    |Gate of Heavenly Peace, The (1995)                                         |[Documentary]         |6001  |4.504982  |
+|2503   |Apple, The (Sib) (1998)                                                    |[Drama]               |6001  |4.4936037 |
+|858    |Godfather, The (1972)                                                      |[Action, Crime, Drama]|6001  |4.483696  |
+|3245   |I Am Cuba (Soy Cuba/Ya Kuba) (1964)                                        |[Drama]               |6001  |4.4618173 |
+|557    |Mamma Roma (1962)                                                          |[Drama]               |6001  |4.448167  |
+|2019   |Seven Samurai (The Magnificent Seven) (Shichinin no samurai) (1954)        |[Action, Drama]       |6001  |4.4444366 |
+|2905   |Sanjuro (1962)                                                             |[Action, Adventure]   |6001  |4.4433208 |
+|989    |Schlafes Bruder (Brother of Sleep) (1995)                                  |[Drama]               |6001  |4.4432487 |
+|750    |Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1963)|[Sci-Fi, War]         |6001  |4.426906  |
+|2309   |Inheritors, The (Die Siebtelbauern) (1998)                                 |[Drama]               |6001  |4.407608  |
+|1204   |Lawrence of Arabia (1962)                                                  |[Adventure, War]      |6001  |4.4048934 |
+|1178   |Paths of Glory (1957)                                                      |[Drama, War]          |6001  |4.396325  |
+|3233   |Smashing Time (1967)                                                       |[Comedy]              |6001  |4.384179  |
+|527    |Schindler's List (1993)                                                    |[Drama, War]          |6001  |4.37832   |
+|1212   |Third Man, The (1949)                                                      |[Mystery, Thriller]   |6001  |4.3749285 |
+|923    |Citizen Kane (1941)                                                        |[Drama]               |6001  |4.369197  |
+|922    |Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)                              |[Film-Noir]           |6001  |4.3677683 |
+|912    |Casablanca (1942)                                                          |[Drama, Romance, War] |6001  |4.3588986 |
+|1221   |Godfather: Part II, The (1974)                                             |[Action, Crime, Drama]|6001  |4.3385673 |
+|318    |Shawshank Redemption, The (1994)                                           |[Drama]               |6001  |4.3246226 |
+|3517   |Bells, The (1926)                                                          |[Crime, Drama]        |6001  |4.3234725 |
+|1207   |To Kill a Mockingbird (1962)                                               |[Drama]               |6001  |4.322356  |
++-------+---------------------------------------------------------------------------+----------------------+------+----------+
+only showing top 25 rows
+
+The top recommendation on AllUsers filter with  user 6001 from ALS model
++-------+---------------------------------------------------------------------------+----------------------+------+---------+
+|movieId|title                                                                      |genres                |userId|rating   |
++-------+---------------------------------------------------------------------------+----------------------+------+---------+
+|572    |Foreign Student (1994)                                                     |[Drama]               |6001  |4.754742 |
+|53     |Lamerica (1994)                                                            |[Drama]               |6001  |4.6788116|
+|3338   |For All Mankind (1989)                                                     |[Documentary]         |6001  |4.513925 |
+|787    |Gate of Heavenly Peace, The (1995)                                         |[Documentary]         |6001  |4.504982 |
+|2503   |Apple, The (Sib) (1998)                                                    |[Drama]               |6001  |4.4936037|
+|858    |Godfather, The (1972)                                                      |[Action, Crime, Drama]|6001  |4.483696 |
+|3245   |I Am Cuba (Soy Cuba/Ya Kuba) (1964)                                        |[Drama]               |6001  |4.4618173|
+|557    |Mamma Roma (1962)                                                          |[Drama]               |6001  |4.448167 |
+|2019   |Seven Samurai (The Magnificent Seven) (Shichinin no samurai) (1954)        |[Action, Drama]       |6001  |4.4444366|
+|2905   |Sanjuro (1962)                                                             |[Action, Adventure]   |6001  |4.4433208|
+|989    |Schlafes Bruder (Brother of Sleep) (1995)                                  |[Drama]               |6001  |4.4432487|
+|750    |Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1963)|[Sci-Fi, War]         |6001  |4.426906 |
+|2309   |Inheritors, The (Die Siebtelbauern) (1998)                                 |[Drama]               |6001  |4.407608 |
+|1204   |Lawrence of Arabia (1962)                                                  |[Adventure, War]      |6001  |4.4048934|
+|1193   |One Flew Over the Cuckoo's Nest (1975)                                     |[Drama]               |6001  |4.4027247|
+|904    |Rear Window (1954)                                                         |[Mystery, Thriller]   |6001  |4.3988795|
+|1178   |Paths of Glory (1957)                                                      |[Drama, War]          |6001  |4.396325 |
+|3233   |Smashing Time (1967)                                                       |[Comedy]              |6001  |4.384179 |
+|527    |Schindler's List (1993)                                                    |[Drama, War]          |6001  |4.37832  |
+|1212   |Third Man, The (1949)                                                      |[Mystery, Thriller]   |6001  |4.3749285|
+|923    |Citizen Kane (1941)                                                        |[Drama]               |6001  |4.369197 |
+|922    |Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)                              |[Film-Noir]           |6001  |4.3677683|
+|50     |Usual Suspects, The (1995)                                                 |[Crime, Thriller]     |6001  |4.364284 |
+|912    |Casablanca (1942)                                                          |[Drama, Romance, War] |6001  |4.3588986|
+|1221   |Godfather: Part II, The (1974)                                             |[Action, Crime, Drama]|6001  |4.3385673|
++-------+---------------------------------------------------------------------------+----------------------+------+---------+
+
