@@ -63,9 +63,9 @@
        ALSModel.recommendForAllUsers(numItems) that introduced in 2.2 too which return Rows of 
        (userId: int, recommendations: array<struct<movieId:int,rating:float>>]).  That requires transformation to
        human reader form.  The result from manual unratedMovies and from recommendForAllUsers are very much the same
-       except for one discrepancy.   Using recommendForAllUsers(numItems) pays the unfront cost for all users, additional 
-       operation of filtering by userId and join with movies are minimal.  It is worthwhile if it is required to
-       provide recommendation for lots of users.
+       except for one discrepancy.   Using recommendForAllUsers(numItems) pays the unfront cost for all users, 
+       additional operation of filtering by userId and join with movies are minimal.  It is worthwhile if it is 
+       required to provide recommendation for lots of users.
     
     9. MovieLensALSColdStartCv (CrossValidator)
        Apply coldStartStrategy = "drop" too.  However, I use CrossValidator (10 folds, one of 10 set in terms was chosen
@@ -144,7 +144,7 @@
            stage is transformation like *ByKey and re-partition, join, cogroup etc. which are involved shuffled read-write
            The boundary of tasks are decided by number of partitions of RDD that the stage is working on. The very 
            root of data via textFile or hadoopFile are decided by inputFormat, ie HDFS block size (default = 64MB)
-           groupByKey write whole object into memory buffer and reduceByKey only write aggregated value into memory
+           groupByKey write whole objects into memory buffer and reduceByKey only write aggregated values into memory
            The former requires more memory.
                           
            See http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/ for the guideline
@@ -172,7 +172,7 @@
                 	
         8. To be able to access application logs even after the application is done, we need to configure hadoop
            job history server and add 
-             <property>
+               <property>
                  <name>mapreduce.jobhistory.address</name>
                  <value>ubuntu:10020</value>
                </property>
@@ -184,7 +184,7 @@
            to mapred-site.xml and start job-history server.
             
            Also add 
-              <property>
+               <property>
                  <name>yarn.log.server.url</name>
                  <value>http://ubuntu:19888/jobhistory/logs</value>
                </property>
@@ -198,7 +198,7 @@
            $SPARK_HOME/sbin/start-history-server.sh hdfs://ubuntu:9000/var/log/spark
              
            On the other side, applications submited must add
-             --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark
+               --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=hdfs://ubuntu:9000/var/log/spark
            to enable recording event and log them to the location expected by Spark history server
              
            There will be stdout and stderr links for each executor under Executor tab of Spark application in 
@@ -214,14 +214,15 @@
             In the case of client mode, they have to output to console. 
               
         11. Spark jobs are broken by actions like count, show and collect.  Ex, the job 0 and 1 are
-              println(s"Rating Snapshot= ${mrDS.count}, ${prDS.count}")
+               println(s"Rating Snapshot= ${mrDS.count}, ${prDS.count}")
              
-            and Spark stages might be broken down by transformations requiring shuffle, like map or flatMap   
-            val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
+            and Spark stages might be broken down by transformations requiring shuffle, like map or flatMap
+               
+               val mrDS = spark.read.textFile(mrFile).map(parseRating).cache()
+               
             the map transformation in the job 0 is an example.  The stage prior to the boundary will do 
             shuffle write and the stage following the boundary will do shuffle read.
-             
-            and tasks are brokn down by number of partitions.
+
                
         12. After analyzing DAG,
             I know roughly the corresponding line of codes with Spark job.  The best way to cut down time is to 
@@ -252,9 +253,9 @@
                 A rough guess is that at most five tasks per executor can achieve full write throughput".
                 
              b. num of paramMap decides no. loops of repeated ALS fit and RegressionEvaluator evaluate jobs.  Each loop 
-                accounts for 6 jobs in MovieLensALS.  Some jobs are 100% correlated with maxIter param like 'count at ALS.scala:944', increasing no. of 
-                stages from 22 to 42 when I increase maxIter from 10 to 20.  There is trade-off of performance vs. 
-                rmse in terms of value of maxIter.
+                accounts for 6 jobs in MovieLensALS.  Some jobs are 100% correlated with maxIter param like 
+                'count at ALS.scala:944', increasing no. of stages from 22 to 42 when I increase maxIter from 10 to 20.
+                There is trade-off of performance vs. rmse in terms of value of maxIter.
                 
              c. CrossValidator is very time consuming because the above time have to times No. of folds.  In this 
                 case, it is 10.  Also it requires lots of memory.  I couldn't adjust --core-memory to 2g.  2 * 2g +
