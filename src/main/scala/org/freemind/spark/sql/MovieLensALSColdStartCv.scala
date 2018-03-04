@@ -87,8 +87,8 @@ object MovieLensALSColdStartCv {
     val augModelFromCv = als.fit(allDS, bestParamMap) //Refit. No need to use CV and CV is a mean to get bestParam of the estimator
 
     val recommendDS = augModelFromCv.recommendForAllUsers(10).
-      select($"userId", explode($"recommendations").as("struct")).
-      select($"userId", $"struct".getField("movieId").as("movieId"), $"struct".getField("rating").as("rating")).cache()
+      select($"userId", explode($"recommendations").as("recommend")).
+      select($"userId", $"recommend".getField("movieId").as("movieId"), $"recommend".getField("rating").as("rating")).cache()
 
     val pUserId = 0
     println(s"The top recommendation on AllUsers filter with  user ${pUserId} from ALS model from CV")
@@ -97,7 +97,7 @@ object MovieLensALSColdStartCv {
       select($"movieId", $"title", $"genres", $"userId", $"rating").show(false)
 
     val identifier = System.currentTimeMillis()
-    recommendDS.write.csv(s"output/recommendation-${identifier}") //need to find out how to view parquet
+    recommendDS.write.option("header","true").csv(s"output/recommendation-${identifier}") //need to find out how to view parquet
 
     bestModelFromCR.save(s"output/cv-model-${identifier}") // It is using MLWriter
     val loadedCvModel = CrossValidatorModel.load(s"output/cv-model-${identifier}")
