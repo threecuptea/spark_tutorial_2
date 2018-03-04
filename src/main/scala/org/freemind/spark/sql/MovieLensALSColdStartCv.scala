@@ -26,7 +26,7 @@ import org.apache.spark.sql.{Dataset, SparkSession}
   *  To separate CrossValidator from ALS stanalone because CrossValidator take too much time  to run.
   *  It's difficult for me to refine.
   *
-  * @author sling/ threecuptea on 2/4/2018, refined on 2/17/2018
+  * @author sling/ threecuptea on 2/4/2018, refined on 2/17/2018 and 3/3/2018
   *
   */
 object MovieLensALSColdStartCv {
@@ -77,14 +77,32 @@ object MovieLensALSColdStartCv {
 
     val cv = new CrossValidator()
         .setEstimator(als).setEvaluator(evaluator).setEstimatorParamMaps(paramGrids).setNumFolds(10)  // percentage close to 0.8, 0.1, 0.1
-
+    //Why does this display CvModel instead ALSModel parameters.  That's different from what I got from Housing spark
     val bestModelFromCR = getBestCrossValidatorModel(cv, mrDS, prDS)
-    //I cannot augment using the whole population.  extractParmamMap only return base *maxIter, colStart etc.  and does not include additional
+    println(bestModelFromCR.bestModel.explainParams()+"\n")
+    //The following is one way to get best param
+    val descArr = (bestModelFromCR.getEstimatorParamMaps zip bestModelFromCR.avgMetrics).sortBy(_._2)
+    val bestParamMap = descArr(0)._1
+    println(s"The best ALS model obtained from CVModel was trained with param = ${bestParamMap}")
+    val augModelFromCv = als.fit(allDS, bestParamMap) //Refit. No need to use CV and CV is a mean to get bestParam of the estimator
 
-    bestModelFromCR.save("output/cv-model") // It is using MLWriter
-    val modelLoaded = CrossValidatorModel.load("output/cv-model")
+    val recommendDS = augModelFromCv.recommendForAllUsers(10).
+      select($"userId", explode($"recommendations").as("struct")).
+      select($"userId", $"struct".getField("movieId").as("movieId"), $"struct".getField("rating").as("rating")).cache()
 
-    println(modelLoaded.explainParams())
+    val pUserId = 0
+    println(s"The top recommendation on AllUsers filter with  user ${pUserId} from ALS model from CV")
+    recommendDS.filter($"userId" === pUserId).
+      join(movieDS, recommendDS("movieId") === movieDS("id")).
+      select($"movieId", $"title", $"genres", $"userId", $"rating").show(false)
+
+    val identifier = System.currentTimeMillis()
+    recommendDS.write.csv(s"output/recommendation-${identifier}") //need to find out how to view parquet
+
+    bestModelFromCR.save(s"output/cv-model-${identifier}") // It is using MLWriter
+    val loadedCvModel = CrossValidatorModel.load(s"output/cv-model-${identifier}")
+    assert(loadedCvModel != null)
+
   }
 
   def getBestCrossValidatorModel(cv: CrossValidator,
@@ -96,9 +114,7 @@ object MovieLensALSColdStartCv {
     val bestRmse = cv.getEvaluator.evaluate(cvModel.transform(cvTrainValPlusDS))
     val cvPrediction = cvModel.transform(cvTestDS)
     val cvRmse = cv.getEvaluator.evaluate(cvPrediction)
-    val paramMap = cvModel.bestModel.asInstanceOf[ALSModel].extractParamMap()
     //It only return base and does not give us extra params like regParam or rank
-    println(s"The best model from CrossValidator was trained with param = ${paramMap}")
     printf("The RMSE of the bestModel from CrossValidator on validation set is %3.4f\n", bestRmse)
     printf("The RMSE of the bestModel from CrossValidator on test set is %3.4f\n", cvRmse)
     println()

@@ -1,0 +1,67 @@
+Log Type: stdout
+
+Log Upload Time: Sat Mar 03 19:32:57 -0800 2018
+
+Log Length: 3718
+
++------+-------+------+
+|userId|movieId|rating|
++------+-------+------+
+|1     |1193   |5.0   |
+|1     |661    |3.0   |
+|1     |914    |3.0   |
+|1     |3408   |4.0   |
+|1     |2355   |5.0   |
+|1     |1197   |3.0   |
+|1     |1287   |5.0   |
+|1     |2804   |5.0   |
+|1     |594    |4.0   |
+|1     |919    |4.0   |
++------+-------+------+
+only showing top 10 rows
+
+Rating Counts: movie - 1000209, personal - 24
++---+----------------------------------+--------------------------------+
+|id |title                             |genres                          |
++---+----------------------------------+--------------------------------+
+|1  |Toy Story (1995)                  |[Animation, Children's, Comedy] |
+|2  |Jumanji (1995)                    |[Adventure, Children's, Fantasy]|
+|3  |Grumpier Old Men (1995)           |[Comedy, Romance]               |
+|4  |Waiting to Exhale (1995)          |[Comedy, Drama]                 |
+|5  |Father of the Bride Part II (1995)|[Comedy]                        |
+|6  |Heat (1995)                       |[Action, Crime, Thriller]       |
+|7  |Sabrina (1995)                    |[Comedy, Romance]               |
+|8  |Tom and Huck (1995)               |[Adventure, Children's]         |
+|9  |Sudden Death (1995)               |[Action]                        |
+|10 |GoldenEye (1995)                  |[Action, Adventure, Thriller]   |
++---+----------------------------------+--------------------------------+
+only showing top 10 rows
+
+Movie Count: 3883
+The RMSE of the bestModel from CrossValidator on validation set is 0.8117
+The RMSE of the bestModel from CrossValidator on test set is 0.8558
+
+coldStartStrategy: strategy for dealing with unknown or new users/items at prediction time. This may be useful in cross-validation or production scenarios, for handling user/item ids the model has not seen in the training data. Supported values: nan,drop. (default: nan, current: drop)
+itemCol: column name for item ids. Ids must be within the integer value range. (default: item, current: movieId)
+predictionCol: prediction column name (default: prediction)
+userCol: column name for user ids. Ids must be within the integer value range. (default: user, current: userId)
+
+The best ALS model obtained from CVModel was trained with param = {
+	als_41ce5dedabfd-rank: 12,
+	als_41ce5dedabfd-regParam: 0.1
+}
+The top recommendation on AllUsers filter with  user 0 from ALS model from CV
++-------+-------------------------------------------------+---------------+------+---------+
+|movieId|title                                            |genres         |userId|rating   |
++-------+-------------------------------------------------+---------------+------+---------+
+|572    |Foreign Student (1994)                           |[Drama]        |0     |5.846446 |
+|3233   |Smashing Time (1967)                             |[Comedy]       |0     |5.329516 |
+|527    |Schindler's List (1993)                          |[Drama, War]   |0     |5.137587 |
+|3245   |I Am Cuba (Soy Cuba/Ya Kuba) (1964)              |[Drama]        |0     |4.9890447|
+|318    |Shawshank Redemption, The (1994)                 |[Drama]        |0     |4.974785 |
+|53     |Lamerica (1994)                                  |[Drama]        |0     |4.895218 |
+|1741   |Midaq Alley (Callej�n de los milagros, El) (1995)|[Drama]        |0     |4.8848286|
+|953    |It's a Wonderful Life (1946)                     |[Drama]        |0     |4.884011 |
+|3517   |Bells, The (1926)                                |[Crime, Drama] |0     |4.879026 |
+|2324   |Life Is Beautiful (La Vita � bella) (1997)       |[Comedy, Drama]|0     |4.8732615|
++-------+-------------------------------------------------+---------------+------+---------+

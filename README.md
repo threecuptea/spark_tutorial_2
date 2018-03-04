@@ -68,14 +68,26 @@
        required to provide recommendation for lots of users.
     
     9. MovieLensALSColdStartCv (CrossValidator)
-       Apply coldStartStrategy = "drop" too.  However, I use CrossValidator (10 folds, one of 10 set in terms was chosen
-       as validation set and the rest as training set).  Let CrossValidator to find the best model.  CrossValidator
-       has one drawback in addition to time consuming: the best params used in the best model is unknown.  Therefore,
-       I cannot refit the best param with the whole population.  The rmse on validation set is very good 0.8111.  
-       However, the rmse on test set is not better off than ALS alone does (0.8623 vs. 0.8567).  It seems to 
-       a little overfitting.   
-                                                                                              
-    
+       Apply coldStartStrategy = "drop" too.  However, I use CrossValidator (10 folds, one of 10 set in terms was 
+       chosen as validation set and the rest as training set).  Let CrossValidator to find the best model.  The rmse on 
+       validation set is very good 0.8111. However, the rmse on test set is not better off than ALS alone does 
+       (0.8623 vs. 0.8567).  It seems to a little overfitting.        
+       Getting the best paramaters from Spark CrossValidator is not straightforward as  Scikit-Learn's GridSearch
+       The best option is to zip getEstimatorParamMaps and avgMetrics of the best CrossValidatorModel to get 
+       the top one as the followings:
+             
+           val descArr = (bestModelFromCR.getEstimatorParamMaps zip bestModelFromCR.avgMetrics).sortBy(_._2)
+           val bestParamMap = descArr(0)._1  
+       
+       I can refit 'bestParamMap' obtained the above as the followings:
+           
+            val augModelFromCv = als.fit(allDS, bestParamMap)  
+                                                                                                  
+       Use als instead of cv when refit the whole populationn with 'bestParamMap'
+       I save the result of the CrossValidatorModel metadata in cv-model/metadata.  I verify the bestParamMap obtained 
+       above with estimatorParamMaps and avgMetrics of saved model.
+            
+       
 #### Notes regrading to Spark integrated with Hadoop
     Cloudera latest CDH 5.14.x only works with Spark 1.6.0.  Cloudera Distribution of Apache Spark 2 only works with
     Cloudera Manager and is distributed as two files: a CSD file and a parcel. Follow the instruction on 
