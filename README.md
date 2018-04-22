@@ -86,6 +86,14 @@
        Use als instead of cv when refit the whole populationn with 'bestParamMap'
        I save the result of the CrossValidatorModel metadata in cv-model/metadata.  I verify the bestParamMap obtained 
        above with estimatorParamMaps and avgMetrics of saved model.
+       
+    10. OverlaysProcessing (latest): 
+       This parses Tivo's show content/ collection specification CSV file
+       a) To categorize resource_type using SHOWTYPE etc. criteria
+       b) Call java static method (IdGen class) & get sbt java/ scala build working and put together a udf type to
+          generate overlay numeric value for content/ collection ids.
+       c) Save key values to Mongodb  OverlaysLookup collection of unified database so that I can create 
+          IdAuthResponse simulator.  
             
        
 #### Notes regrading to Spark integrated with Hadoop
