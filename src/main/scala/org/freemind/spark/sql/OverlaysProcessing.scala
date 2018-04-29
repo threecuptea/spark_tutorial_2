@@ -18,6 +18,7 @@ import org.apache.spark.sql.types._
   */
 object OverlaysProcessing {
 
+  //Wrap a java function and specify compileOrder := CompileOrder.JavaThenScala in build.sbt
   def computeGen(isColl: Boolean, key: Int): Long = gen(isColl, key)
 
   def main(args: Array[String]): Unit = {
@@ -38,12 +39,13 @@ object OverlaysProcessing {
     println(s"total= ${csv.count()}")
     csv.printSchema()
 
+    //Create a user defined function in this way
     val genUdf = udf(computeGen(_: Boolean, _: Int): Long)
 
-    val overlays = csv.withColumn("resource_type", when($"SHOWTYPE" === 8, "movie").
-                                          when($"SHOWTYPE" === 3, "other").
-                                          when($"SHOWTYPE" === 5, when($"TMSID".startsWith("EP"), "episode").
-                                          otherwise("series"))).
+    val overlays = csv.withColumn("resource_type", when($"SHOWTYPE" === 8, "movie_overlay").
+                                          when($"SHOWTYPE" === 3, "other_overlay").
+                                          when($"SHOWTYPE" === 5, when($"TMSID".startsWith("EP"), "episode_overlay").
+                                          otherwise("series_overlay"))).
       withColumn("coll_tmsid", $"SERIESTMSID".substr(3, 10).cast("int")).
       withColumn("ct_numeric", genUdf(lit(false), $"mfsid")).
       withColumn("cl_numeric", genUdf(lit(true), $"coll_tmsid"))
