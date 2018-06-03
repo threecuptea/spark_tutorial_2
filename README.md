@@ -87,13 +87,13 @@
        I save the result of the CrossValidatorModel metadata in cv-model/metadata.  I verify the bestParamMap obtained 
        above with estimatorParamMaps and avgMetrics of saved model.
        
-    10. OverlaysProcessing (latest): 
+    10. OverlaysProcessing split into ContentOverlayProcessing and StationOverlayProcessing (latest): 
        This parses Tivo's show content/ collection specification CSV file
        a) To categorize resource_type using SHOWTYPE etc. criteria
        b) Call java static method (IdGen class) & get sbt java/ scala build working and put together a udf type to
-          generate overlay numeric value for content/ collection ids.
+          generate overlay numeric value for content/ collection/ station ids.
        c) Save key values to Mongodb  OverlaysLookup collection of unified database so that I can create 
-          IdAuthResponse simulator.  
+          IdAuthResponse overlay simulator.  
             
        
 #### Notes regrading to Spark integrated with Hadoop

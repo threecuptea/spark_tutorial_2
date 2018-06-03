@@ -37,7 +37,7 @@ object MovieLensALSColdStartCv {
       System.exit(-1)
     }
 
-    val spark = SparkSession.builder().appName("MovieLensALSColdStartCv").getOrCreate()
+    val spark = SparkSession.builder().appName("MovieLensALSColdStartCv").config("spark.sql.shuffle.partitions", 8).getOrCreate()
     import spark.implicits._
 
     val mrFile = args(0)

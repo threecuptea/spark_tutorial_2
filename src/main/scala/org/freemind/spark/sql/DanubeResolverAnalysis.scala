@@ -8,7 +8,7 @@ import org.apache.spark.sql.functions._
   * instead of transformer.log.
   *
   * It adds "difference" display field by using format_string and add "diff. flag" field by using
-  * nested when and otheriwise sql functions on numeric conditions
+  * nested when and otherwise sql functions on numeric conditions
   *
   * @author sling(threecuptea) on 3/13 -
   */

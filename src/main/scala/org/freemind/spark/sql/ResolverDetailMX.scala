@@ -46,7 +46,7 @@ object ResolverDetailMX {
       //Use outer join
       val joinedDS = nonJtDS.filter($"resource" === res).join(jtDS.filter($"resource" === res),
         Seq("resource","roviId", "state"), "outer").cache()
-      //Find those resourceIds do not appear in one or the other.  Try to find those MX resource that look back in
+      //Find those resourceIds do not appear in one or the other.  Try to find those MX resource that is in
       // one environment but not in another environment. Emphasize on missing Jt one,
       // jt_dirty_size.isNull flag 0 will be sorted on the top.
       joinedDS.filter($"non_jt_dirty_size".isNull || $"jt_dirty_size".isNull)

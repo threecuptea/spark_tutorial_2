@@ -13,6 +13,9 @@ class MovieLensParser extends Serializable {
     Rating(splits(0).toInt, splits(1).toInt, splits(2).toFloat)
   }
 
+
+// If you use quotes, you're asking for a regular expression split.  | is the "or" character, so your regex matches nothing or nothing. So everything is split.
+// If you use split('|') or split("""\|""") you should get what you want.
   def parseMovie(line: String): Movie = {
     val splits = line.split("::")
     assert(splits.length == 3)
